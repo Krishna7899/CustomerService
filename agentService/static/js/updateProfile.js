@@ -94,3 +94,18 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+ $("#update-profile").click(function() {
+    $("#tab2-update").toggle();
+    $("#profile-details").hide();
+    $("#tab3-change").hide();
+  });
+});
+
+$(document).ready(function() {
+ $("#change-password").click(function() {
+    $("#profile-details").hide();
+    $("#tab2-update").hide();
+    $("#tab3-change").toggle();
+  });
+});

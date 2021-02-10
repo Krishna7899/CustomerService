@@ -53,6 +53,23 @@
                    </div>
                    {% endif %}
                         <a href="/agent/agentLogout/">Logout</a>
+            <div class="search-dropdown">
+              <input id="myInput" type="text" placeholder="Search.."/>
+              <div class="search-dropdown-content">
+
+                   <ul id="myList" style="list-style-type:none;text-align:left;">
+                          <li><a href="/agent/agentProfile/">My Profile</a></li>
+                          <li><a href="/agent/agentProfile/#tab2-update/" id="update-profile">UpdateProfile</a></li>
+                          <li><a href="/agent/agentProfile/#tab3-change/" id="change-password">ChangePassword</a></li>
+                          <li><a href="/agent/searchByAgent/">Search</a></li>
+                          <li><a href="/agent/showAgents/">ShowAgents</a></li>
+                          <li><a href="/agent/register/">Create Agent</a></li>
+                          <li> <a href="/agent/createDepartment/">Create Department</a></li>
+                          <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
+                          <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
+                   </ul>
+              </div>
+       </div>
         </div>
         {% block code %}
       <div class="row">
@@ -202,21 +219,7 @@
                     </form>
               </div>
              </div>
-           <div class="search-dropdown">
-              <button class="search-dropbtn"><font color="black">Search</font></button>
-              <div class="search-dropdown-content">
-                   <input id="myInput" type="text" placeholder="Search..">
-                   <ul id="myList" style="list-style-type:none;text-align:left;">
-                          <li><a href="/agent/agentProfile/">My Profile</a></li>
-                          <li><a href="/agent/searchByAgent/">Search</a></li>
-                          <li><a href="/agent/showAgents/">ShowAgents</a></li>
-                          <li><a href="/agent/register/">Create Agent</a></li>
-                          <li> <a href="/agent/createDepartment/">Create Department</a></li>
-                          <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
-                          <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
-                   </ul>
-              </div>
-       </div>
+
         </div>
           <div class="column side">
 
