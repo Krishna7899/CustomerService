@@ -1,0 +1,75 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
+<div>
+    <table id="image-click-agent-table">
+
+          {% if show_image_obj %}
+              <caption>Details of {{show_image_obj.username}} </caption>
+            <tr>
+                <th>Image</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                 <th>Email</th>
+                 <th>Username</th>
+                 <th>UserType</th>
+                  <th>Department</th>
+            </tr>
+
+            <tr>
+                <td>
+                            {% if show_image_obj.image %}
+                                <img src="{{show_image_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
+                                                        width="70px" height="25px"/>
+                             {% else %}
+                                    {{msg}}
+                            {% endif %}
+
+                </td>
+                <td>
+
+                    {{show_image_obj.firstName}}
+
+                <td>
+
+
+                     {{show_image_obj.lastName}}
+
+                </td>
+                <td>
+
+                     {{show_image_obj.email}}
+
+
+                </td>
+                <td>
+
+                     {{show_image_obj.username}}
+
+
+                </td>
+                <td>
+
+                     {{show_image_obj.usertype}}
+
+
+                </td>
+                <td>
+
+                     {{show_image_obj.dept}}
+
+
+                </td>
+            </tr>
+
+             {% endif %}
+        </table>
+
+  </div>
+
+{%endblock%}
+
+
+
+

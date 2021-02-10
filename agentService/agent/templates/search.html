@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if query %}
+<h1>Results containing "{{ query }}"</h1>
+
+   {% for data in results %}
+   <a href="/agent/showAgents/"><h3>{{data.username}}</h3></a>
+   {% empty %}
+   <h4>There are no results for your query.</h4>
+   {% endfor %}
+
+{% endif %}
+</body>
+</html>

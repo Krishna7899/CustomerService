@@ -1,0 +1,25 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+
+
+    <div class="column middle">
+        <form action="/agent/createDepartment/" name="createDepartment-page" method="post">
+            {% csrf_token %}
+            <div class="dept-field-container">
+                 {{msg}}
+                <div class="dept-field">
+                    <label class="dept-field-label"> Department Name</label>
+                    {{form.deptName}}
+                    <span class="error_form" id="lastName_error_message"></span>
+                </div>
+
+               <div>
+                    <input type="submit" value="Create" class="dept-field-button">
+               </div>
+           </div>
+
+        </form>
+
+  </div>
+
+{% endblock %}

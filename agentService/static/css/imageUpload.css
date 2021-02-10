@@ -1,0 +1,27 @@
+.profile-image-upload-btn{
+      color: #fff;
+      border: none;
+      border-radius:10px;
+      padding: 5px;
+      margin-top: 5px;
+      display:box;
+      font-size: 14px;
+      background:#87ceeb;
+      cursor: pointer;
+  }
+.profile-image-upload-btn{
+            outline:none;
+            cursor: pointer;
+}
+.field input[type="file"]{
+      border-radius:5px;
+      border:none;
+      background-color:#87ceeb;
+      margin-top: 2px;
+      margin-left:0px;
+      display:box;
+      font-size: 12px;
+      font-weight: 500;
+
+}
+

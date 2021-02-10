@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Update Profile</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+<link rel="stylesheet" href="style.css">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/resetPassword.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+
+</head>
+<body>
+
+<div class="header">
+    <span>last successful login:{{last_login}}</span>
+  <h1 class="welcome">Welcome {{request.session.firstName}}</h1>
+</div>
+<div class="topnav">
+   	   <a href="/agent/agentProfile/">My Profile</a>
+
+        {% if agentProfile.usertype == "supervisor" %}
+             <div class="dropdown">
+                      <button class="dropbtn">Agent</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/register/">Create Agent</a>
+                      <a href="/agent/showAgents/">ShowAgents</a>
+                      <a href="/agent/searchByAgent/">Search</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Department</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/createDepartment/">Create Department</a>
+                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Requests</button>
+                      <div class="dropdown-content">
+
+                      <a href="/agent/showRequests/">ShowRequests </a>
+                      </div>
+                   </div>
+        {% endif %}
+       <a href="/agent/agentLogout/">Logout</a>
+</div>
+
+<div class="row">
+    <div class="column side left">
+             <div class="display-image">
+                    {% if agentProfile.image %}
+                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="200px" height="150px"/>
+                    {% else %}
+
+                    {% endif %}
+                </div>
+
+                <div class="field-update" >
+                <input type="submit" value="UpdateImage"  onclick="myImageUpload()" id="updateImage-btn" class="updateImage-btn" style="display:block"/>
+                </div>
+                <div>
+                    <div id="upload" style="display:none;">
+                        <form action='/agent/upload/' method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="field">
+                                <input id="id_image" type="file" class="profile-image" name="image">
+                        </div>
+
+                        <div class="field">
+                        <input type="submit" value="Upload" class="profile-image-upload-btn" />
+                        </div>
+                        </form>
+                    </div>
+                </div>
+          </div>
+
+    <div class="column middle">
+
+    <div class="update-profile-container">
+
+           <form action="/agent/editProfile/" method="post">
+                    {% csrf_token %}
+               {{msg}}
+                <div class="update-field">
+                    <label class="update-field-label">First Name</label>
+                    <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
+					value="{{editProfile.firstName}}" />
+                </div>
+                <div class="update-field">
+                    <label class="update-field-label"> Last Name</label>
+                    <input type="text" name="lastName" id="lastName" class="editProfile-firstName"
+					value="{{editProfile.lastName}}" />
+                </div>
+                <div class="update-field">
+                    <label class="update-field-label">Email Id</label>
+                    <input type="text" name="email" id="email" class="editProfile-email"
+					value="{{editProfile.email}}" />
+                </div>
+
+                <div class="field">
+                    <input type="submit" value="Edit" class="update-profile-submit" >
+                </div>
+
+         </form>
+    </div>
+    </div>
+
+  <div class="column side right">
+      <ul class='tabs-buttons'>
+            <!--    <td>
+                    <li><a href="/agent/editProfile/" id='tab1-updateProfile'>UpdateProfile</a></li>
+                </td>-->
+                <td>
+                    <li><a href="/agent/changePassword/" id='tab2-changePassword'>ChangePassword</a></li>
+                </td>
+            </ul>
+
+  </div>
+</div>
+</div>
+<div class="footer">
+  <p>Footer</p>
+</div>
+</body>
+</html>
