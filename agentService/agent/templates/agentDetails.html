@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Agent Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+                integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+                crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/resetPassword.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+        <script src="{% static 'js/index.js' %}"></script>
+
+</head>
+<body>
+        <div class="header">
+            <h2 class="welcome">Welcome {{request.session.firstName}}!! </h2>
+            <span>Last login:{{last_login}}</span>
+        </div>
+        <div class="topnav">
+               <a href="/agent/agentProfile/">My Profile</a>
+                   <div class="dropdown">
+                      <button class="dropbtn">Agent</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/searchByAgent/">Search</a>
+                   {% if usertype == "supervisor" %}
+                      <a href="/agent/showAgents/">ShowAgents</a>
+                      <a href="/agent/register/">Create Agent</a>
+                    {% endif %}
+                       </div>
+                   </div>
+                    {% if usertype == "supervisor" %}
+                   <div class="dropdown">
+                      <button class="dropbtn">Department</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/createDepartment/">Create Department</a>
+                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Requests</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/showRequests/">ShowRequests </a>
+                      </div>
+                   </div>
+                   {% endif %}
+                        <a href="/agent/agentLogout/">Logout</a>
+        </div>
+        {% block code %}
+      <div class="row">
+          <div class="column side left">
+             <div class="display-image">
+                    {% if agentProfile.image %}
+                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="200px" height="150px"/>
+                    {% else %}
+
+                    {% endif %}
+             </div>
+             <div class="field-update" >
+                <input type="submit" value="UpdateImage"  onclick="myImageUpload()" id="updateImage-btn" class="updateImage-btn" style="display:block"/>
+             </div>
+              <div>
+                    <div id="upload" style="display:none;">
+                        <form action='/agent/upload/' method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="field">
+                                    <input id="id_image" type="file" class="profile-image" name="image">
+                            </div>
+
+                            <div class="field">
+                            <input type="submit" value="Upload" class="profile-image-upload-btn" />
+                            </div>
+                        </form>
+                    </div>
+              </div>
+          </div>
+
+        <div class="column middle">
+             <div id='tabs-container'>
+                <ul class='tabs-buttons'>
+                    <td>
+                        <li><a href="#profile-details" id='tab1-profile-details'>My Profile</a></li>
+                    </td>
+                    <td>
+                        <li><a href="#tab2-update" id='tab2-updateProfile'>UpdateProfile</a></li>
+                    </td>
+                    <td>
+                        <li><a href="#tab3-change" id='tab3-changePassword'>ChangePassword</a></li>
+                    </td>
+                </ul>
+            </div>
+            <div id="profile-details" style="display:block" class="profile-details-container">
+                <table id="agent-details-table">
+                    <tr>
+                    <caption>Profile Details</caption>
+                    </tr>
+                    <tr>
+                        <td>
+                          <label>First Name:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                            {{agentProfile.firstName}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label> Last Name:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                                   {{agentProfile.lastName}}
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                           <label>Email Id:</label>
+                        </td>
+
+                        <td>
+                             <div class="field">
+                                    {{agentProfile.email}}
+                             </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label>UserName:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                          {{agentProfile.username}}
+                            </div>
+                        </td>
+                     </tr>
+                     <tr>
+                       <td>
+                             <label>Department:</label>
+                       </td>
+                        <td>
+                            <div class="field">
+                             {{agentProfile.dept}}
+                            </div>
+                        </td>
+                     </tr>
+                </table>
+            </div>
+
+            <div id='tab2-update'>
+                <form action="/agent/editProfile/" method="post">
+                                    {% csrf_token %}
+                               {{errorMsg}}
+                                <div>
+                                    <label class="update-field-label">First Name</label>
+                                    <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
+                                    value="{{agentProfile.firstName}}" />
+                                </div>
+                                <div>
+                                    <label class="update-field-label"> Last Name</label>
+                                    <input type="text" name="lastName" id="lastName" class="editProfile-firstName"
+                                    value="{{agentProfile.lastName}}" />
+                                </div>
+                                <div>
+                                    <label class="update-field-label">Email Id</label>
+                                    <input type="text" name="email" id="email" class="editProfile-email"
+                                    value="{{agentProfile.email}}" />
+                                </div>
+                                <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>
+                </form>
+            </div>
+             <div id='tab3-change'>
+                  <form action="/agent/changePassword/" method="post">
+                          {% csrf_token %}
+                        <div>
+                            <label class="change-password-label">Enter Old Password</label>
+                            <input type="password" name="old-password" class="change-password-field" id="old-password-field" required/>
+                        </div>
+                        <div>
+                            <label class="change-password-label">Enter New Password</label>
+                            <input type="password" name="new-password" class="change-password-field" id="password-field"/>
+                        </div>
+                        <div>
+
+                            <label class="change-password-label">Confirm New Password</label>
+                            <input type="password" name="confirm-Password" class="change-password-field" id="confirm-password-field"/>
+
+                        </div>
+                        <p>{{changeMsg}}</p>
+                        <span class="error_form" id="errorMessage"></span>
+                         <input type="submit" value="Change" class="change-password-submit" id="button-2">
+
+                    </form>
+              </div>
+             </div>
+           <div class="search-dropdown">
+              <button class="search-dropbtn"><font color="black">Search</font></button>
+              <div class="search-dropdown-content">
+                   <input id="myInput" type="text" placeholder="Search..">
+                   <ul id="myList" style="list-style-type:none;text-align:left;">
+                          <li><a href="/agent/agentProfile/">My Profile</a></li>
+                          <li><a href="/agent/searchByAgent/">Search</a></li>
+                          <li><a href="/agent/showAgents/">ShowAgents</a></li>
+                          <li><a href="/agent/register/">Create Agent</a></li>
+                          <li> <a href="/agent/createDepartment/">Create Department</a></li>
+                          <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
+                          <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
+                   </ul>
+              </div>
+       </div>
+        </div>
+          <div class="column side">
+
+          </div>
+        {% endblock %}
+</body>
+      </div>
+        <div class="footer">
+          <p>Footer</p>
+        </div>
+
+</html>

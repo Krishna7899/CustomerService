@@ -1,0 +1,68 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+
+
+  <div class="column side">
+
+  </div>
+
+<div class="column middle">
+
+
+    <form action="/agent/register/" name="registration-page" method="post">
+            {% csrf_token %}
+          {{message}}
+            <div class="field-container">
+                <div class="agent-field">
+                    <label class="agent-field-label">First Name</label>
+                    {{form.firstName}}
+                    <span class="error_form" id="firstName_error_message"></span>
+
+                </div>
+                <div class="agent-field">
+                    <label class="agent-field-label"> Last Name</label>
+                    {{form.lastName}}
+                    <span class="error_form" id="lastName_error_message"></span>
+                </div>
+                <div class="agent-field">
+                    <label class="agent-field-label">Email Id</label>
+                    {{form.email}}
+                      <span class="error_form" id="email_error_message"></span>
+                </div>
+                <div class="agent-field">
+                    <label class="agent-field-label">User Name</label>
+                   {{form.username}}
+                    <span class="error_form" id="username_error_message"></span>
+
+                </div>
+                <div class="agent-field">
+                    <label class="agent-field-label">Password</label>
+                   {{form.password}}
+                    <span class="error_form" id="password_error_message"></span>
+                </div>
+                   <div class="agent-field">
+                    <label class="agent-field-label">Confirm Password</label>
+                   {{form.confirmPassword}}
+                    <span class="error_form" id="confirmPassword_error_message"></span>
+                </div>
+                <br>
+                <div class="agent-field">
+                    <label class="agent-field-label">UserType</label>
+                    {{form.usertype}}
+                </div>
+                <br>
+                <div class="agent-field">
+                    <label class="agent-field-label">Department</label>
+                    {{form.dept}}
+                </div>
+                <div class="field agentRegister-submit">
+                    <input type="submit" value="Register" class="agentRegister-submit-button" >
+                </div>
+           </div>
+
+    </form>
+
+  </div>
+
+{% endblock %}
+

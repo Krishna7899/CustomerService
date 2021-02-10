@@ -1,0 +1,33 @@
+.showRequests{
+
+    margin-left:30px;
+    margin-right:30px;
+
+}
+
+
+#agent {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+
+  margin-left:300px;
+}
+
+#agent td, #agent th {
+  border: 1px solid #ddd;
+  padding: 0px;
+  text-align: center;
+
+}
+
+#agent tr:nth-child(even){background-color: #f2f2f2;}
+
+#agent tr:hover {background-color: #ddd;}
+
+#agent th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #34ebe1;
+  color: white;
+}

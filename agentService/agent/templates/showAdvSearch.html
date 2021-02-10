@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SearchAgent</title>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+<link rel="stylesheet" href="style.css">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/resetPassword.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+	 <script src="{% static 'js/registration.js' %}"></script>
+                    <script>
+                $( "#username" ).attr('placeholder',$('.radio-buttons:checked').data('hint'))
+                $( ".radio-buttons" ).click(function() {
+                  $( "#username" ).attr('placeholder',$(this).data('hint'))
+                });
+            </script>
+    <script>
+$(document).ready(function(){
+
+  $("#showSearch").click(function(){
+    $(".searchAgent").show();
+    $(".advancedSearch").hide();
+    });
+    $("#showAdvancedSearch").click(function(){
+    $(".searchAgent").hide();
+    $(".advancedSearch").show();
+  });
+});
+</script>
+</head>
+<body>
+
+<div class="header">
+
+  <h2 class="welcome">Welcome {{request.session.firstName}}!!</h2>
+    <span>Last login:{{last_login}}</span>
+</div>
+<div class="topnav">
+   	   <a href="/agent/supervisorDetails/">My Profile</a>
+                 <div class="dropdown">
+                      <button class="dropbtn">Agent</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/searchByAgent/">SearchByAgent</a>
+                 {% if usertype == "supervisor" %}
+                      <a href="/agent/showAgents/">ShowAgents</a>
+                      <a href="/agent/register/">Create Agent</a>
+                    {% endif %}
+                      </div>
+
+                 </div>
+                 {% if usertype == "supervisor" %}
+                  <div class="dropdown">
+                      <button class="dropbtn">Department</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/createDepartment/">Create Department</a>
+                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
+                      </div>
+                  </div>
+                  <div class="dropdown">
+                      <button class="dropbtn">Requests</button>
+                      <div class="dropdown-content">
+                          <a href="/agent/showRequests/">ShowRequests </a>
+                      </div>
+                  </div>
+                 {% endif %}
+                  <a href="/agent/agentLogout/">Logout</a>
+</div>
+
+
+        <div>
+
+        <table id="agent">
+             {% if adv_search_obj %}
+            <tr>
+                <caption>Searched Agents</caption>
+            </tr>
+
+            <tr>
+                <th>Image</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                 <th>Email</th>
+                 <th>Username</th>
+                 <th>UserType</th>
+                  <th>Department</th>
+            </tr>
+            {% for adv_search_obj in adv_search_obj %}
+            <tr>
+                <td>
+                    <div class="field">
+                             {% if adv_search_obj.image %}
+                                <img src="{{adv_search_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
+                                                        width="100px" height="50px"/>
+                             {% else %}
+                                    {{msg}}
+                            {% endif %}
+                    </div>
+
+                </td>
+                <td>
+                    <div class="field">
+                    <label></label>
+                    {{adv_search_obj.firstName}}
+                        </div>
+                <td>
+
+                        <div class="field">
+                    <label></label>
+                     {{adv_search_obj.lastName}}
+                        </div>
+                </td>
+                <td>
+                    <div class="field">
+                    <label></label>
+                     {{adv_search_obj.email}}
+                        </div>
+
+                </td>
+                <td>
+                         <div class="field">
+                    <label></label>
+                     {{adv_search_obj.username}}
+                        </div>
+
+                </td>
+                <td>
+                            <div class="field">
+                    <label></label>
+                     {{adv_search_obj.usertype}}
+                        </div>
+
+                </td>
+                <td>
+                            <div class="field">
+                    <label></label>
+                     {{adv_search_obj.dept}}
+                        </div>
+
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+  </div>
+
+
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+</body>
+</html>

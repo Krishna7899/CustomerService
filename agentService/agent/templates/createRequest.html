@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Agent Details</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/resetPassword.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+
+</head>
+<body>
+
+<div class="header">
+  <h1 class="welcome">Welcome {{request.session.firstName}}</h1>
+</div>
+<div class="topnav">
+    <h2>UnlockRequest</h2>
+
+</div>
+
+<div class="column middle">
+{{message}}
+    <form action="/agent/createRequest/" name="registration-page" method="post">
+            {% csrf_token %}
+        <div id="profile-details" style="display:block" class="request-details-container">
+            <h2>Create Request</h2>
+
+            <label class="request-label">UserName:</label>
+            {{form.requestedUserName}}
+
+
+            <label class="request-label"> Description:</label>
+            {{form.description}}
+
+            <label class="request-label">Request Type:</label>
+            {{form.requestType}}
+
+               <div class="request-submit">
+                    <input type="submit" value="Request" class="request-submit-button" >
+               </div>
+        </div>
+    </form>
+
+  </div>
+
+</div>
+<div class="footer">
+  <p>Footer</p>
+</div>
+</body>
+</html>

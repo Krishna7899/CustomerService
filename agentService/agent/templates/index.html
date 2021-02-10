@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home</title>
+    {% load static %}
+<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+    </script>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/index.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+
+</head>
+
+<body>
+
+<div class="topnav">
+<a href="/agent/agentProfile/">My Profile</a>
+
+                   <div class="dropdown">
+                      <button class="dropbtn">Agent</button>
+                        <i class="fa fa-caret-down"></i>
+                      <div class="dropdown-content">
+                      <a href="/agent/searchByAgent/">Search</a>
+
+                      <a href="/agent/showAgents/">ShowAgents</a>
+                      <a href="/agent/register/">Create Agent</a>
+
+                      </div>
+                   </div>
+
+                   <div class="dropdown" data-filter="profile" data-search="profile">
+                      <button class="dropbtn">Department</button>
+                        <i class="fa fa-caret-down"></i>
+                      <div class="dropdown-content">
+                      <a href="/agent/createDepartment/">Create Department</a>
+                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Requests</button>
+                        <i class="fa fa-caret-down"></i>
+                      <div class="dropdown-content">
+
+                      <a href="/agent/showRequests/">ShowRequests </a>
+                      </div>
+                   </div>
+
+                     <a href="/agent/agentLogout/">Logout</a>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+
+  <div class="column side">
+
+  </div>
+
+
+  <div class="column middle">
+
+
+  </div>
+  <div class="column side">
+        <div class="dropdown">
+          <button class="dropbtn"><font color="black">Search</font></button>
+          <div class="dropdown-content">
+           <input id="myInput" type="text" placeholder="Search..">
+           <ul id="myList">
+           <li><a href="/agent/agentProfile/">My Profile</a></li>
+          <li><a href="/agent/searchByAgent/">Search</a></li>
+
+          <li><a href="/agent/showAgents/">ShowAgents</a></li>
+          <li><a href="/agent/register/">Create Agent</a></li>
+           </ul>
+          </div>
+       </div>
+
+<br>
+
+<!--<ul id="myList">
+  <li><a href="/agent/agentProfile/">My Profile</a></li>
+  <li>Second item</li>
+  <li>Third item</li>
+  <li>Fourth</li>
+</ul>-->
+
+  </div>
+
+</div>
+
+<div class="footer">
+
+  <p>Footer</p>
+
+</div>
+
+</body>
+</html>

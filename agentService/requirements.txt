@@ -1,0 +1,6 @@
+Django==3.1.5
+MySQL==8.0
+pillow==8.1.0
+mysqlclient==2.0.3
+django-cleanup==5.1.0
+

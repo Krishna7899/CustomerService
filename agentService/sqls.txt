@@ -1,0 +1,18 @@
+###Create a table agent_agenttable corresponding to Model Class AgentTable
+
+
+CREATE TABLE "agent_agenttable" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "firstName" varchar(8) NOT NULL, "lastName" varchar(30) NOT NULL, "email" varcha
+r(20) NOT NULL UNIQUE, "username" varchar(20) NOT NULL UNIQUE, "password" varchar(20) NOT NULL, "dept" integer NULL, "created_date" datetime NOT NULL,`image` varchar(100) default NULL);
+
+
+-- Create model Department
+--
+CREATE TABLE `agent_department` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `deptName` varchar(20) NULL, `created_by` varchar(30) NULL, `created_date` datetim
+e(6) NOT NULL, `dept_id` integer NOT NULL);
+ALTER TABLE `agent_department` ADD CONSTRAINT `agent_department_dept_id_3d33c37e_fk_agent_agenttable_id` FOREIGN KEY (`dept_id`) REFERENCES `agent_agenttable` (`id`)
+;
+
+CREATE TABLE `agent_requests` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `requestedBy` varchar(30) NOT NULL, `requestedDate` datetime(6) NOT NULL, `approvedB
+y` varchar(30) NOT NULL, `approvedDate` datetime(6) NOT NULL, `status` varchar(30) NOT NULL, `description` varchar(200) NOT NULL, `requestType` varchar(20) NOT NULL,
+ `agent_id` integer NOT NULL);
+ALTER TABLE `agent_requests` ADD CONSTRAINT `agent_requests_agent_id_21e6a8e9_fk_agent_agenttable_id` FOREIGN KEY (`agent_id`) REFERENCES `agent_agenttable` (`id`);

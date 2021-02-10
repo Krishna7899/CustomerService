@@ -1,0 +1,55 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+<div class="column middle">
+    <div class="showRequests">
+        {{message}}
+        <table id="agent">
+             <caption>All Requests </caption>
+            <tr>
+                  <th>UserName</th>
+                  <th>Description</th>
+                  <th>RequestType</th>
+                  <th>Status</th>
+            </tr>
+            {% for show_req_obj in show_req_obj %}
+            <tr>
+            <form action="/agent/unlockRequest/" method=" ">
+                {% csrf_token %}
+                <td>
+
+
+           {{show_req_obj.requestedBy}}
+
+
+                <td>
+
+                <div class="field">
+
+             {{show_req_obj.description}}
+                </div>
+                </td>
+                <td>
+                       <div class="field">
+
+             {{show_req_obj.requestType}}
+                </div>
+
+                </td>
+
+                <td>
+                    <div class="field">
+                        <label></label>
+                         <a href="{% url 'agent:unlockRequest' requestedBy=show_req_obj.requestedBy %}">approve</a>
+                    </div>
+
+                </td>
+                </form>
+            </tr>
+             {% endfor %}
+
+        </table>
+
+   </div>
+</div>
+{% endblock %}

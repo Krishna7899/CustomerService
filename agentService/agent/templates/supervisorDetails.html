@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Agent Details</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+        <script src="{% static 'js/imageUpload.js' %}"></script>
+        <script src="{% static 'js/resetPassword.js' %}"></script>
+        <script src="{% static 'js/updateProfile.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+</head>
+<body>
+
+        <div class="header">
+          <h1 class="welcome">Welcome {{request.session.firstName}}</h1>
+        </div>
+        <div class="topnav">
+               <a href="/agent/supervisorDetails/">My Profile</a>
+
+                 <div class="dropdown">
+                      <button class="dropbtn">Agent</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/register/">Create Agent</a>
+                      <a href="/agent/showAgents/">ShowAgents</a>
+                      <a href="/agent/searchByAgent/">SearchByAgent</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Department</button>
+                      <div class="dropdown-content">
+                      <a href="/agent/createDepartment/">Create Department</a>
+                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
+                      </div>
+                   </div>
+                   <div class="dropdown">
+                      <button class="dropbtn">Requests</button>
+                      <div class="dropdown-content">
+
+                      <a href="/agent/showRequests/">ShowRequests </a>
+                      </div>
+                   </div>
+                  <a href="/agent/agentLogout/">Logout</a>
+        </div>
+        <div class="row">
+          <div class="column side">
+             <div class="display-image">
+                    {% if supervisor_detail_obj.image %}
+                        <img src="{{supervisor_detail_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="200px" height="150px"/>
+                    {% else %}
+                        {{msg}}
+                    {% endif %}
+             </div>
+
+              <div class="field-update" >
+                <input type="submit" value="UpdateImage"  onclick="myImageUpload()" id="updateImage-btn" style="display:block"/>
+              </div>
+                <div>
+                    <div id="upload" style="display:none;">
+                        <form action='/agent/supervisorImageUpload/' method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="field">
+                                <input id="id_image" type="file" class="profile-image" name="image">
+                        </div>
+
+                        <div class="field">
+                        <input type="submit" value="Upload" class="profile-image-btn" />
+                        </div>
+                        </form>
+                    </div>
+                </div>
+          </div>
+
+        <div class="column middle">
+            <div id="profile-details" style="display:block" class="profile-details-container">
+                <table id="agent">
+                    <tr>
+                    <h2 style="text-align:center">Profile Details</h2>
+                    </tr>
+                    <tr>
+                       <td>
+                          <label>First Name:</label>
+                       </td>
+                          <td>
+                            <div class="field">
+
+                    {{supervisor_detail_obj.firstName}}
+                        </div>
+                        </td>
+                        </tr>
+                    <tr>
+                        <td>
+                            <label> Last Name:</label>
+                       </td>
+                      <td>
+                        <div class="field">
+
+                    {{supervisor_detail_obj.lastName}}
+                         </div>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>
+                           <label>Email Id:</label>
+                       </td>
+
+                        <td>
+                         <div class="field">
+
+                    {{supervisor_detail_obj.email}}
+                        </div>
+                            </td>
+                            </tr>
+                    <tr>
+                        <td>
+                           <label>UserName</label>
+                       </td>
+                         <td>
+                        <div class="field">
+
+                    {{supervisor_detail_obj.username}}
+                        </div>
+                             </td>
+                        </tr>
+
+
+
+                    <tr>
+
+                       <td>
+                             <label>Department:</label>
+                       </td>
+
+                        <td>
+                        <div class="field">
+
+                            {{supervisor_detail_obj.dept}}
+                        </div>
+                         </td>
+                    </tr>
+                </table>
+                      </div>
+            </div>
+
+          <div class="column side">
+
+        </div>
+        </div>
+        <div class="footer">
+          <p>Footer</p>
+        </div>
+</body>
+</html>

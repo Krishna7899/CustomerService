@@ -1,0 +1,283 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+                <script src="{% static 'js/searchAgent.js' %}"></script>
+    <ul class='tabs'>
+            <li><a href='#tab1'>Search</a></li>
+            <li><a href='#tab2'>Advanced Search</a></li>
+        </ul>
+<div id='tab1'>
+		<table>
+
+               <form action="/agent/searchByAgent/" name="registration-page" method="post" id="form1">
+            {% csrf_token %}
+                 <tr>
+                     <td>
+                <div class="search-field">
+                     {{msg}}
+                   <label>Search</label>
+                 <!--   <span class="search-field-input">{{form.username}}</span>-->
+                    <input type="text" id="placeholder" name="username" placeholder="" class="search-field-input" required/>
+
+                </div>
+                     </td>
+                     <td>
+                        <div class="searchAgent-button">
+                    <input type="submit" value="Search" id="button-1">
+                </div>
+                     </td>
+                </tr>
+                   <tr>
+                <td>
+                <div class="radio-field" id="div1">
+                   ById<input type="radio" class="radio-buttons" name="radio" onclick="changePlaceholder1()"/>
+                   ByName<input type="radio" class="radio-buttons" name="radio"  onclick="changePlaceholder2()"/>
+                    <span class="error_form" id="searchById_error_message"></span>
+                </div>
+                </td>
+                </tr>
+   	 </form>
+          </table>
+
+        </div>
+<div id='tab2'><a name="tab2"></a>
+
+            <form action="/agent/advSearchByAgent/" name="searchByAgent-page" id="form2">
+                {% csrf_token %}
+                <table id="advSearch-option-table">
+                     {{advSearchmsg}}
+                    <tr>
+                        <span class="error_form" id="error_message"></span>
+                    </tr>
+                 <tr>
+
+                     <td>
+
+                <input type="text" id="firstName" name="firstName" placeholder="FirstName">
+
+                     </td>
+                     <td col-span="1">
+
+                      <input type="text" id="lastName" name="lastName" placeholder="LastName">
+
+                      </td>
+                      <td col-span="1">
+
+
+                      <input type="text" id="username" name="username" placeholder="username">
+
+                          </td>
+
+                    </tr>
+                        <tr>
+                    <td>
+                <div class="advSearchAgent-button">
+                        <input type="submit" value="Search" id="button-2" >
+                </div>
+                    </td>
+                    </tr>
+                    </table>
+           </form>
+
+         </div>
+
+     <div>
+
+        <table id="agent-search-table">
+
+          {% if search_by_name %}
+              <caption>Details of {{search_by_name.username}} </caption>
+            <tr>
+                <td>
+                <th>Image</th>
+                </td>
+                <td>
+                            {% if search_by_name.image %}
+                                <img src="{{search_by_name.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
+                                                        width="70px" height="30px"/>
+                             {% else %}
+                                    {{msg}}
+                            {% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <th>FirstName</th>
+                </td>
+                <td>
+
+
+                    {{search_by_name.firstName}}
+
+                <td>
+            </tr>
+            <tr>
+                <td>
+                   <th>LastName</th>
+                </td>
+                <td>
+
+
+                     {{search_by_name.lastName}}
+
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                    <th>Email</th>
+                 </td>
+                 <td>
+
+
+                     {{search_by_name.email}}
+
+            </tr>
+            <tr>
+                <td>
+                    <th>Username</th>
+                </td>
+                    <td>
+
+
+                     {{search_by_name.username}}
+
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <th>UserType</th>
+                </td>
+                <td>
+
+
+                     {{search_by_name.usertype}}
+
+
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                  <th>Department</th>
+                 </td>
+
+                <td>
+
+
+                     {{search_by_name.dept}}
+
+
+                </td>
+            </tr>
+
+             {% endif %}
+        </table>
+
+  </div>
+
+ <div>
+       {% if adv_search_obj %}
+        <table id="advSearchagent-table">
+
+            <tr>
+                <caption>Searched Agents</caption>
+            </tr>
+
+            <tr>
+                <th>Image</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                 <th>Email</th>
+                 <th>Username</th>
+                 <th>UserType</th>
+                  <th>Department</th>
+            </tr>
+            {% for adv_search_obj in page_obj %}
+            <tr>
+                <td>
+                    <div class="field">
+                             {% if adv_search_obj.image %}
+                                <img src="{{adv_search_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
+                                                        width="100px" height="50px"/>
+                             {% else %}
+                                    {{msg}}
+                            {% endif %}
+                    </div>
+
+                </td>
+                <td>
+                    <div class="field">
+                    <label></label>
+                    {{adv_search_obj.firstName}}
+                        </div>
+                <td>
+
+                        <div class="field">
+                    <label></label>
+                     {{adv_search_obj.lastName}}
+                        </div>
+                </td>
+                <td>
+                    <div class="field">
+                    <label></label>
+                     {{adv_search_obj.email}}
+                        </div>
+
+                </td>
+                <td>
+                         <div class="field">
+                    <label></label>
+                     {{adv_search_obj.username}}
+                        </div>
+
+                </td>
+                <td>
+                            <div class="field">
+                    <label></label>
+                     {{adv_search_obj.usertype}}
+                        </div>
+
+                </td>
+                <td>
+                            <div class="field">
+                    <label></label>
+                     {{adv_search_obj.dept}}
+                        </div>
+
+                </td>
+            </tr>
+            {% endfor %}
+
+            <tr>
+
+
+            </tr>
+
+        </table>
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?{{GET_params.urlencode}}&amp;page=1">&laquo; first</a>
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.next_page_number}}">next</a>
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+
+  </div>
+        {% endif %}
+        </div>
+
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,44 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
+
+        <table id="agent-dept-click-table">
+
+          {% if deptDetails %}
+              <caption>Details of {{deptDetails.deptName}} Department </caption>
+            <tr>
+                <th>CreatedById</th>
+                <th>Username</th>
+                <th>Department</th>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <div class="field">
+                    <label></label>
+                    {{deptDetails.id}}
+                        </div>
+                <td>
+
+                        <div class="field">
+                    <label></label>
+                     {{deptDetails.createdBy}}
+                        </div>
+                </td>
+                <td>
+                    <div class="field">
+                    <label></label>
+                     {{deptDetails.deptName}}
+                        </div>
+
+                </td>
+
+            </tr>
+
+             {% endif %}
+        </table>
+
+  {% endblock %}
