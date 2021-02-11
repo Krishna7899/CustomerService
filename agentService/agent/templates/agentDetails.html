@@ -59,8 +59,8 @@
 
                    <ul id="myList" style="list-style-type:none;text-align:left;">
                           <li><a href="/agent/agentProfile/">My Profile</a></li>
-                          <li><a href="/agent/agentProfile/#tab2-update/" id="update-profile">UpdateProfile</a></li>
-                          <li><a href="/agent/agentProfile/#tab3-change/" id="change-password">ChangePassword</a></li>
+                          <li><a href="{% url 'agent:agentDetails' %}#tab2-update" id="update-profile">UpdateProfile</a></li>
+                          <li><a href="{% url 'agent:agentDetails' %}#tab3-change" id="change-password">ChangePassword</a></li>
                           <li><a href="/agent/searchByAgent/">Search</a></li>
                           <li><a href="/agent/showAgents/">ShowAgents</a></li>
                           <li><a href="/agent/register/">Create Agent</a></li>

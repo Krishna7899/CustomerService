@@ -4,10 +4,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
 <div class="column middle">
        <table id="agent" >
-             <tr>
+            <tr>
                <caption>List Of Agents</caption>
             </tr>
-
             <tr>
                  <th>Image</th>
                  <th>FirstName</th>
@@ -16,7 +15,6 @@
                  <th>Username</th>
                  <th>UserType</th>
                  <th>Department</th>
-
             </tr>
            {% for show_agent_obj in page_obj %}
             <tr>
@@ -24,45 +22,28 @@
                     {% if show_agent_obj.image %}
                     <a href="{% url 'agent:imageData' id=show_agent_obj.id %}"><img src="{{show_agent_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
                                                 width="70px" height="25px"/>  </a>
-
                      {% else %}
                             {{msg}}
                     {% endif %}
-
-
             </td>
             <td>
-
                     {{show_agent_obj.firstName}}
-
             <td>
-
                         {{show_agent_obj.lastName}}
-
             </td>
             <td>
-
                  {{show_agent_obj.email}}
-
             </td>
             <td>
-
                  {{show_agent_obj.username}}
 
-
             </td>
             <td>
-
              {{show_agent_obj.usertype}}
-
             </td>
             <td>
-
-
        <a href="{% url 'agent:deptData' dept=show_agent_obj.dept %}">{{show_agent_obj.dept}}</a>
-
-
-                </td>
+            </td>
             </tr>
              {% endfor %}
             <tr>
@@ -86,9 +67,6 @@
             {% endif %}
           </span>
         </div>
-
-
-
     </div>
 
 {% endblock%}

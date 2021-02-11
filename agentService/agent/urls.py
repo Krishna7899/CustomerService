@@ -25,7 +25,7 @@ urlpatterns=[
     path('agentLogout/', views.agentLogout, name="logout-page"),
     path('upload/', views.imageUpload,name="upload-page"),
     #path('supervisorImageUpload/', views.supervisorImageUpload,name="superUserImageUpload-page"),
-    path('agentProfile/', views.agentDetails, name="profile-page"),
+    path('agentProfile/', views.agentDetails, name="agentDetails"),
     path('editProfile/', views.editProfile, name="edit-page"),
     path('changePassword/', views.changePassword, name="changePassword-page"),
     path('createDepartment/', views.createDepartment, name="createDepartment-page"),
@@ -37,7 +37,7 @@ urlpatterns=[
     path('<requestedBy>/unlockRequest/', views.unlockRequest, name="unlockRequest"),
     path('<int:id>/imageData/', views.imageData, name="imageData"),
     path('<dept>/deptData/', views.deptData, name="deptData"),
-    path('searchbydepartment/',views.searchbydepartment,name="searchbydepartment-page"),
+    path('searchByDepartment/',views.searchByDepartment,name="searchBydepartment-page"),
 
     #path('showAllDepartments/', views.showAllDepartments, name="showAllDepartments-page"),
     #path('searchByDepartment/', views.searchByDepartment, name="showAllDepartments-page"),

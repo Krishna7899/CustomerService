@@ -307,25 +307,17 @@ def deptData(request, dept):
     except:
         return render(request, "showDeptDetailsClick.html", {"msg": "No details Found"})
 
-def searchbydepartment(request):
+def searchByDepartment(request):
     usertype=request.session['usertype']
     if request.method=='GET':
         form=DepartmentForm()
         return render(request,"searchdepartment.html",{'form':form,"usertype":usertype})
-    if request.method=="POST":
-        username=request.POST.get["username"]
+    if request.method == "POST":
+        department=request.POST["department"]
+        form = DepartmentForm(request.POST)
         try:
-            form=DepartmentForm(request.post,request.files)
-            search_by_department=getdetailsbyDepartment(Department)
+            search_by_department = getdetailsbyDepartment(department)
             if search_by_department:
                 return render(request,"searchdepartment.html",{"search_by_department":search_by_department,"usertype":usertype,'form':form})
-                
         except:
-            return render(request,"searchdepartment.html",{"usertype":usertype,"form":form})
-        
-        
-                
-                
-                
-                
-                
+            return render(request,"searchdepartment.html",{"usertype":usertype,"form":form ,"msg":"No details found"})

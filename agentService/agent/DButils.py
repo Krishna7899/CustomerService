@@ -112,7 +112,7 @@ def getIdByUserName(username):
 
 # method to show all requests posted by agents
 def showAllRequestsMethod():
-    req_obj= Requests.objects.filter(status="NULL")
+    req_obj= Requests.objects.exclude(status="Approved")
     if req_obj:
         return req_obj
 
@@ -142,10 +142,8 @@ def advancedSearchMethod(firstName, lastName, username):
 def getAgentDetailsImageClick(id):
     return AgentTable.objects.get(id=id)
 
-
 def getDepartmentDetails(dept):
     return Department.objects.get(deptName=dept)
 
-
-def getdetailsbyDepartment(Department):
-    return AgentTable.objects.get(Q(Department_iexact=Department) | Q(id__iexact=Department))
+def getdetailsbyDepartment(department):
+    return Department.objects.get(deptName=department)

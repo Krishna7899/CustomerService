@@ -5,11 +5,6 @@ from django.utils import timezone
 # Create your models here.
 # Model class
 
-
-
-
-
-
 class AgentTable(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     firstName = models.CharField(max_length=8, default="")

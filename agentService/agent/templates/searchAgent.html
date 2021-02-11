@@ -9,13 +9,17 @@
         </ul>
 <div id='tab1'>
 		<table>
-
+                <tr>
+                    <td>
+                     {{msg}}
+                    </td>
+                </tr>
                <form action="/agent/searchByAgent/" name="registration-page" method="post" id="form1">
             {% csrf_token %}
                  <tr>
                      <td>
                 <div class="search-field">
-                     {{msg}}
+
                    <label>Search</label>
                  <!--   <span class="search-field-input">{{form.username}}</span>-->
                     <input type="text" id="placeholder" name="username" placeholder="" class="search-field-input" required/>
