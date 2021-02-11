@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-{% if query %}
+<!--{% if query %}
 <h1>Results containing "{{ query }}"</h1>
 
    {% for data in results %}
@@ -13,7 +14,10 @@
    {% empty %}
    <h4>There are no results for your query.</h4>
    {% endfor %}
-
-{% endif %}
+<a href="{% url 'agent:{{key}}'%}">
+{% endif %}-->
+{% for key in key %}
+{{key}}
+{% endfor %}
 </body>
 </html>

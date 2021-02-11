@@ -54,8 +54,12 @@
                    {% endif %}
                         <a href="/agent/agentLogout/">Logout</a>
             <div class="search-dropdown">
-              <input id="myInput" type="text" placeholder="Search.."/>
-              <div class="search-dropdown-content">
+              <form action="/agent/search/" method="POST">
+                  {% csrf_token %}
+                  <input id="myInput" name="search" type="text" placeholder="Search.."/>
+                  <input id="search-submit" type="submit" placeholder="Search.."/>
+              </form>
+            <!--  <div class="search-dropdown-content">
 
                    <ul id="myList" style="list-style-type:none;text-align:left;">
                           <li><a href="/agent/agentProfile/">My Profile</a></li>
@@ -68,7 +72,7 @@
                           <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
                           <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
                    </ul>
-              </div>
+              </div>-->
        </div>
         </div>
         {% block code %}

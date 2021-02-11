@@ -11,7 +11,6 @@ from .restviews import AgentImageAPIView
 
 router = routers.DefaultRouter()
 
-
 urlpatterns=[
     path('rest/', include(router.urls)),
     path('rest/getAgents/photo', AgentImageAPIView.as_view(),name="getagent-page"),

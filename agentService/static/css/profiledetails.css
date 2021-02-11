@@ -133,6 +133,13 @@ width: 25%;
   border: none;
 
 }
+#search-submit{
+padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+
+}
 .search-dropdown {
   float: right;
   margin-right:100px;

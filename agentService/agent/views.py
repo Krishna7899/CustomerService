@@ -2,13 +2,15 @@
 import datetime
 
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
-
+from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
 from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Department, LogTable
+from .commons import dict
 
 
 # Create your views here.
@@ -17,14 +19,17 @@ from .models import Department, LogTable
 def index(request):
     return render(request, 'index.html', {})
 def search(request):
-    query = None
-    results = []
-    if request.method == "GET":
-        query = request.GET.get('search')
-        results = AgentTable.objects.filter(
-            Q(username__icontains=query) | Q(firstName__icontains=query) | Q(lastName__icontains=query))
-    return render(request, 'search.html', {'query': query,
-                                           'results': results})
+    view_name = None
+    if request.method == "POST":
+        search=request.POST["search"]
+        for key in dict.keys():
+            if key==search:
+               view_name=dict[key]
+            else:
+                continue
+    return redirect('/agent/%s' % view_name)
+
+
 #agent login
 def handleShowAgent(request):
     return render(request, 'agentLogin.html', {})
