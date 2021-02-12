@@ -17,7 +17,7 @@
         <script src="{% static 'js/resetPassword.js' %}"></script>
         <script src="{% static 'js/updateProfile.js' %}"></script>
         <script src="{% static 'js/index.js' %}"></script>
-
+       <script src="{% static 'js/search.js' %}"></script>
 </head>
 <body>
         <div class="header">
@@ -56,24 +56,20 @@
             <div class="search-dropdown">
               <form action="/agent/search/" method="POST">
                   {% csrf_token %}
-                  <input id="myInput" name="search" type="text" placeholder="Search.."/>
+                  <input id="myInput" type="text" name="search" value="" />
                   <input id="search-submit" type="submit" placeholder="Search.."/>
-              </form>
-            <!--  <div class="search-dropdown-content">
+                  <div class="search-dropdown-content">
+                     {% if search_value_list %}
+                     <select id="myList" name="">
+                            {% for key in search_value_list %}
+                                <option data-value= "{{key}}" >{{key}}</option>
+                            {% endfor %}
+                     </select>
+                    {% endif %}
+                  </div>
 
-                   <ul id="myList" style="list-style-type:none;text-align:left;">
-                          <li><a href="/agent/agentProfile/">My Profile</a></li>
-                          <li><a href="{% url 'agent:agentDetails' %}#tab2-update" id="update-profile">UpdateProfile</a></li>
-                          <li><a href="{% url 'agent:agentDetails' %}#tab3-change" id="change-password">ChangePassword</a></li>
-                          <li><a href="/agent/searchByAgent/">Search</a></li>
-                          <li><a href="/agent/showAgents/">ShowAgents</a></li>
-                          <li><a href="/agent/register/">Create Agent</a></li>
-                          <li> <a href="/agent/createDepartment/">Create Department</a></li>
-                          <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
-                          <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
-                   </ul>
-              </div>-->
-       </div>
+              </form>
+            </div>
         </div>
         {% block code %}
       <div class="row">

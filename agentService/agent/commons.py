@@ -1,6 +1,6 @@
 #dictionary use for urls
 
-dict={
+url_dict={
 
     "index":"index/",
     "loginResult":"agentLogin/",

@@ -134,62 +134,27 @@ width: 25%;
 
 }
 #search-submit{
-padding: 6px;
+  padding: 6px;
   margin-top: 8px;
   font-size: 17px;
   border: none;
 
 }
+
 .search-dropdown {
-  float: right;
-  margin-right:100px;
-  margin-top:10px;
-  overflow: hidden;
-
+  position: relative;
+  display: inline-block;
 }
 
-.search-dropdown .search-dropbtn {
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  padding: 5px 10px;
-  background-color: #87ceeb;
-  width:175px;
-  font-family: arial;
-  margin: 0;
-}
-
-.search-dropdown:hover .search-dropbtn {
-  color: #0040ff;
-}
-
-.search-dropdown-content {
-  display: none;
+.search-dropdown-content,#myList {
+  display: block;
   position: absolute;
-  background-color: #f9f9f9;
-  min-width: 175px;
+  background-color: #f1f1f1;
+  min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-.search-dropdown-content a {
-  float: none;
-  color: #0040ff;
-  padding: 5px 10px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.search-dropdown-content a:hover {
-  background-color: #ddd;
-  color:#ffffff;
-}
-
-.search-dropdown:hover .search-dropdown-content {
-  display: block;
-}
 /*image update button in profile details*/
 
 .updateImage-btn{

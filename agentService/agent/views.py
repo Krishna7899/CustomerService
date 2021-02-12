@@ -10,7 +10,7 @@ from django.contrib.auth import logout
 from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm
 from django.shortcuts import render, redirect
 from .models import Department, LogTable
-from .commons import dict
+from .commons import url_dict
 
 
 # Create your views here.
@@ -19,16 +19,28 @@ from .commons import dict
 def index(request):
     return render(request, 'index.html', {})
 def search(request):
-    view_name = None
+    last_login = getLastLoginTime(request.session["id"])
+    myId = request.session['id']
+    agent_detail_obj = getLoggedInUserObject(myId)
     if request.method == "POST":
-        search=request.POST["search"]
-        for key in dict.keys():
-            if key==search:
-               view_name=dict[key]
-            else:
-                continue
-    return redirect('/agent/%s' % view_name)
+        search_key=request.POST["search"]
+        search_value_list = []
+        #keys_list =[val for key, val in url_dict.items() if search_key in key]
+        keys_list_dict = dict(filter(lambda item: search_key in item[0], url_dict.items()))
+        for key in keys_list_dict.keys():
+            search_value_list.append(key)
+        if len(search_value_list)>1:
+            return render(request, 'agentDetails.html',
+                      {"agentProfile": agent_detail_obj, "usertype": request.session["usertype"],
+                       "last_login": last_login, "search_value_list": search_value_list})
+        else:
+            for key in url_dict.keys():
+                if key==search_key:
+                   view_name=url_dict[key]
+                   return redirect('/agent/%s' % view_name)
 
+                else:
+                    continue
 
 #agent login
 def handleShowAgent(request):
