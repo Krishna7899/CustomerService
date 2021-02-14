@@ -4,7 +4,7 @@ from django.utils import timezone
 
 # Create your models here.
 # Model class
-
+AddressOptions = (('PA', 'Permanent Address'), ('TA', "TemporaryAddress"))
 class AgentTable(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     firstName = models.CharField(max_length=8, default="")
@@ -71,16 +71,27 @@ class LogTable(models.Model):
     agentId=models.IntegerField(default=0)
     def __str__(self):
         return self.loginTime
-class Address(models.Model):
-    ADDRESS_options = (('p', 'permanent address'), ('t', "temporary address"))
+class PermanentAddress(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
-    dno = models.CharField(max_length=10)
-    street = models.CharField(max_length=20)
-    city = models.CharField(max_length=20)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    agent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
-    address_type = models.CharField(max_length=1, choices=ADDRESS_options)
+    pDno = models.CharField(max_length=10)
+    pStreet = models.CharField(max_length=20)
+    pCity = models.CharField(max_length=20)
+    pState = models.CharField(max_length=20)
+    pPincode = models.CharField(max_length=6)
+    pAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    pAddressType = models.CharField(max_length=2, choices=AddressOptions)
+    def __str__(self):
+        return self.pDno
+
+class TemporaryAddress(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    tDno = models.CharField(max_length=10)
+    tStreet = models.CharField(max_length=20)
+    tCity = models.CharField(max_length=20)
+    tState = models.CharField(max_length=20)
+    tPincode = models.CharField(max_length=6)
+    tAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    tAddressType = models.CharField(max_length=2, choices=AddressOptions)
 
     def __str__(self):
-        return self.state
+        return self.tDno

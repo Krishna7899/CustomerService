@@ -62,40 +62,80 @@
            </div>
     </form>
       {{addressMsg}}
-    <a href="/agent/createAddress/">Address</a>
-        <form action="/agent/createAddress/" method="POST">
+    <a href="/agent/createTaddress/">TemporaryAddress</a>
+    {% if tAddressForm %}
+        <h4>TemporaryAddress</h4>
+        <form action="/agent/createTaddress/" method="POST">
                {% csrf_token %}
             <div>
              <div class="agent-field">
                     <label class="agent-field-label">Address Type</label>
-                    {{addressForm.address_type}}
+                    {{tAddressForm.tAddressType}}
             </div>
             <div class="agent-field">
                     <label class="agent-field-label">Door No</label>
-                    {{addressForm.dno}}
+                    {{tAddressForm.tDno}}
             </div>
 
             <div class="agent-field">
                     <label class="agent-field-label">Street</label>
-                    {{addressForm.street}}
+                    {{tAddressForm.tStreet}}
             </div>
              <div class="agent-field">
                     <label class="agent-field-label">City</label>
-                    {{addressForm.city}}
+                    {{tAddressForm.tCity}}
             </div>
             <div class="agent-field">
                     <label class="agent-field-label">State</label>
-                    {{addressForm.state}}
+                    {{tAddressForm.tState}}
             </div>
             <div class="agent-field">
                     <label class="agent-field-label">PinCode</label>
-                    {{addressForm.pincode}}
+                    {{tAddressForm.tPincode}}
             </div>
             <div class=" agentAddress-submit">
                     <input type="submit" value="Register" class="agentAddress-submit-button" >
             </div>
             </div>
         </form>
+      {% endif %}
+    <a href="/agent/createPaddress/">PermanentAddress</a>
+    {% if pAddressForm %}
+       <h4>PermanentAddress</h4>
+        <form action="/agent/createPaddress/" method="POST">
+               {% csrf_token %}
+            <div>
+             <div class="agent-field">
+                    <label class="agent-field-label">Address Type</label>
+                    {{pAddressForm.pAddressType}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">Door No</label>
+                    {{pAddressForm.pDno}}
+            </div>
+
+            <div class="agent-field">
+                    <label class="agent-field-label">Street</label>
+                    {{pAddressForm.pStreet}}
+            </div>
+             <div class="agent-field">
+                    <label class="agent-field-label">City</label>
+                    {{pAddressForm.pCity}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">State</label>
+                    {{pAddressForm.pState}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">PinCode</label>
+                    {{pAddressForm.pPincode}}
+            </div>
+            <div class=" agentAddress-submit">
+                    <input type="submit" value="Register" class="agentAddress-submit-button" >
+            </div>
+            </div>
+        </form>
+      {% endif %}
   </div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import AgentTable, Requests, Department,Address
+from .models import AgentTable, Requests, Department,PermanentAddress,TemporaryAddress
 from django import forms
 
 
@@ -47,13 +47,25 @@ class RequestsForm(forms.ModelForm):
     class Meta:
         model = Requests
         fields = ["requestedUserName","description", "requestType"]
-class AddressForm(forms.ModelForm):
-    dno = forms.CharField(widget=forms.TextInput(attrs={'class': 'dno', 'id':'dno'}))
-    street = forms.CharField(widget=forms.TextInput(attrs={'class': 'street', 'id': 'street'}))
-    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'city', 'id': ' city'}))
-    state = forms.CharField(widget=forms.TextInput(attrs={'class': 'state', 'id': 'state'}))
-    pincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
+class PaddressForm(forms.ModelForm):
+    pDno = forms.CharField(widget=forms.TextInput(attrs={'class': 'dno', 'id':'dno'}))
+    pStreet = forms.CharField(widget=forms.TextInput(attrs={'class': 'street', 'id': 'street'}))
+    pCity = forms.CharField(widget=forms.TextInput(attrs={'class': 'city', 'id': ' city'}))
+    pState = forms.CharField(widget=forms.TextInput(attrs={'class': 'state', 'id': 'state'}))
+    pPincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
 
     class Meta:
-        model=Address
-        fields=["dno","street","city","state","pincode","address_type"]
+        model=PermanentAddress
+        fields=["pDno","pStreet","pCity","pState","pPincode","pAddressType"]
+
+
+class TaddressForm(forms.ModelForm):
+    tDno = forms.CharField(widget=forms.TextInput(attrs={'class': 'dno', 'id': 'dno'}))
+    tStreet = forms.CharField(widget=forms.TextInput(attrs={'class': 'street', 'id': 'street'}))
+    tCity = forms.CharField(widget=forms.TextInput(attrs={'class': 'city', 'id': ' city'}))
+    tState = forms.CharField(widget=forms.TextInput(attrs={'class': 'state', 'id': 'state'}))
+    tPincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
+
+    class Meta:
+        model =TemporaryAddress
+        fields = ["tDno", "tStreet", "tCity", "tState", "tPincode", "tAddressType"]

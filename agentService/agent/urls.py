@@ -41,7 +41,8 @@ urlpatterns=[
     path(url_dict["imageData"], views.imageData, name="imageData"),
     path(url_dict["deptData"], views.deptData, name="deptData"),
     path(url_dict["searchByDepartment"],views.searchByDepartment,name="searchBydepartment"),
-    path('createAddress/', views.createAddress, name="createAddress"),
+    path('createPaddress/', views.createPaddress, name="createPaddress"),
+    path('createTaddress/', views.createTaddress, name="createTaddress"),
     #path('showAllDepartments/', views.showAllDepartments, name="showAllDepartments-page"),
     #path('searchByDepartment/', views.searchByDepartment, name="showAllDepartments-page"),
 ]
