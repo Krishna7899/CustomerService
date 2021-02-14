@@ -71,3 +71,16 @@ class LogTable(models.Model):
     agentId=models.IntegerField(default=0)
     def __str__(self):
         return self.loginTime
+class Address(models.Model):
+    ADDRESS_options = (('p', 'permanent address'), ('t', "temporary address"))
+    id = models.AutoField(auto_created=True, primary_key=True)
+    dno = models.CharField(max_length=10)
+    street = models.CharField(max_length=20)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    pincode = models.CharField(max_length=6)
+    agent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    address_type = models.CharField(max_length=1, choices=ADDRESS_options)
+
+    def __str__(self):
+        return self.state

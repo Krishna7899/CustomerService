@@ -55,13 +55,47 @@
                     <label class="agent-field-label">Department</label>
                     {{form.dept}}
                 </div>
+
                 <div class="field agentRegister-submit">
                     <input type="submit" value="Register" class="agentRegister-submit-button" >
                 </div>
            </div>
-
     </form>
+      {{addressMsg}}
+    <a href="/agent/createAddress/">Address</a>
+        <form action="/agent/createAddress/" method="POST">
+               {% csrf_token %}
+            <div>
+             <div class="agent-field">
+                    <label class="agent-field-label">Address Type</label>
+                    {{addressForm.address_type}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">Door No</label>
+                    {{addressForm.dno}}
+            </div>
 
+            <div class="agent-field">
+                    <label class="agent-field-label">Street</label>
+                    {{addressForm.street}}
+            </div>
+             <div class="agent-field">
+                    <label class="agent-field-label">City</label>
+                    {{addressForm.city}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">State</label>
+                    {{addressForm.state}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">PinCode</label>
+                    {{addressForm.pincode}}
+            </div>
+            <div class=" agentAddress-submit">
+                    <input type="submit" value="Register" class="agentAddress-submit-button" >
+            </div>
+            </div>
+        </form>
   </div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import AgentTable, Requests, Department
+from .models import AgentTable, Requests, Department,Address
 from django import forms
 
 
@@ -47,3 +47,13 @@ class RequestsForm(forms.ModelForm):
     class Meta:
         model = Requests
         fields = ["requestedUserName","description", "requestType"]
+class AddressForm(forms.ModelForm):
+    dno = forms.CharField(widget=forms.TextInput(attrs={'class': 'dno', 'id':'dno'}))
+    street = forms.CharField(widget=forms.TextInput(attrs={'class': 'street', 'id': 'street'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'city', 'id': ' city'}))
+    state = forms.CharField(widget=forms.TextInput(attrs={'class': 'state', 'id': 'state'}))
+    pincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
+
+    class Meta:
+        model=Address
+        fields=["dno","street","city","state","pincode","address_type"]

@@ -4,10 +4,11 @@
     <title>Agent Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-    </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
                 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
                 crossorigin="anonymous"></script>
@@ -18,14 +19,14 @@
         <script src="{% static 'js/updateProfile.js' %}"></script>
         <script src="{% static 'js/index.js' %}"></script>
        <script src="{% static 'js/search.js' %}"></script>
-</head>
+ </head>
 <body>
         <div class="header">
             <h2 class="welcome">Welcome {{request.session.firstName}}!! </h2>
             <span>Last login:{{last_login}}</span>
         </div>
         <div class="topnav">
-               <a href="/agent/agentProfile/">My Profile</a>
+               <a href="/agent/agentDetails/">My Profile</a>
                    <div class="dropdown">
                       <button class="dropbtn">Agent</button>
                       <div class="dropdown-content">
@@ -41,7 +42,7 @@
                       <button class="dropbtn">Department</button>
                       <div class="dropdown-content">
                       <a href="/agent/createDepartment/">Create Department</a>
-                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
+                      <a href="/agent/showDepartments/">ShowAllDepartments</a>
                       <a href="/agent/searchByDepartment/">SearchByDepartment</a>
                       </div>
                    </div>
@@ -54,21 +55,13 @@
                    {% endif %}
                         <a href="/agent/agentLogout/">Logout</a>
             <div class="search-dropdown">
-              <form action="/agent/search/" method="POST">
+              <form action="/agent/search/" method="">
                   {% csrf_token %}
-                  <input id="myInput" type="text" name="search" value="" />
-                  <input id="search-submit" type="submit" placeholder="Search.."/>
-                  <div class="search-dropdown-content">
-                     {% if search_value_list %}
-                     <select id="myList" name="">
-                            {% for key in search_value_list %}
-                                <option data-value= "{{key}}" >{{key}}</option>
-                            {% endfor %}
-                     </select>
-                    {% endif %}
-                  </div>
-
-              </form>
+                <label for="myInput">Search</label>
+                <input type="text" name="myInput" id="myInput">
+            </form>
+                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             </div>
         </div>
         {% block code %}
@@ -86,7 +79,7 @@
              </div>
               <div>
                     <div id="upload" style="display:none;">
-                        <form action='/agent/upload/' method="post" enctype="multipart/form-data">
+                        <form action='/agent/imageUpload/' method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="field">
                                     <input id="id_image" type="file" class="profile-image" name="image">
@@ -114,7 +107,7 @@
                     </td>
                 </ul>
             </div>
-            <div id="profile-details" style="display:block" class="profile-details-container">
+          <div id="profile-details" style="display:block" class="profile-details-container">
                 <table id="agent-details-table">
                     <tr>
                     <caption>Profile Details</caption>
@@ -171,6 +164,64 @@
                         </td>
                      </tr>
                 </table>
+             <!--   <div>
+                    <table id="">
+                    <tr>
+                    <caption>Address</caption>
+                    </tr>
+                    <tr>
+                        <td>
+                          <label>Door No:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                            {{addrObj.dno}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Street:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                                   {{addrObj.street}}
+                            </div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                           <label>City:</label>
+                        </td>
+
+                        <td>
+                             <div class="field">
+                                    {{addrObj.city}}
+                             </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <label>State:</label>
+                        </td>
+                        <td>
+                            <div class="field">
+                          {{addrObj.state}}
+                            </div>
+                        </td>
+                     </tr>
+                     <tr>
+                       <td>
+                             <label>PinCode:</label>
+                       </td>
+                        <td>
+                            <div class="field">
+                             {{addrObj.pincode}}
+                            </div>
+                        </td>
+                     </tr>
+                </table>
+                </div>-->
             </div>
 
             <div id='tab2-update'>
@@ -219,7 +270,6 @@
                     </form>
               </div>
              </div>
-
         </div>
           <div class="column side">
 

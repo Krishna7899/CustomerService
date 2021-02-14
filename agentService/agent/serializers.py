@@ -5,3 +5,4 @@ class AgentSerialize(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = AgentTable
 		fields = ["image"]
+

@@ -3,7 +3,6 @@ from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
 
-
 # Login Validations
 def getAgentLoginValidation(request, username, password):
     agent_Obj = AgentTable.objects.filter(Q(username__iexact=username) | Q(email__iexact=username))

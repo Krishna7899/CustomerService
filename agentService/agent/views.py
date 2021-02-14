@@ -2,14 +2,14 @@
 import datetime
 
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm
+from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm,AddressForm
 from django.shortcuts import render, redirect
-from .models import Department, LogTable
+from .models import Department, LogTable,Address
 from .commons import url_dict
 
 
@@ -17,41 +17,54 @@ from .commons import url_dict
 
 # To show home page###
 def index(request):
-    return render(request, 'index.html', {})
+
+    if "product" in request.GET:
+        #search_key=request.GET.get('term')
+        keys_list_dict = dict(filter(lambda item: request.GET.get("product") in item[0], url_dict.items()))
+        search_value_list = list()
+        for key in keys_list_dict.keys():
+            search_value_list.append(key)
+        #print(search_value_list)
+        return JsonResponse([search_value_list],safe=False)
+    return render(request, 'index.html')
+
+
+def getKey(request):
+    search_value_list=list()
+    '''last_login = getLastLoginTime(request.session["id"])
+    myId = request.session['id']'''
+    #agent_detail_obj = getLoggedInUserObject(myId)
+    if 'term' in request.GET:
+        search_value=request.GET.get('term')
+        search_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
+        for key in search_list_dict.keys():
+            search_value_list.append(key)
+        print(search_value_list)
+        return JsonResponse(search_value_list,safe=False)
+
 def search(request):
-    last_login = getLastLoginTime(request.session["id"])
-    myId = request.session['id']
-    agent_detail_obj = getLoggedInUserObject(myId)
-    if request.method == "POST":
-        search_key=request.POST["search"]
+        search_key=request.GET.get("myInput")
         search_value_list = []
         #keys_list =[val for key, val in url_dict.items() if search_key in key]
         keys_list_dict = dict(filter(lambda item: search_key in item[0], url_dict.items()))
-        for key in keys_list_dict.keys():
-            search_value_list.append(key)
-        if len(search_value_list)>1:
-            return render(request, 'agentDetails.html',
-                      {"agentProfile": agent_detail_obj, "usertype": request.session["usertype"],
-                       "last_login": last_login, "search_value_list": search_value_list})
-        else:
-            for key in url_dict.keys():
-                if key==search_key:
-                   view_name=url_dict[key]
-                   return redirect('/agent/%s' % view_name)
+        for value in keys_list_dict.values():
+            search_value_list.append(value)
+        for key in url_dict.keys():
+            if key == search_key:
+                view_name =url_dict[key]
+                return redirect('/agent/%s' % view_name)
 
-                else:
-                    continue
+            else:
+                continue
 
 #agent login
 def handleShowAgent(request):
     return render(request, 'agentLogin.html', {})
 
-
 # Handling Login page of a Agent
 def agentLogin(request):
     if request.method == 'GET':
         return render(request, "agentLogin.html", {})
-
     if request.method == 'POST':
         # Get the username and password from template
         username = request.POST["username"]
@@ -65,6 +78,7 @@ def agentLogin(request):
             request.session["usertype"] = agent_Obj.usertype
             last_login=getLastLoginTime(request.session["id"])
             saveLoginTime(agent_Obj.id)
+            #addrObj=Address.objects.filter(agent_id=request.session["id"])
             return render(request, 'agentDetails.html', {"agentProfile": agent_Obj,"usertype":request.session["usertype"],"last_login":last_login})
         except ServiceException as ex:
             return render(request, "agentLogin.html", {"msg": ex.errorMessage})
@@ -80,14 +94,12 @@ def handleAgent(request):
         username = request.POST["username"]
     form = AgentForm(request.POST, request.FILES)
     try:
-
         createEmployeeValidation(request, email, username)
         if form.is_valid():
             form.save()
             return render(request, 'agentRegistration.html', {'form': form, 'message': 'success',"last_login":last_login})
     except ServiceException as ex:
         return render(request, 'agentRegistration.html', {'form': form, 'message': ex.errorMessage})
-
 
 # Show all  agents when supervisor want the details
 def showAgents(request):
@@ -338,3 +350,35 @@ def searchByDepartment(request):
                 return render(request,"searchdepartment.html",{"search_by_department":search_by_department,"usertype":usertype,'form':form})
         except:
             return render(request,"searchdepartment.html",{"usertype":usertype,"form":form ,"msg":"No details found"})
+
+def createAddress(request):
+    last_login = getLastLoginTime(request.session["id"])
+    usertype = request.session["usertype"]
+    #agent=Address.objects.get("agent")
+    addressForm = AddressForm()
+    form = AgentForm()
+    if request.method == "GET":
+        addressForm =AddressForm()
+        form = AgentForm()
+        return render(request, 'agentRegistration.html', {"form":form,'addressForm': addressForm ,"usertype":usertype,"last_login":last_login})
+    if request.method=='POST':
+        form =AddressForm(request.POST)
+        dno =request.POST["dno"]
+        street = request.POST["street"]
+        city = request.POST["city"]
+        state = request.POST["state"]
+        pincode = request.POST["pincode"]
+        agent_id=request.session["id"]
+        address_type=request.POST["address_type"]
+    try:
+       if Address.objects.create(dno=dno,street=street,city=city,state=state,pincode=pincode,agent_id=agent_id,address_type=address_type):
+           form = AgentForm()
+           return render(request, 'agentRegistration.html', {"form":form,'addressForm': addressForm ,"usertype":usertype,"last_login":last_login,"addressMsg":"address inserted"})
+    except ServiceException as ex:
+        return render(request, 'agentRegistration.html', {'form': form, 'message': ex.errorMessage})
+
+
+
+
+
+

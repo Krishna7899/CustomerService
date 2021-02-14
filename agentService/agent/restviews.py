@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -10,6 +11,10 @@ from .serializers import AgentSerialize
 from .models import AgentTable
 from rest_framework import status
 from django.contrib.auth.models import User
+from rest_framework import generics
+from .commons import url_dict
+from .DButils import *
+import json
 """class AgentViewSet(viewsets.ModelViewSet):
 	queryset = AgentTable.objects.all() #what to retrive
 	serializer_class = AgentSerialize #which should obj holds the response
@@ -48,3 +53,32 @@ class AgentImageAPIView(APIView):
             serializer=AgentSerialize(agentImages,many=True)
         return Response(serializer.data)
 
+#@api_view(['GET', 'POST'])
+'''def getKey(request):
+    search_value_list=()
+    last_login = getLastLoginTime(request.session["id"])
+    myId = request.session['id']
+    agent_detail_obj = getLoggedInUserObject(myId)
+    if 'search_key' in request.GET:
+        search_key=request.GET.get('search_key')
+        keys_list_dict = dict(filter(lambda item: search_key in item[0], url_dict.items()))
+        for key in keys_list_dict.keys():
+            search_value_list.append(key)
+        return JsonResponse(search_value_list,safe=False)
+    return render(request, 'agentDetails.html',
+                  {"agentProfile": agent_detail_obj, "usertype": request.session["usertype"],
+                   "last_login": last_login, "search_value_list": search_value_list})
+'''
+def search(request):
+    return render(request, 'index.html')
+@api_view(['GET', 'POST'])
+def auto_search(request):
+    if 'term' in request.GET:
+        #search_key=request.GET.get('term')
+        keys_list_dict = dict(filter(lambda item: request.GET.get('term') in item[0], url_dict.items()))
+        search_value_list = list()
+        for key in keys_list_dict.keys():
+            search_value_list.append(key)
+        #print(search_value_list)
+        return JsonResponse(search_value_list,safe=False)
+    return render(request, 'index.html')
