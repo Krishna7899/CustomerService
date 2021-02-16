@@ -1,2 +1,12 @@
 
 venv
+agentService/agentService/__pycache__/settings.cpython-39.pyc
+*.pyc
+*.pyc
+agentService/agent/__pycache__/views.cpython-39.pyc
+agentService/agentService/__pycache__/settings.cpython-39.pyc
+agentService/agent/migrations/__pycache__/0008_auto_20210214_1904.cpython-39.pyc
+*.pyc
+*.pyc
+*.pyc
+agentService/agent/migrations/__pycache__/0008_auto_20210214_1904.cpython-39.pyc
