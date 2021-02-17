@@ -4,7 +4,10 @@ from django.utils import timezone
 
 # Create your models here.
 # Model class
+
 AddressOptions = (('PermanentAddress', 'PermanentAddress'), ('TemporaryAddress', "TemporaryAddress"))
+
+
 class AgentTable(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     firstName = models.CharField(max_length=8, default="")
@@ -79,7 +82,7 @@ class LogTable(models.Model):
     pState = models.CharField(max_length=20)
     pPincode = models.CharField(max_length=6)
     pAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
-    pAddressType = models.CharField(max_length=2, choices=AddressOptions)
+    pAddressType = models.CharField(max_length=30, choices=AddressOptions)
     def __str__(self):
         return self.pDno
 
@@ -91,12 +94,12 @@ class TemporaryAddress(models.Model):
     tState = models.CharField(max_length=20)
     tPincode = models.CharField(max_length=6)
     tAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
-    tAddressType = models.CharField(max_length=2, choices=AddressOptions)
+    tAddressType = models.CharField(max_length=30, choices=AddressOptions)
 
     def __str__(self):
         return self.tDno'''
-
 class AddressTable(models.Model):
+
     id = models.AutoField(auto_created=True, primary_key=True)
     Dno = models.CharField(max_length=10)
     Street = models.CharField(max_length=20)

@@ -1,15 +1,15 @@
 # Create your views here.
 import datetime
-
+from re import search
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm,AddressForm
+from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm
 from django.shortcuts import render, redirect
-from .models import Department, LogTable,AddressTable
+from .models import Department, LogTable, AddressTable
 from .commons import url_dict
 
 
@@ -36,10 +36,14 @@ def getKey(request):
     if 'term' in request.GET:
         search_value = request.GET.get('term')
         search_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
+        # res = [val for key, val in url_dict.items() if search_value in key]
         for key in search_list_dict.keys():
             search_value_list.append(key)
-        print(search_value_list)
-        return JsonResponse(search_value_list, safe=False)
+        if search_value_list:
+            return JsonResponse(search_value_list, safe=False)
+        else:
+            mesg = ["No Data Found"]
+            return JsonResponse(mesg, safe=False)
 
 
 def search(request):
@@ -81,12 +85,15 @@ def agentLogin(request):
             last_login = getLastLoginTime(request.session["id"])
             saveLoginTime(agent_Obj.id)
             # addrObj=Address.objects.filter(agent_id=request.session["id"])
+            addressForm = AddressForm()
             pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
             tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
 
-            return render(request, 'agentDetails.html', {"agentProfile": agent_Obj,"pAddr":pAddr,"tAddr":tAddr,
-                                                             "usertype": request.session["usertype"],
-                                                             "last_login": last_login})
+            return render(request, 'agentDetails.html', {"agentProfile": agent_Obj, "pAddr": pAddr, "tAddr": tAddr,
+                                                         "AddressForm": addressForm,
+                                                         "usertype": request.session["usertype"],
+                                                         "last_login": last_login})
+
         except ServiceException as ex:
             return render(request, "agentLogin.html", {"msg": ex.errorMessage})
 
@@ -97,8 +104,9 @@ def handleAgent(request):
     usertype = request.session["usertype"]
     if request.method == "GET":
         form = AgentForm()
-        addressForm=AddressForm()
-        return render(request, 'agentRegistration.html', {'form': form,"AddressForm":addressForm, "usertype": usertype, "last_login": last_login})
+        addressForm = AddressForm()
+        return render(request, 'agentRegistration.html',
+                      {'form': form, "AddressForm": addressForm, "usertype": usertype, "last_login": last_login})
     if request.method == "POST":
         email = request.POST["email"]
         username = request.POST["username"]
@@ -123,7 +131,8 @@ def showAgents(request):
         if show_agent_obj:
             last_login = getLastLoginTime(request.session["id"])
             return render(request, "showAgents.html",
-                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj,"usertype":request.session["usertype"],"last_login": last_login})
+                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj,
+                           "usertype": request.session["usertype"], "last_login": last_login})
 
 
 # Search agent details by using Id or username
@@ -215,24 +224,14 @@ def agentDetails(request):
         myId = request.session['id']
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
+        addressForm = AddressForm()
         pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
         tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
-                          {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "usertype": usertype,
+                          {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr,"AddressForm":addressForm ,"usertype": usertype,
                            "msg": "MY Image", "last_login": last_login})
-        elif pAddr:
-            return render(request, 'agentDetails.html',
-                          {"agentProfile": agent_detail_obj, "pAddr": pAddr, "usertype": usertype,
-                           "last_login": last_login, "tMsg": "Temporary Permanent Address Not available"})
-        elif tAddr:
-            return render(request, 'agentDetails.html',
-                          {"agentProfile": agent_detail_obj, "tAddr": tAddr, "usertype": usertype,
-                           "last_login": last_login, "pMsg": "Permanent Address Not available"})
-        else:
-            return render(request, 'agentDetails.html',
-                          {"agentProfile": agent_detail_obj, "usertype": usertype, "msg": "MY Image",
-                           "last_login": last_login})
+
 
 
 # Editing profile of agent when agent login only
@@ -412,9 +411,9 @@ def createAddress(request):
     form = AgentForm()
     if request.method == "GET":
         return render(request, 'agentRegistration.html',
-                      {"form": form, 'AddressForm': addressForm , "usertype": usertype, "last_login": last_login})
+                      {"form": form, 'AddressForm': addressForm, "usertype": usertype, "last_login": last_login})
     if request.method == 'POST':
-        form = AddressForm(request.POST)
+        addressForm = AddressForm(request.POST)
         Dno = request.POST["Dno"]
         Street = request.POST["Street"]
         City = request.POST["City"]
@@ -423,9 +422,8 @@ def createAddress(request):
         Agent = request.session["id"]
         Agent_id = Agent
         AddressType = request.POST["AddressType"]
-
-        form = AgentForm()
-
-        AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State,Pincode=Pincode, Agent_id=Agent_id, AddressType=AddressType)
-        return render(request, 'agentRegistration.html', {"form": form, 'pAddressForm': AddressForm,
-                                    "usertype": usertype, "last_login": last_login,"addressMsg": " address inserted"})
+        AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
+                                    AddressType=AddressType)
+        return render(request, 'agentRegistration.html', {"form": form, 'pAddressForm': addressForm,
+                                                          "usertype": usertype, "last_login": last_login,
+                                                          "addressMsg": " address inserted"})

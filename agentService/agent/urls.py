@@ -26,7 +26,7 @@ urlpatterns=[
     path(url_dict["advSearch"], views.advSearchByAgent, name="advSearch"),
     path('agentLogin/', views.agentLogin, name="agentLogin"),
     path('agentLogout/', views.agentLogout, name="logout-page"),
-    path(url_dict["imageUpload"], views.imageUpload,name="imageUpload"),
+    path('imageUpload/', views.imageUpload,name="imageUpload"),
     #path('supervisorImageUpload/', views.supervisorImageUpload,name="superUserImageUpload-page"),
     path(url_dict["myProfile"], views.agentDetails, name="myProfile"),
     path('editProfile/', views.editProfile, name="edit-page"),
@@ -38,10 +38,13 @@ urlpatterns=[
     #path('supervisorDetails/', views.supervisorDetails, name="showSupervisor-page"),
 
     path('<requestedBy>/unlockRequest/', views.unlockRequest, name="unlockRequest"),
-    path(url_dict["imageData"], views.imageData, name="imageData"),
-    path(url_dict["deptData"], views.deptData, name="deptData"),
+    path('<int:id>/imageData/', views.imageData, name="imageData"),
+    path('<dept>/deptData/', views.deptData, name="deptData"),
     path(url_dict["searchByDepartment"],views.searchByDepartment,name="searchBydepartment"),
+
     path('createAddress/', views.createAddress, name="createAddress"),
+
+
     #path('createTaddress/', views.createTaddress, name="createTaddress"),
     #path('showAllDepartments/', views.showAllDepartments, name="showAllDepartments-page"),
     #path('searchByDepartment/', views.searchByDepartment, name="showAllDepartments-page"),

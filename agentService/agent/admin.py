@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+
 from .models import AgentTable,Requests,Department,LogTable,AddressTable
 
 class MyAgentadmin(admin.ModelAdmin):
@@ -29,5 +30,8 @@ admin.site.register(PermanentAddress,MyAddressadmin)'''
 
 class MyAddressadmin(admin.ModelAdmin):
 	list_display = ("Dno","Street","City","State","Pincode","AddressType")
+
 admin.site.register(AddressTable,MyAddressadmin)
+
+
 

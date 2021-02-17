@@ -72,7 +72,7 @@ $(".accordion_head").click(function(){
             })
 })*/
 
-$(document).ready(function() {
+/*$(document).ready(function() {
   $("#tab2-updateProfile").click(function() {
     $("#profile-details").hide();
     $("#tab3-change").hide();
@@ -85,8 +85,8 @@ $(document).ready(function() {
     $("#tab2-update").hide();
     $("#tab3-change").toggle();
   });
-});
-$(document).ready(function() {
+});*/
+/*$(document).ready(function() {
  $("#tab1-profile-details").click(function() {
     $("#profile-details").toggle();
     $("#tab2-update").hide();
@@ -99,6 +99,7 @@ $(document).ready(function() {
     $("#tab2-update").toggle();
     $("#profile-details").hide();
     $("#tab3-change").hide();
+    $("#address").hide();
   });
 });
 
@@ -108,4 +109,4 @@ $(document).ready(function() {
     $("#tab2-update").hide();
     $("#tab3-change").toggle();
   });
-});
+});*/

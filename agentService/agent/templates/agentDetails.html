@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
     <!--bootstrap cdn-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--Auto search css-->
@@ -27,17 +27,17 @@
  </head>
 <body>
         <div class="header">
-            <h2 class="welcome">Welcome {{request.session.firstName}}!! </h2>
+            <h5 class="welcome">Welcome {{request.session.firstName}}!! </h5>
             <span>Last login:{{last_login}}</span>
         </div>
-  <nav class="navbar" role="navigation" style="background-color: #3b5998; height:15px;">
+  <nav class="navbar" role="navigation" style="background-color: #3b5998;">
   <div class="container-fluid" id="navbarSupportedContent">
       <ul class="nav navbar-nav">
-       <li><a class="nav-link-style" href="/agent/myProfile/">MyProfile</a></li>
+       <li><a class="nav-link-style py-0" href="/agent/myProfile/">MyProfile</a></li>
      </ul>
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Agent</a>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
           {% if usertype == "supervisor" %}
@@ -50,7 +50,7 @@
     {% if usertype == "supervisor" %}
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Department</a>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Department</a>
          <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/showDepartments/">Show Departments</a></li>
           <li><a class="dropdown-item" href="/agent/searchByDepartment/">Search by Department</a></li>
@@ -60,7 +60,7 @@
     </ul>
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Requests</a>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Requests</a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/showRequests/">Show Requests</a></li>
         </ul>
@@ -82,7 +82,7 @@
           <div class="column side left">
              <div class="display-image">
                     {% if agentProfile.image %}
-                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"/>
+                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="150px" height="150px"/>
                     {% else %}
 
                     {% endif %}
@@ -123,104 +123,88 @@
             <!-- Tab panes -->
             <div class="tab-content">
               <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                 <div class="card">
+                <div class="card">
                 <table id="agent-details-table">
                     <tr>
-                    <caption>Profile Details</caption>
+                    <th>Profile Details</th>
                     </tr>
                     <tr>
                         <td>
-                          <label>First Name:</label>
+                          First Name:
                         </td>
                         <td>
-                            <div class="field">
                             {{agentProfile.firstName}}
-                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label> Last Name:</label>
+                            Last Name:
                         </td>
                         <td>
-                            <div class="field">
                                    {{agentProfile.lastName}}
-                            </div>
                         </td>
                     </tr>
                      <tr>
                         <td>
-                           <label>Email Id:</label>
+                           Email Id:
                         </td>
 
                         <td>
-                             <div class="field">
                                     {{agentProfile.email}}
-                             </div>
                         </td>
                      </tr>
                      <tr>
                         <td>
-                           <label>UserName:</label>
+                             UserName:
                         </td>
                         <td>
-                            <div class="field">
+
                           {{agentProfile.username}}
-                            </div>
+
                         </td>
                      </tr>
                      <tr>
                        <td>
-                             <label>Department:</label>
+                             Department:
                        </td>
                         <td>
-                            <div class="field">
                              {{agentProfile.dept}}
-                            </div>
+
                         </td>
                      </tr>
                 </table>
-                    <table style="margin-top:3px;margin-left:20px;margin-right:20px;">
+                    <table id="address-table">
                         <tr>
-                            <th>{{pAddr.AddressType}}</th>
-                            <th>{{tAddr.AddressType}}</th>
-                        </tr>
 
+                             <th>{{pAddr.AddressType}}</th>
+                             <th>{{tAddr.AddressType}}</th>
+                        </tr>
                         <tr>
-                            <td>
-                                {{pMsg}}
-                                 {{pAddr.Dno}}
-
-                                {{pAddr.Street}}
-
-                                {{pAddr.City}}
-
-                                {{pAddr.State}}
-
-                                {{pAddr.Pincode}}
-                            </td>
-
-                            <td>
-                                {{tMsg}}
-
-                                {{tAddr.Dno}}
-
-                                {{tAddr.Street}}
-
-                                {{tAddr.City}}
-
-                               {{tAddr.State}}
-
-                               {{tAddr.Pincode}}
-                            </td>
-                            <td>
-                                <a href="/agent/register/">Add/Update Address</a>
-                            </td>
-                        </tr>
+                          <td style="margin-left:20px;">
+                              {{tMsg}}
+                              <ul style="list-style: none;">
+                                <li>{{pAddr.Dno}}</li>
+                                <li>{{pAddr.Street}}</li>
+                                <li>{{pAddr.City}}</li>
+                                <li>{{pAddr.State}}</li>
+                                <li>{{pAddr.Pincode}}</li>
+                              </ul>
+                             </td>
+                              <td>
+                                  {{tMsg}}
+                               <ul style="list-style: none;">
+                                 <li>{{tAddr.Dno}}</li>
+                                 <li>{{tAddr.Street}}</li>
+                                 <li>{{tAddr.City}}</li>
+                                 <li>{{tAddr.State}}</li>
+                                 <li>{{tAddr.Pincode}}</li>
+                               </ul>
+                              </td>
+                          </tr>
                     </table>
-                  </div>
-</div>
-  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                </div>
+              </div>
+           <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
            <div class="card">
            <form action="/agent/editProfile/" method="post">
                                                     {% csrf_token %}
@@ -242,15 +226,53 @@
                                     <input type="text" name="email" id="email" class="editProfile-email"
                                     value="{{agentProfile.email}}" />
                                 </div>
+
                                 <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>
                               </div>
                             </form>
-                         </div>
+                         <div class="container">
+           <a data-toggle="collapse" data-parent="#accordion" href="#updateAddress">Update Address</a>
+          <div id="updateAddress" class="collapse">
+             <form action="/agent/createAddress/" method="POST">
+               {% csrf_token %}
+                 <div class="update-address">
+                    <label>Address Type</label>
+                    {{AddressForm.AddressType}}
+                 </div>
+                     <div>
+                            <label class="update-addr-label">DoorNo</label>
+                            <input type="text" name="DoorNo" id="DoorNo" class="editAddr"/>
+                     </div>
+                     <div>
+                            <label class="update-addr-label">Street</label>
+                            <input type="text" name="Street" id="Street" class="editAddr"/>
+                     </div>
+                      <div>
+                            <label class="update-addr-label">City</label>
+                            <input type="text" name="City" id="City" class="editAddr"/>
+                     </div>
+                     <div>
+                            <label class="update-addr-label">State</label>
+                            <input type="text" name="State" id="State" class="editAddr"/>
+                     </div>
+                     <div>
+                            <label class="update-addr-label">Pincode</label>
+                            <input type="text" name="Pincode" id="Pincode" class="editAddr"/>
+                     </div>
+             <div class=" agentAddress-submit">
+                    <input type="submit" value="save" class="Address-submit-button">
+            </div>
+        </form>
+
+  </div>
 </div>
-  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
-         <div class="card">
-       <form action="/agent/changePassword/" method="post">
-                          {% csrf_token %}
+       </div>
+       </div>
+        <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+            <div class="card">
+                <form action="/agent/changePassword/" method="post">
+
+		                           {% csrf_token %}
                          <label class="change-password-here">Change Password here..</label>
                         <div>
                             <label class="change-password-label">Enter Old Password</label>
@@ -281,7 +303,7 @@
 </body>
 
         <div class="footer">
-          <p>Footer</p>
+          <p>Copy right CSR Application version@v1.0 2021</p>
         </div>
 
 </html>

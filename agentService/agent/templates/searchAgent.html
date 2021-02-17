@@ -8,12 +8,13 @@
             <li><a href='#tab2'>Advanced Search</a></li>
         </ul>
 <div id='tab1'>
-		<table>
+    		<table>
                 <tr>
                     <td>
                      {{msg}}
                     </td>
                 </tr>
+
                <form action="/agent/searchByAgent/" name="registration-page" method="post" id="form1">
             {% csrf_token %}
                  <tr>
@@ -40,11 +41,12 @@
                 </td>
                 </tr>
    	 </form>
+
           </table>
-
         </div>
-<div id='tab2'>
 
+
+    <div id='tab2'>
             <form action="/agent/advSearchByAgent/" name="searchByAgent-page" id="form2">
                 {% csrf_token %}
                 <table id="advSearch-option-table">
@@ -78,7 +80,7 @@
                     </tr>
                     </table>
            </form>
-
+            </div>
          </div>
 
      <div>
@@ -138,10 +140,7 @@
                     <th>Username</th>
                 </td>
                     <td>
-
-
-                     {{search_by_name.username}}
-
+                        {{search_by_name.username}}
 
                 </td>
             </tr>
