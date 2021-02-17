@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Agent Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
+    <!--bootstrap cdn-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Auto search css-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -12,7 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
                 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
                 crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
         <script src="{% static 'js/imageUpload.js' %}"></script>
         <script src="{% static 'js/resetPassword.js' %}"></script>
@@ -25,51 +30,59 @@
             <h2 class="welcome">Welcome {{request.session.firstName}}!! </h2>
             <span>Last login:{{last_login}}</span>
         </div>
-        <div class="topnav">
-               <a href="/agent/agentDetails/">My Profile</a>
-                   <div class="dropdown">
-                      <button class="dropbtn">Agent</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/searchByAgent/">Search</a>
-                   {% if usertype == "supervisor" %}
-                      <a href="/agent/showAgents/">ShowAgents</a>
-                      <a href="/agent/register/">Create Agent</a>
-                    {% endif %}
-                       </div>
-                   </div>
-                    {% if usertype == "supervisor" %}
-                   <div class="dropdown">
-                      <button class="dropbtn">Department</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/createDepartment/">Create Department</a>
-                      <a href="/agent/showDepartments/">ShowAllDepartments</a>
-                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
-                      </div>
-                   </div>
-                   <div class="dropdown">
-                      <button class="dropbtn">Requests</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/showRequests/">ShowRequests </a>
-                      </div>
-                   </div>
-                   {% endif %}
-                        <a href="/agent/agentLogout/">Logout</a>
-            <div class="search-dropdown">
-              <form action="/agent/search/" method="">
-                  {% csrf_token %}
-                <label for="myInput">Search</label>
-                <input type="text" name="myInput" id="myInput">
-            </form>
-                <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            </div>
-        </div>
+  <nav class="navbar" role="navigation" style="background-color: #3b5998;">
+  <div class="container-fluid" id="navbarSupportedContent">
+      <ul class="nav navbar-nav">
+       <li><a class="nav-link-style" href="/agent/myProfile/">MyProfile</a></li>
+     </ul>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Agent</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
+          {% if usertype == "supervisor" %}
+          <li><a class="dropdown-item" href="/agent/showAgents/">Show Agents</a></li>
+          <li><a class="dropdown-item" href="/agent/register/">Create Agent</a></li>
+          {% endif %}
+        </ul>
+      </li>
+    </ul>
+    {% if usertype == "supervisor" %}
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Department</a>
+         <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/showDepartments/">Show Departments</a></li>
+          <li><a class="dropdown-item" href="/agent/searchByDepartment/">Search by Department</a></li>
+          <li><a class="dropdown-item" href="/agent/createDepartment/">Create Department</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle nav-link-style" data-toggle="dropdown" href="#">Requests</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/showRequests/">Show Requests</a></li>
+        </ul>
+      </li>
+    </ul>
+    {% endif %}
+    <ul class="nav navbar-nav">
+    <li><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></li>
+  </ul>
+    <form class="form-inline navbar-right my-2 my-lg-0">
+      <input type="text" name="myInput" id="myInput" placeholder="search here...." class="form-control">
+    </form>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </div>
+</nav>
         {% block code %}
       <div class="row">
           <div class="column side left">
              <div class="display-image">
                     {% if agentProfile.image %}
-                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="200px" height="150px"/>
+                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"/>
                     {% else %}
 
                     {% endif %}
@@ -94,20 +107,23 @@
           </div>
 
         <div class="column middle">
-             <div id='tabs-container'>
-                <ul class='tabs-buttons'>
-                    <td>
-                        <li><a href="#profile-details" id='tab1-profile-details'>My Profile</a></li>
-                    </td>
-                    <td>
-                        <li><a href="#tab2-update" id='tab2-updateProfile'>UpdateProfile</a></li>
-                    </td>
-                    <td>
-                        <li><a href="#tab3-change" id='tab3-changePassword'>ChangePassword</a></li>
-                    </td>
-                </ul>
-            </div>
-          <div id="profile-details" style="display:block" class="profile-details-container">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item active">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">MyProfile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">UpdateProfile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">ChangePassword</a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                 <div class="card">
                 <table id="agent-details-table">
                     <tr>
                     <caption>Profile Details</caption>
@@ -164,56 +180,57 @@
                         </td>
                      </tr>
                 </table>
-                <div>
-                    <table>
+                    <table style="margin-top:3px;margin-left:20px;margin-right:20px;">
+                        <tr>
+                            <th>{{pAddr.AddressType}}</th>
+                            <th>{{tAddr.AddressType}}</th>
+                        </tr>
+
                         <tr>
                             <td>
                                 {{pMsg}}
-                                {{pAddr.pAddressType}}<br>
-                                 {{pAddr.pDno}}
+                                 {{pAddr.Dno}}
 
-                                {{pAddr.pStreet}}
+                                {{pAddr.Street}}
 
-                                {{pAddr.pCity}}
+                                {{pAddr.City}}
 
-                                {{pAddr.pState}}
+                                {{pAddr.State}}
 
-                                {{pAddr.pPincode}}
-
-
+                                {{pAddr.Pincode}}
                             </td>
+
                             <td>
                                 {{tMsg}}
-                                {{tAddr.tAddressType}}<br>
 
-                                {{tAddr.tDno}}
+                                {{tAddr.Dno}}
 
-                                {{tAddr.tStreet}}
-                                {{tAddr.tCity}}
+                                {{tAddr.Street}}
 
-                               {{tAddr.tState}}
+                                {{tAddr.City}}
 
-                               {{tAddr.tPincode}}
+                               {{tAddr.State}}
 
+                               {{tAddr.Pincode}}
                             </td>
                             <td>
-                                <a href="/agent/register/"><h4><pre>Add/Update Address</pre></h4></a>
+                                <a href="/agent/register/">Add/Update Address</a>
                             </td>
                         </tr>
                     </table>
-                </div>
-              <div>
-              </div>
-            </div>
-
-            <div id='tab2-update'>
-                <form action="/agent/editProfile/" method="post">
-                                    {% csrf_token %}
-                               {{errorMsg}}
+                  </div>
+</div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+           <div class="card">
+           <form action="/agent/editProfile/" method="post">
+                                                    {% csrf_token %}
+                                               {{errorMsg}}
+                              <div>
+                               <label class="change-your-profile-here"> Update Your Profile here..</label>
                                 <div>
                                     <label class="update-field-label">First Name</label>
                                     <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
-                                    value="{{agentProfile.firstName}}" />
+                                    value="{{agentProfile.firstName}}"/>
                                 </div>
                                 <div>
                                     <label class="update-field-label"> Last Name</label>
@@ -226,39 +243,43 @@
                                     value="{{agentProfile.email}}" />
                                 </div>
                                 <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>
-                </form>
-            </div>
-             <div id='tab3-change'>
-                  <form action="/agent/changePassword/" method="post">
+                              </div>
+                            </form>
+                         </div>
+</div>
+  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+         <div class="card">
+       <form action="/agent/changePassword/" method="post">
                           {% csrf_token %}
+                         <label class="change-password-here">Change Password here..</label>
                         <div>
                             <label class="change-password-label">Enter Old Password</label>
                             <input type="password" name="old-password" class="change-password-field" id="old-password-field" required/>
                         </div>
                         <div>
-                            <label class="change-password-label">Enter New Password</label>
+                            <label class="change-password-label">Type New Password</label>
                             <input type="password" name="new-password" class="change-password-field" id="password-field"/>
                         </div>
                         <div>
 
-                            <label class="change-password-label">Confirm New Password</label>
+                            <label class="change-password-label">Re-Type New Password</label>
                             <input type="password" name="confirm-Password" class="change-password-field" id="confirm-password-field"/>
 
                         </div>
                         <p>{{changeMsg}}</p>
                         <span class="error_form" id="errorMessage"></span>
                          <input type="submit" value="Change" class="change-password-submit" id="button-2">
-
                     </form>
-              </div>
              </div>
-        </div>
-          <div class="column side">
+</div>
+             </div>
 
-          </div>
+
         {% endblock %}
-</body>
       </div>
+      </div>
+</body>
+
         <div class="footer">
           <p>Footer</p>
         </div>

@@ -19,10 +19,8 @@
                  <tr>
                      <td>
                 <div class="search-field">
-
-                   <label>Search</label>
-                 <!--   <span class="search-field-input">{{form.username}}</span>-->
-                    <input type="text" id="placeholder" name="username" placeholder="" class="search-field-input" required/>
+                 <!-- <label>Search</label>  <span class="search-field-input">{{form.username}}</span>-->
+                    <input type="text" id="placeholder" name="username" placeholder=" search here" class="search-field-input" required/>
 
                 </div>
                      </td>
@@ -45,7 +43,7 @@
           </table>
 
         </div>
-<div id='tab2'><a name="tab2"></a>
+<div id='tab2'>
 
             <form action="/agent/advSearchByAgent/" name="searchByAgent-page" id="form2">
                 {% csrf_token %}
@@ -59,15 +57,12 @@
                      <td>
 
                 <input type="text" id="firstName" name="firstName" placeholder="FirstName">
-
                      </td>
-                     <td col-span="1">
-
+                     <td>
                       <input type="text" id="lastName" name="lastName" placeholder="LastName">
 
                       </td>
-                      <td col-span="1">
-
+                      <td>
 
                       <input type="text" id="username" name="username" placeholder="username">
 
@@ -99,7 +94,7 @@
                 <td>
                             {% if search_by_name.image %}
                                 <img src="{{search_by_name.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
-                                                        width="70px" height="30px"/>
+                                                        width="70px" height="25px"/>
                              {% else %}
                                     {{msg}}
                             {% endif %}
@@ -201,65 +196,49 @@
             {% for adv_search_obj in page_obj %}
             <tr>
                 <td>
-                    <div class="field">
-                             {% if adv_search_obj.image %}
+                        {% if adv_search_obj.image %}
                                 <img src="{{adv_search_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
                                                         width="100px" height="50px"/>
                              {% else %}
                                     {{msg}}
                             {% endif %}
-                    </div>
-
                 </td>
                 <td>
-                    <div class="field">
-                    <label></label>
+
                     {{adv_search_obj.firstName}}
-                        </div>
+
                 <td>
 
-                        <div class="field">
-                    <label></label>
+
                      {{adv_search_obj.lastName}}
-                        </div>
+
                 </td>
                 <td>
-                    <div class="field">
-                    <label></label>
                      {{adv_search_obj.email}}
-                        </div>
+
 
                 </td>
                 <td>
-                         <div class="field">
-                    <label></label>
+
                      {{adv_search_obj.username}}
-                        </div>
+
 
                 </td>
                 <td>
-                            <div class="field">
-                    <label></label>
+
                      {{adv_search_obj.usertype}}
-                        </div>
+
 
                 </td>
                 <td>
-                            <div class="field">
-                    <label></label>
                      {{adv_search_obj.dept}}
-                        </div>
+
 
                 </td>
             </tr>
             {% endfor %}
 
-            <tr>
-
-
-            </tr>
-
-        </table>
+       </table>
         <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}

@@ -4,7 +4,7 @@ from django.utils import timezone
 
 # Create your models here.
 # Model class
-AddressOptions = (('PA', 'Permanent Address'), ('TA', "TemporaryAddress"))
+AddressOptions = (('PermanentAddress', 'PermanentAddress'), ('TemporaryAddress', "TemporaryAddress"))
 class AgentTable(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     firstName = models.CharField(max_length=8, default="")
@@ -71,7 +71,7 @@ class LogTable(models.Model):
     agentId=models.IntegerField(default=0)
     def __str__(self):
         return self.loginTime
-class PermanentAddress(models.Model):
+'''class PermanentAddress(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     pDno = models.CharField(max_length=10)
     pStreet = models.CharField(max_length=20)
@@ -94,4 +94,17 @@ class TemporaryAddress(models.Model):
     tAddressType = models.CharField(max_length=2, choices=AddressOptions)
 
     def __str__(self):
-        return self.tDno
+        return self.tDno'''
+
+class AddressTable(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    Dno = models.CharField(max_length=10)
+    Street = models.CharField(max_length=20)
+    City = models.CharField(max_length=20)
+    State = models.CharField(max_length=20)
+    Pincode = models.CharField(max_length=6)
+    Agent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    AddressType = models.CharField(max_length=30, choices=AddressOptions)
+
+    def __str__(self):
+        return self.Dno

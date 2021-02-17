@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import AgentTable,Requests,Department,LogTable,PermanentAddress,TemporaryAddress
+from .models import AgentTable,Requests,Department,LogTable,AddressTable
 
 class MyAgentadmin(admin.ModelAdmin):
    	list_display = ('id','firstName', 'lastName', 'username','password', 'dept','created_date','usertype')
@@ -27,10 +27,7 @@ admin.site.register(LogTable, MylogTableadmin)
 	list_display = ("dno","street","city","state","pincode","address_type")
 admin.site.register(PermanentAddress,MyAddressadmin)'''
 
-class MypAddressadmin(admin.ModelAdmin):
-	list_display = ("pDno","pStreet","pCity","pState","pPincode","pAddressType")
-admin.site.register(PermanentAddress,MypAddressadmin)
+class MyAddressadmin(admin.ModelAdmin):
+	list_display = ("Dno","Street","City","State","Pincode","AddressType")
+admin.site.register(AddressTable,MyAddressadmin)
 
-class MytAddressadmin(admin.ModelAdmin):
-	list_display = ("tDno","tStreet","tCity","tState","tPincode","tAddressType")
-admin.site.register(TemporaryAddress,MytAddressadmin)

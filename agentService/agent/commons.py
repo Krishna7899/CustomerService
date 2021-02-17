@@ -5,7 +5,7 @@ url_dict={
     "index":"index/",
    # "agentLogin":"agentLogin/",
     "imageUpload":'imageUpload/',
-    "agentDetails":'agentDetails/',
+    "myProfile":'myProfile/',
     "createDepartment":'createDepartment/',
     "showDepartments":'showDepartments/',
     "searchByDepartment":'searchByDepartment/',

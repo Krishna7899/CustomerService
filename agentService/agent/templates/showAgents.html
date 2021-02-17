@@ -1,12 +1,7 @@
 {% extends "agentDetails.html" %}
 {% block code %}
-{% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
-<div class="column middle">
-       <table id="agent" >
-            <tr>
-               <caption>List Of Agents</caption>
-            </tr>
+        <table id="agent">
+           <caption>List Of Agents</caption>
             <tr>
                  <th>Image</th>
                  <th>FirstName</th>
@@ -46,11 +41,8 @@
             </td>
             </tr>
              {% endfor %}
-            <tr>
-
-            </tr>
-       </table><br/>
-             <div class="pagination">
+       </table>
+       <div class="pagination">
           <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
@@ -66,7 +58,5 @@
                 <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
           </span>
-        </div>
-    </div>
-
+       </div>
 {% endblock%}
