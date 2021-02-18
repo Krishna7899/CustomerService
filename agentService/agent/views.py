@@ -86,8 +86,8 @@ def agentLogin(request):
             saveLoginTime(agent_Obj.id)
             # addrObj=Address.objects.filter(agent_id=request.session["id"])
             addressForm = AddressForm()
-            pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-            tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+            pAddr = AddressTable.objects.filter(AddressType="PermanentAddress")
+            tAddr = AddressTable.objects.filter(AddressType="TemporaryAddress")
 
             return render(request, 'agentDetails.html', {"agentProfile": agent_Obj, "pAddr": pAddr, "tAddr": tAddr,
                                                          "AddressForm": addressForm,

@@ -1,6 +1,6 @@
 .showDept{
-    margin-left:30px;
-    margin-right:30px;
+    margin-left:40px;
+    margin-right:40px;
 
 }
 
@@ -8,7 +8,7 @@
 #agent {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 30vw;
+  width: 10vw;
   margin-left:300px;
 }
 
@@ -24,8 +24,8 @@
 #agent tr:hover {background-color: #ddd;}
 
 #agent th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: #34ebe1;
   color: white;
 }

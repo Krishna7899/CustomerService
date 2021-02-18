@@ -274,7 +274,7 @@ width: 25%;
 
 }
 .field{
-      padding: 10px;
+      padding: 5px;
   }
 
 .radio-field{
@@ -377,10 +377,6 @@ margin-left:250px;
         color:#87ceeb;
         text-align:left;
 }
-.dept-field{
-    margin-left:200px;
-
-}
 
 .deptName{
         line-height:10px;
@@ -414,6 +410,9 @@ margin-left:250px;
       background:#87ceeb;
       width:40%;
 }
+
+
+
 
 .request-label{
         display:block-inline;
