@@ -11,7 +11,8 @@ from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressFo
 from django.shortcuts import render, redirect
 from .models import Department, LogTable, AddressTable
 from .commons import url_dict
-
+from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -26,21 +27,36 @@ def index(request):
         # print(search_value_list)
         return JsonResponse([search_value_list], safe=False)
     return render(request, 'index.html')
-
-
+'''def getKey(request):
+    if request.is_ajax():
+        query=request.GET.get('term')
+        result = []
+        data={}
+        keys_list_dict = dict(filter(lambda item: query in item[0], url_dict.items()))
+        for key,value in keys_list_dict.items():
+            data['label']=key
+            data['value']=value
+        result.append(data)
+        dump=json.dumps(result)
+    mimetype='application/json'
+    return HttpResponse(dump,mimetype)'''
 def getKey(request):
     search_value_list = list()
+    data={}
     '''last_login = getLastLoginTime(request.session["id"])
     myId = request.session['id']'''
     # agent_detail_obj = getLoggedInUserObject(myId)
-    if 'term' in request.GET:
+    if request.is_ajax():
         search_value = request.GET.get('term')
         search_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
         # res = [val for key, val in url_dict.items() if search_value in key]
-        '''for key in search_list_dict.keys():
-            search_value_list.append(key)'''
-        if search_list_dict:
-            return JsonResponse(search_list_dict)
+        for i in search_list_dict:
+            data['label']=i
+            data['value']=search_list_dict[i]
+            search_value_list.append(data)
+        #search_value_list.append(search_list_dict)
+        if search_value_list:
+            return JsonResponse(search_value_list,safe=False)
         else:
             mesg = ["No Data Found"]
             return JsonResponse(mesg, safe=False)

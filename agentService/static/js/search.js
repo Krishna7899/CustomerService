@@ -46,21 +46,15 @@ $(document).ready(function () {
 });*/
 
 
+$(document).ready(function() {
+      $("#myInput").autocomplete({
+           source:"/agent/getKey",
+           select: function(event,ui){
+                   GetRedirectPage(ui.item.label,ui.item.value);
+            }
+       });
+    });
 
-
- $('#myInput').autocomplete({
-    source: function (request, response) {
-          $.getJSON("/agent/getKey?term=" + request.term, function (data) {
-          console.log(data);
-            response($.map(data, function (value, key) {
-                console.log(value);
-                return {
-                    label: value.label,
-                    value: value.value
-                };
-            }));
-        });
-    },
-    minLength: 1,
-    delay: 100
-});
+    function GetRedirectPage(label, slug) {
+          window.location.href = "/agent/"+slug;
+    }
