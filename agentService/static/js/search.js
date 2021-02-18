@@ -29,14 +29,38 @@ $(document).ready(function () {
     })
 });*/
 /*auto complete */
- $( function(){
-    $("#myInput").autocomplete({
-      source: "/agent/getKey/",
-      select: function( event , ui ) {
-                /*var value = ui.item.value;*/
-                var url = "/agent/%s" % ui.item.value;
-                $(location).prop('href',"http://127.0.0.1:8000/agent/"+ui.item.value+"/");
-           /* alert( "You selected: " + ui.item.value );*/
-        }
-    });
- });
+
+ /*$('#myInput').autocomplete({
+    source: function (request, response) {
+        $.getJSON("/agent/getKey/", function (data) {
+            response($.map(data.search_list_dict,function (value, key) {
+                return {
+                    label: value,
+                    value: key
+                };
+            }));
+        });
+    },
+    minLength: 2,
+    delay: 100
+});*/
+
+
+
+
+ $('#myInput').autocomplete({
+    source: function (request, response) {
+          $.getJSON("/agent/getKey?term=" + request.term, function (data) {
+          console.log(data);
+            response($.map(data, function (value, key) {
+                console.log(value);
+                return {
+                    label: value.label,
+                    value: value.value
+                };
+            }));
+        });
+    },
+    minLength: 1,
+    delay: 100
+});

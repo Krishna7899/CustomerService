@@ -47,13 +47,13 @@
       border: none;
       border-radius:5px;
       color: white;
-      padding: 5px 20px;
+      padding: 4px 20px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
       cursor: pointer;
-      margin-left:0px;
+      margin-left:10px;
       width:100%;
 }
 .advSearchAgent-button input[type="submit"]{
@@ -130,7 +130,6 @@
         line-height:5px;
         width: 70%;
         padding:5px 5px;
-        margin: 0px 0;
         border-radius:10px;
         box-sizing: border-box;
         border: 1px solid #ccc;
@@ -148,7 +147,12 @@
                 margin-left:100px;
 }
 #advSearch-option-table tr{
-                display:inline;
+                display:inline-block;
+
+}
+#advSearch-option-table td{
+          margin:0px;
+          padding:0
 
 }
 
@@ -156,8 +160,8 @@
 #agent-search-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 70%;
-  margin-left:100px;
+  width: 30%;
+  margin-left:300px;
 }
 
 #agent-search-table td, #agent-search-table th {
@@ -254,7 +258,8 @@
 }
 
 ul.tabs   {
-    margin-left:0px;
+    margin:10px 0px 0px ;
+
 }
 #tab1,#tab2 {
     border-top: solid 1px #ccc;

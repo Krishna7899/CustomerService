@@ -12,7 +12,7 @@ url_dict={
     #"createRequest":'createRequest/',
     "showRequests":'showRequests/',
     "register":'register/',
-    "showAgents":'showAgents/',
+    "Show Agents":'showAgents/',
     "searchByAgent":'searchByAgent/',
     "advSearch":'advSearchByAgent/',
     #"unlockRequest":'<requestedBy>/unlockRequest/',

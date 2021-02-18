@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
     <!--Auto search css-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -33,11 +34,13 @@
   <nav class="navbar" role="navigation" style="background-color: #3b5998;">
   <div class="container-fluid" id="navbarSupportedContent">
       <ul class="nav navbar-nav">
-       <li><a class="nav-link-style py-0" href="/agent/myProfile/">MyProfile</a></li>
+         <li>
+             <span><i class="fa fa-home"></i><a class="nav-link-style py-0" href="/agent/myProfile/">MyProfile</a></span></li>
      </ul>
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a>
+        <span> <i class="fa fa-user" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a></span>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
           {% if usertype == "supervisor" %}
@@ -50,7 +53,8 @@
     {% if usertype == "supervisor" %}
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Department</a>
+          <span><i class="fa fa-university" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Department</a></span>
          <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/showDepartments/">Show Departments</a></li>
           <li><a class="dropdown-item" href="/agent/searchByDepartment/">Search by Department</a></li>
@@ -60,7 +64,8 @@
     </ul>
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Requests</a>
+       <span><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Requests</a></span>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/showRequests/">Show Requests</a></li>
         </ul>
@@ -68,10 +73,12 @@
     </ul>
     {% endif %}
     <ul class="nav navbar-nav">
-    <li><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></li>
+    <li>
+        <span><i class="fa fa-sign-out" aria-hidden="true"></i><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></span></li>
   </ul>
-    <form class="form-inline navbar-right my-2 my-lg-0">
-      <input type="text" name="myInput" id="myInput" placeholder="search here...." class="form-control">
+    <form action="/agent/search_url/" method=""   class="form-inline navbar-right my-2 my-lg-0">
+      <input type="text" name="myInput" id="myInput" placeholder="Go To Page...." class="form-control">
+         <i class="fa fa-search"></i>
     </form>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -180,25 +187,23 @@
                              <th>{{tAddr.AddressType}}</th>
                         </tr>
                         <tr>
-                          <td style="margin-left:20px;">
+                          <td style="border-collapse:collapse;border-spacing: 5px;">
                               {{tMsg}}
-                              <ul style="list-style: none;">
-                                <li>{{pAddr.Dno}}</li>
-                                <li>{{pAddr.Street}}</li>
-                                <li>{{pAddr.City}}</li>
-                                <li>{{pAddr.State}}</li>
-                                <li>{{pAddr.Pincode}}</li>
-                              </ul>
+                                <li style="list-style: none;">{{pAddr.Dno}}</li>
+                                <li style="list-style: none;">{{pAddr.Street}}</li>
+                                <li style="list-style: none;">{{pAddr.City}}</li>
+                                <li style="list-style: none;">{{pAddr.State}}</li>
+                                <li style="list-style: none;">{{pAddr.Pincode}}</li>
                              </td>
                               <td>
                                   {{tMsg}}
-                               <ul style="list-style: none;">
-                                 <li>{{tAddr.Dno}}</li>
-                                 <li>{{tAddr.Street}}</li>
-                                 <li>{{tAddr.City}}</li>
-                                 <li>{{tAddr.State}}</li>
-                                 <li>{{tAddr.Pincode}}</li>
-                               </ul>
+
+                                 <li style="list-style: none;">{{tAddr.Dno}}</li>
+                                 <li style="list-style: none;">{{tAddr.Street}}</li>
+                                 <li style="list-style: none;">{{tAddr.City}}</li>
+                                 <li style="list-style: none;">{{tAddr.State}}</li>
+                                 <li style="list-style: none;">{{tAddr.Pincode}}</li>
+
                               </td>
                           </tr>
                     </table>
@@ -303,7 +308,7 @@
 </body>
 
         <div class="footer">
-          <p>Copy right CSR Application version@v1.0 2021</p>
+          <p>Copy right @CSR Application 2021<br> version: v1.0 </p>
         </div>
 
 </html>

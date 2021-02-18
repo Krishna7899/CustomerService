@@ -37,29 +37,30 @@ def getKey(request):
         search_value = request.GET.get('term')
         search_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
         # res = [val for key, val in url_dict.items() if search_value in key]
-        for key in search_list_dict.keys():
-            search_value_list.append(key)
-        if search_value_list:
-            return JsonResponse(search_value_list, safe=False)
+        '''for key in search_list_dict.keys():
+            search_value_list.append(key)'''
+        if search_list_dict:
+            return JsonResponse(search_list_dict)
         else:
             mesg = ["No Data Found"]
             return JsonResponse(mesg, safe=False)
 
 
-def search(request):
-    search_key = request.GET.get("myInput")
-    search_value_list = []
+def search_url(request,urlName):
+        #search_url= request.GET.get("urlName")
+        search_value_list = []
+        search_url=urlName
     # keys_list =[val for key, val in url_dict.items() if search_key in key]
-    keys_list_dict = dict(filter(lambda item: search_key in item[0], url_dict.items()))
-    for value in keys_list_dict.values():
-        search_value_list.append(value)
-    for key in url_dict.keys():
-        if key == search_key:
-            view_name = url_dict[key]
-            return redirect('/agent/%s' % view_name)
+        keys_list_dict = dict(filter(lambda item: search_url in item[0], url_dict.items()))
+        for value in keys_list_dict.values():
+            search_value_list.append(value)
+        for key in url_dict.keys():
+            if key == search_url:
+                view_name = url_dict[key]
+                return redirect('/agent/%s' % view_name)
 
-        else:
-            continue
+            else:
+                continue
 
 
 # agent login

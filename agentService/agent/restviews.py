@@ -7,7 +7,7 @@ import requests
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import AgentSerialize
+from .serializers import AgentSerialize,SearchSerialize
 from .models import AgentTable
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -71,14 +71,22 @@ class AgentImageAPIView(APIView):
 '''
 def search(request):
     return render(request, 'index.html')
-@api_view(['GET', 'POST'])
-def auto_search(request):
-    if 'term' in request.GET:
-        #search_key=request.GET.get('term')
-        keys_list_dict = dict(filter(lambda item: request.GET.get('term') in item[0], url_dict.items()))
-        search_value_list = list()
+#@api_view(['GET', 'POST'])
+'''def auto_search(request):
+    #if 'term' in request.GET:
+        search_key="show"
+        keys_list_dict = dict(filter(lambda item: search_key in item[0], url_dict.items()))
+        #search_value_list = list()
         for key in keys_list_dict.keys():
             search_value_list.append(key)
         #print(search_value_list)
-        return JsonResponse(search_value_list,safe=False)
-    return render(request, 'index.html')
+        return JsonResponse(keys_list_dict)*/
+    #return render(request, 'index.html')'''
+
+@api_view(['GET', 'POST'])
+def auto_search(request):
+    if 'term' in request.GET:
+        search_value = request.GET.get('term')
+        keys_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
+        results =SearchSerialize(keys_list_dict, many=True).data
+    return Response(results)
