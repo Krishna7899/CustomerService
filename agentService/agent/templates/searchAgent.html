@@ -62,16 +62,10 @@
                      </td>
                      <td>
                       <input type="text" id="lastName" name="lastName" placeholder="LastName">
-
                       </td>
                       <td>
-
                       <input type="text" id="username" name="username" placeholder="username">
-
                           </td>
-
-                    </tr>
-                        <tr>
                     <td>
                 <div class="advSearchAgent-button">
                         <input type="submit" value="Search" id="button-2" >
@@ -197,7 +191,7 @@
                 <td>
                         {% if adv_search_obj.image %}
                                 <img src="{{adv_search_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
-                                                        width="100px" height="50px"/>
+                                                        width="70px" height="25px"/>
                              {% else %}
                                     {{msg}}
                             {% endif %}

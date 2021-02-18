@@ -28,6 +28,14 @@ body {
 .nav-link-style,.logout{
         color:white;
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+.nav-link-style:hover{
+    color:orange;
+    text-decoration:none;
+}
 /* Create three unequal columns that floats next to each other */
 .column {
   float: left;
@@ -70,10 +78,6 @@ width: 25%;
   bottom: 0;
   }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
-}
 /*DropDown Buttons*/
 /*.dropdown {
   float: left;
@@ -128,10 +132,59 @@ width: 25%;
 
   font-size: 14px;
   border: none;
-  margin-right:20px;
+  margin-right:1px;
   padding:0px;
   height:25px;
 }
+i.fa-search {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        color:#FFA500;
+        }
+i.fa-user {
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+i.fa-home {
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
+i.fa-sign-out{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
+i.fa-university{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+i.fa-hand-pointer-o{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
+/*.glyphicon glyphicon-search{
+
+
+
+}*/
 .navbar {
     margin-bottom: 0
     }
@@ -140,8 +193,8 @@ width: 25%;
         padding:0px;
 
 }
-.navbar-nav > li > a {padding-top:2px !important; padding-bottom:0px !important;}
-.navbar {min-height:15px !important}
+.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
+.navbar {min-height:40px !important;padding-top:8px;}
 /*#search-submit{
   padding: 6px;
 =======
@@ -321,7 +374,7 @@ margin-left:250px;
     padding:5px;
 }*/
 
-#agent {
+/*#agent {
   font-family: Roboto;
   width: 100%;
   margin-left:0px;
@@ -340,18 +393,18 @@ margin-left:250px;
     color:#e856a4;
     font-family:arial;
     font-size:20px;
-}
+}*/
 /*#agent tr:nth-child(even){background-color: #f2f2f2;}
 
 #agent tr:hover {background-color: #ddd;}*/
 
-#agent th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+/*#agent th {
+  padding: 0px;
+  padding-bottom: 2px;
   text-align: center;
   background-color: #87ceeb;
   color: white;
-}
+}*/
 #agent-details-table{
         margin-left:200px;
 
@@ -484,6 +537,25 @@ margin-left:250px;
 
 .description:focus{
     border: 2px solid  #0040ff;
+}
+#agent-request-table{
+    margin-left:200px;
+     border-collapse: collapse;
+
+}
+#agent-request-table th{
+     background-color: #88e1fc;
+     color: white;
+
+}
+#agent-request-table th,td{
+      padding: 0px;
+      padding-bottom: 2px;
+      text-align: center;
+
+}
+#agent-request-table tr:nth-child(even){
+    background-color: #f2f2f2;
 }
 
 .agent-field-label{
