@@ -4,28 +4,52 @@
 
 }
 
-
-#agent {
+#show-all-dept {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 30vw;
   margin-left:300px;
 }
 
-#agent td, #agent th {
+#show-all-dept td, #show-all-dept th {
   border: 1px solid #ddd;
   padding: 0px;
   text-align: center;
 
 }
 
-#agent tr:nth-child(even){background-color: #f2f2f2;}
+#show-all-dept tr:nth-child(even){background-color: #f2f2f2;}
 
-#agent tr:hover {background-color: #ddd;}
+#show-all-dept tr:hover {background-color: #ddd;}
 
-#agent th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+#show-all-dept th {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #34ebe1;
+  color: white;
+}
+
+#search-by-dept-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 30vw;
+  margin-left:300px;
+}
+
+#search-by-dept-table td, #search-by-dept-table th {
+  border: 1px solid #ddd;
+  padding: 0px;
+  text-align: center;
+
+}
+
+#search-by-dept-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#search-by-dept-table tr:hover {background-color: #ddd;}
+
+#search-by-dept-table th {
+  padding-top: 1px;
+  padding-bottom: 1px;
   background-color: #34ebe1;
   color: white;
 }

@@ -64,12 +64,12 @@ body {
 /* Style the footer */
 .footer {
   background-color:#3b5998;
-  padding: 3px;
+  padding: 0px;
   text-align: left;
    position: fixed;
    width: 100%;
-  bottom: 0;
-  height:50px;
+  bottom: 0px;
+  height:40px;
 }
 
 

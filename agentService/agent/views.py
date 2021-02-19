@@ -14,69 +14,29 @@ from .commons import url_dict
 from django.http import HttpResponse
 import json
 
+
 # Create your views here.
 
-# To show home page###
-def index(request):
-    if "product" in request.GET:
-        # search_key=request.GET.get('term')
-        keys_list_dict = dict(filter(lambda item: request.GET.get("product") in item[0], url_dict.items()))
-        search_value_list = list()
-        for key in keys_list_dict.keys():
-            search_value_list.append(key)
-        # print(search_value_list)
-        return JsonResponse([search_value_list], safe=False)
-    return render(request, 'index.html')
-'''def getKey(request):
-    if request.is_ajax():
-        query=request.GET.get('term')
-        result = []
-        data={}
-        keys_list_dict = dict(filter(lambda item: query in item[0], url_dict.items()))
-        for key,value in keys_list_dict.items():
-            data['label']=key
-            data['value']=value
-        result.append(data)
-        dump=json.dumps(result)
-    mimetype='application/json'
-    return HttpResponse(dump,mimetype)'''
 def getKey(request):
     search_value_list = list()
-    data={}
-    '''last_login = getLastLoginTime(request.session["id"])
-    myId = request.session['id']'''
-    # agent_detail_obj = getLoggedInUserObject(myId)
-    if request.is_ajax():
+    if 'term' in request.GET:
         search_value = request.GET.get('term')
-        search_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
-        # res = [val for key, val in url_dict.items() if search_value in key]
-        for i in search_list_dict:
-            data['label']=i
-            data['value']=search_list_dict[i]
-            search_value_list.append(data)
-        #search_value_list.append(search_list_dict)
+        for key in url_dict.keys():
+            if search_value.lower() in key.lower():
+                search_value_list.append(key)
         if search_value_list:
-            return JsonResponse(search_value_list,safe=False)
+            return JsonResponse(search_value_list, safe=False)
         else:
             mesg = ["No Data Found"]
             return JsonResponse(mesg, safe=False)
 
 
-def search_url(request,urlName):
-        #search_url= request.GET.get("urlName")
-        search_value_list = []
-        search_url=urlName
-    # keys_list =[val for key, val in url_dict.items() if search_key in key]
-        keys_list_dict = dict(filter(lambda item: search_url in item[0], url_dict.items()))
-        for value in keys_list_dict.values():
-            search_value_list.append(value)
-        for key in url_dict.keys():
-            if key == search_url:
-                view_name = url_dict[key]
-                return redirect('/agent/%s' % view_name)
-
-            else:
-                continue
+def search_url(request):
+    if request.method == "GET":
+        search_url = request.GET.get("myInput")
+        if search_url in url_dict.keys():
+            view_name = url_dict[search_url]
+            return redirect('/agent/%s' % view_name)
 
 
 # agent login
@@ -246,9 +206,9 @@ def agentDetails(request):
         tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
-                          {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr,"AddressForm":addressForm ,"usertype": usertype,
+                          {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
+                           "usertype": usertype,
                            "msg": "MY Image", "last_login": last_login})
-
 
 
 # Editing profile of agent when agent login only
@@ -404,9 +364,10 @@ def deptData(request, dept):
 
 def searchByDepartment(request):
     usertype = request.session['usertype']
+    last_login = getLastLoginTime(request.session["id"])
     if request.method == 'GET':
         form = DepartmentForm()
-        return render(request, "searchdepartment.html", {'form': form, "usertype": usertype})
+        return render(request, "searchdepartment.html", {'form': form,"last_login":last_login, "usertype": usertype})
     if request.method == "POST":
         department = request.POST["department"]
         form = DepartmentForm(request.POST)

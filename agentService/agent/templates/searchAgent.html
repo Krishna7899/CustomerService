@@ -82,7 +82,7 @@
         <table id="agent-search-table">
 
           {% if search_by_name %}
-              <caption>Details of {{search_by_name.username}} </caption>
+            <tr><span>Details of {{search_by_name.username}}</span></tr>
             <tr>
                 <td>
                 <th>Image</th>
@@ -102,10 +102,7 @@
                    <th>FirstName</th>
                 </td>
                 <td>
-
-
                     {{search_by_name.firstName}}
-
                 <td>
             </tr>
             <tr>
@@ -113,10 +110,7 @@
                    <th>LastName</th>
                 </td>
                 <td>
-
-
                      {{search_by_name.lastName}}
-
                 </td>
             </tr>
             <tr>
@@ -125,9 +119,8 @@
                  </td>
                  <td>
 
-
                      {{search_by_name.email}}
-
+                 </td>
             </tr>
             <tr>
                 <td>
@@ -144,9 +137,7 @@
                 </td>
                 <td>
 
-
                      {{search_by_name.usertype}}
-
 
                 </td>
             </tr>

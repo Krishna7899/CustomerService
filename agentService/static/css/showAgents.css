@@ -169,8 +169,8 @@ body {
 }
 
 #image-click-agent-table th {
-   padding-top: 10px;
-  padding-bottom: 10px;
+   padding-top: 1px;
+  padding-bottom: 1px;
   background-color: #88e1fc;
   color: white;
 }

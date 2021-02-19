@@ -1,4 +1,3 @@
-
 function myImageUpload() {
   var x = document.getElementById("upload");
   var y = document.getElementById("updateImage-btn")

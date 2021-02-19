@@ -138,7 +138,7 @@ width: 25%;
 }
 i.fa-search {
         position: absolute;
-        top: 12px;
+        padding: 15px 5px;
         right: 10px;
         color:#FFA500;
         }
@@ -185,16 +185,19 @@ i.fa-hand-pointer-o{
 
 
 }*/
-.navbar {
-    margin-bottom: 0
-    }
-
 .dropdown-toggle{
         padding:0px;
 
 }
-.navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
-.navbar {min-height:40px !important;padding-top:8px;}
+.navbar-nav > li > a {
+     padding-top:5px !important;
+     padding-bottom:5px !important;
+     }
+.navbar {
+   min-height:40px !important;
+   padding-top:8px;
+   font-size:12px;
+   }
 /*#search-submit{
   padding: 6px;
 =======
@@ -406,30 +409,24 @@ margin-left:250px;
   color: white;
 }*/
 #agent-details-table{
-        margin-left:200px;
+        margin-left:150px;
 
-}
-#agent-details-table th{
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  color: #87ceeb;
 }
 
 #agent-details-table td{
         col-span:2;
         font-family:arial;
-        font-size:14px;
+        font-size:13px;
         margin-left:100px;
         margin-top:0px;
-        padding:0px;
-}
-
-#agent-details-table caption{
-        font-family:font-family:Roboto;
-        color:#87ceeb;
+        padding-left:20px;
         text-align:left;
 }
+#agent-details-table span{
+        color:#40de20;
+
+}
+
 .dept-field{
     margin-left:200px;
 
@@ -558,14 +555,17 @@ margin-left:250px;
 #agent-request-table tr:nth-child(even){
     background-color: #f2f2f2;
 }
-
+.field-container{
+       margin-left:auto;
+       margin-left:auto;
+}
 .agent-field-label{
       width:60%;
       display: inline-block;
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
 
 }
 
@@ -710,7 +710,7 @@ ul.tabs-buttons li a:hover,a:active {
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
       margin-left:0px;
 }
 .editProfile-firstName ,.editProfile-lastName,.editProfile-email {
@@ -726,12 +726,7 @@ ul.tabs-buttons li a:hover,a:active {
         transition: 0.5s;
         outline: none;
 }
-.change-your-profile-here{
-    font-size:14px;
-    margin-left:200px;
-    margin-top:20px;
 
-}
 .update-profile-submit{
        color: #fff;
       border: none;
@@ -746,12 +741,7 @@ ul.tabs-buttons li a:hover,a:active {
       width:50%;
 
 }
-.change-password-here{
-    font-size:14px;
-    margin-left:200px;
-    margin-top:20px;
 
-}
 /*change password label,field,button properties*/
 .change-password-label{
       width:100%;
@@ -759,7 +749,7 @@ ul.tabs-buttons li a:hover,a:active {
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
       margin-left:0px;
 
 }
@@ -790,20 +780,14 @@ ul.tabs-buttons li a:hover,a:active {
       width:50%;
 }
 
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 100%;
-  height:50vh;
-
-}
-
 /* Show agents CSS along with table properties */
 #agent {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 80vw;
-  margin:0px 100px;
+  width: 70vw;
+  margin-top:50px;
+  margin-left:auto;
+  margin-right:auto;
   height:50vh;
 
 
@@ -830,23 +814,26 @@ ul.tabs-buttons li a:hover,a:active {
 
 #image-click-agent-table{
         font-family: Arial, Helvetica, sans-serif;
-          border-collapse: collapse;
-          width: 70%;
-         margin-left:200px;
+         border-collapse: collapse;
+         width: 70%;
+         margin-top:50px;
+         margin-left:auto;
+         margin-right:auto;
 }
 
 
-#image-click-agent-table th,#image-click-agent-table td{
+#image-click-agent-table td,th{
           border: 1px solid #ddd;
-          padding: 2px 2px 2px;
+          padding: 1px 1px 1px;
           text-align: center;
 
 }
 
 #image-click-agent-table th {
-   padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #88e1fc;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   background-color: #88e1fc;
+   text-align: center;
   color: white;
 }
 #image-click-agent-table tr:nth-child(even){background-color: #f2f2f2;}
@@ -856,24 +843,25 @@ ul.tabs-buttons li a:hover,a:active {
 #agent-dept-click-table{
           font-family: Arial, Helvetica, sans-serif;
           border-collapse: collapse;
-          width: 70%;
-          margin-left:200px;
-          margin-top:20px;
+          width: 50%;
+          margin-left:auto;
+          margin-right:auto;
+          margin-top:50px;
 
 }
 
 #agent-dept-click-table th,#agent-dept-click-table td{
           border: 1px solid #ddd;
-          padding: 2px 2px 2px;
+          padding: 1px 1px 1px;
           text-align: center;
 
 }
 
 #agent-dept-click-table th {
-   padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #88e1fc;
-  color: white;
+   padding-top: 5px;
+   padding-bottom:5px;
+   background-color: #88e1fc;
+   color: white;
 }
 
 #agent-dept-click-table tr:nth-child(even){
@@ -889,25 +877,31 @@ ul.tabs-buttons li a:hover,a:active {
       width: 170px;
       height:40px;
       padding:0px;*/
-      margin:1px 100px;
+      margin:10px 200px;
+      font-size:12px;
 }
-
+.current{
+      margin-right:12px;
+}
 #address-table{
-   margin-top:3px;
-   margin-left:70px;
+   margin-top:5px;
+   margin-left:130px;
    margin-right:20px;
+}
 
+#address-table li{
+        margin-left:20px;
+        list-style:none;
 }
-#address-table th{
-  padding-top:5px;
-  padding-bottom: 5px;
-  color:  #88e1fc;
-  font-family:Arial, Helvetica, sans-serif;
+#address-table span{
+        color:#40de20;
 }
+
 #address-table td{
   /*border: 1px solid #ddd;*/
   padding: 1px 1px 1px;
   text-align: left;
+  font-size:12px;
 
 
 .editAddr input[type=text]{
@@ -927,7 +921,14 @@ ul.tabs-buttons li a:hover,a:active {
 .change-address-card{
   box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 50%;
+  width: 100%;
+  height:50vh;
+
+}
+.agent-details-card,.update-profile-card,.change-password-card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
   height:50vh;
 
 }

@@ -46,7 +46,7 @@ $(document).ready(function () {
 });*/
 
 
-$(document).ready(function() {
+/*$(document).ready(function() {
       $("#myInput").autocomplete({
            source:"/agent/getKey",
            select: function(event,ui){
@@ -57,4 +57,14 @@ $(document).ready(function() {
 
     function GetRedirectPage(label, slug) {
           window.location.href = "/agent/"+slug;
-    }
+    }*/
+
+$(document).ready(function(){
+    $("#myInput").autocomplete({
+      source: "/agent/getKey/",
+      select: function( event , ui ) {
+                $("#myInput").val(ui.item.value);
+                $("#search-form").submit();
+        }
+    });
+ });

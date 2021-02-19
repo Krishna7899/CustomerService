@@ -1,7 +1,7 @@
 {% extends "agentDetails.html" %}
 {% block code %}
         <table id="agent">
-           <caption>List Of Agents</caption>
+            <tr><td>List Of Agents</td></tr>
             <tr>
                  <th>Image</th>
                  <th>FirstName</th>
@@ -46,7 +46,7 @@
           <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
             {% endif %}
           </span>
           <span class="current">
@@ -54,8 +54,8 @@
           </span>
           </span>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}">next  &raquo;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last  &raquo;</a>
             {% endif %}
           </span>
        </div>
