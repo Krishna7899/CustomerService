@@ -111,9 +111,8 @@ def getIdByUserName(username):
 
 # method to show all requests posted by agents
 def showAllRequestsMethod():
-    req_obj= Requests.objects.exclude(status="Approved")
-    if req_obj:
-        return req_obj
+    req_obj= Requests.objects.all()
+    return req_obj
 
 # method to show all agents
 def showAllAgentsMethod():
