@@ -17,6 +17,8 @@ body {
   background-color:#3b5998;
   padding:0px;
   height:50px;
+  color:white;
+  font-size:12px;
 }
 
 /* Style the topnav links */
@@ -66,10 +68,12 @@ body {
   background-color:#3b5998;
   padding: 0px;
   text-align: left;
+  color: white;
+  font-size:12px;
    position: fixed;
    width: 100%;
-  bottom: 0px;
-  height:40px;
+   bottom: 0px;
+   height:40px;
 }
 
 

@@ -4,20 +4,16 @@
                 <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
                 <script src="{% static 'js/searchAgent.js' %}"></script>
     <ul class='tabs'>
-            <li><a href='#tab1'>Search</a></li>
-            <li><a href='#tab2'>Advanced Search</a></li>
+            <li><a href='#tab1' id="searchTab">Search</a></li>
+            <li><a href='#tab2' id="advSearchTab">Advanced Search</a></li>
         </ul>
 <div id='tab1'>
-    		<table>
+    		<table style="margin-left:100px;">
+                <p style="position:absolute;margin-left:450px"><b>{{msg}}</b></p><br>
                 <tr>
-                    <td>
-                     {{msg}}
-                    </td>
-                </tr>
-
                <form action="/agent/searchByAgent/" name="registration-page" method="post" id="form1">
             {% csrf_token %}
-                 <tr>
+
                      <td>
                 <div class="search-field">
                  <!-- <label>Search</label>  <span class="search-field-input">{{form.username}}</span>-->
@@ -30,59 +26,66 @@
                     <input type="submit" value="Search" id="button-1">
                 </div>
                      </td>
+               </form>
                 </tr>
                    <tr>
                 <td>
                 <div class="radio-field" id="div1">
-                   ById<input type="radio" class="radio-buttons" name="radio" onclick="changePlaceholder1()"/>
-                   ByName<input type="radio" class="radio-buttons" name="radio"  onclick="changePlaceholder2()"/>
+                   Id&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio" onclick="changePlaceholder1()"/>&nbsp;&nbsp;
+                   Name&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio"  onclick="changePlaceholder2()"/>
                     <span class="error_form" id="searchById_error_message"></span>
                 </div>
                 </td>
+                  </form>
                 </tr>
-   	 </form>
+
 
           </table>
         </div>
 
-
     <div id='tab2'>
-            <form action="/agent/advSearchByAgent/" name="searchByAgent-page" id="form2">
+
+
+                <form action="/agent/advSearchByAgent/" name="searchByAgent-page" id="form2">
                 {% csrf_token %}
-                <table id="advSearch-option-table">
-                     {{advSearchmsg}}
+                  <table id="advSearch-option-table">
+                    <span style="position:absolute; margin-left:400px" class="error_form" id="error_message"></span><br>
+                    <span style="position:absolute; margin-left:400px" class="view_error" id="view_error_message"></span><br>
+                     <p style="position:absolute;margin-left:450px;"><b>{{advSearchMsg}}</b></p></br>
+
                     <tr>
-                        <span class="error_form" id="error_message"></span>
-                    </tr>
-                 <tr>
-
                      <td>
-
-                <input type="text" id="firstName" name="firstName" placeholder="FirstName">
+                      <input type="text" id="firstName" name="firstName" placeholder="FirstName">
                      </td>
                      <td>
                       <input type="text" id="lastName" name="lastName" placeholder="LastName">
                       </td>
                       <td>
                       <input type="text" id="username" name="username" placeholder="username">
-                          </td>
+                      </td>
                     <td>
                 <div class="advSearchAgent-button">
                         <input type="submit" value="Search" id="button-2" >
                 </div>
                     </td>
+
                     </tr>
+
                     </table>
-           </form>
+                 </form>
             </div>
          </div>
 
      <div>
-
         <table id="agent-search-table">
-
           {% if search_by_name %}
-            <tr><span>Details of {{search_by_name.username}}</span></tr>
+            <tr>
+                <td>
+                    <span style="position:absolute;">Details of {{search_by_name.username}}</span><br>
+                </td>
+                <td>
+                </td>
+            </tr>
             <tr>
                 <td>
                 <th>Image</th>
@@ -165,7 +168,7 @@
         <table id="advSearchagent-table">
 
             <tr>
-                <caption>Searched Agents</caption>
+                <td>Searched Agents</td>
             </tr>
 
             <tr>

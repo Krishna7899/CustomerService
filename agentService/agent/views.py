@@ -155,7 +155,7 @@ def advSearchByAgent(request):
                        'GET_params': GET_params, "last_login": last_login})
 
     else:
-        return render(request, "searchAgent.html", {"usertype": usertype})
+        return render(request, "searchAgent.html", {"usertype": usertype,"advSearchMsg":"NoData"})
 
 
 # Once Login as Supervisor show below page
@@ -215,6 +215,9 @@ def agentDetails(request):
 def editProfile(request):
     myId = request.session['id']
     edit_obj = getLoggedInUserObject(myId)
+    usertype=request.session["usertype"]
+    pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
+    tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
     if request.method == 'GET':
         return render(request, 'editProfile.html', {"agentProfile": edit_obj})
     if request.method == 'POST':
@@ -222,24 +225,29 @@ def editProfile(request):
         firstName = request.POST["firstName"]
         lastName = request.POST["lastName"]
         email = request.POST["email"]
+        last_login = getLastLoginTime(request.session["id"])
         try:
             agent_detail_obj = editLoggedInAgentProfile(request, firstName, lastName, email, myId)
-            last_login = getLastLoginTime(request.session["id"])
             if agent_detail_obj:
                 return render(request, 'agentDetails.html',
-                              {"agentProfile": agent_detail_obj, "msg": "MY Image", "last_login": last_login})
+                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"msg": "MY Image","last_login": last_login})
         except ServiceException as ex:
-            return render(request, 'agentDetails.html', {"errorMsg": ex.errorMessage})
+            return render(request, 'agentDetails.html', {"agentProfile":edit_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"usertype":usertype,"errorMsg": ex.errorMessage})
 
 
 # Changing password of agent when by agent only
 def changePassword(request):
     last_login = getLastLoginTime(request.session["id"])
-    if request.method == 'GET':
+    pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
+    tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+    usertype=request.session["usertype"]
+    myId=request.session["id"]
+    edit_obj = getLoggedInUserObject(myId)
+    '''if request.method == 'GET':
         myId = request.session["id"]
         change_obj = getLoggedInUserObject(myId)
-        return render(request, 'changePassword.html', {"agentProfile": change_obj, "last_login": last_login})
-
+        return render(request, 'changePassword.html', {"agentProfile": edit_obj, "last_login": last_login})
+'''
     if request.method == 'POST':
         myId = request.session['id']
         oldPassword = request.POST["old-password"]
@@ -250,9 +258,9 @@ def changePassword(request):
         change_obj = passwordChangeObject(request, oldPassword, newPassword, myId)
 
         if (change_obj):
-            return render(request, 'agentDetails.html', {"agentProfile": change_obj, "last_login": last_login})
+            return render(request, 'agentDetails.html', {"agentProfile": change_obj,"usertype":usertype,"pAddr": pAddr,"tAddr": tAddr, "last_login": last_login,"changePassword":"active"})
     except ServiceException as ex:
-        return render(request, 'agentDetails.html', {"changeMsg": ex.errorMessage})
+        return render(request, 'agentDetails.html', {"agentProfile": edit_obj,"usertype":usertype,"pAddr": pAddr,"tAddr": tAddr,"changeMsg": ex.errorMessage,"last_login": last_login,"changePassword":"active"})
 
 
 # Department creation by supervisor
@@ -281,7 +289,7 @@ def showAllDepartments(request):
     usertype = request.session["usertype"]
     if request.method == "GET":
         show_Dept_Obj = Department.objects.all()
-        paginator = Paginator(show_Dept_Obj, 5)  # Show 8 agents per page.
+        paginator = Paginator(show_Dept_Obj, 5)  # Show 5 agents per page.
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         last_login = getLastLoginTime(request.session["id"])
@@ -321,16 +329,15 @@ def showRequests(request):
             return render(request, "showRequest.html",
                           {"last_login": last_login, "usertype": usertype, "message": "no data found"})
 
-
 def unlockRequest(request, requestedBy):
     # requestedBy = request.POST.get('requestedBy')
     count_obj = AgentTable.objects.get(username=requestedBy)
     if count_obj.count >= 5:
         AgentTable.objects.filter(username=requestedBy).update(count=0)
-        Requests.objects.filter(requestedUserName=requestedBy).update(status="Approved")
+        Requests.objects.filter(requestedUserName=requestedBy).update(status="closed")
         return render(request, "showRequest.html", {"message": "unlock success"})
     else:
-        Requests.objects.filter(requestedUserName=requestedBy).update(status="Approved")
+        Requests.objects.filter(requestedUserName=requestedBy).update(status="closed")
         return render(request, "showRequest.html", {"message": "Approved Already"})
 
 

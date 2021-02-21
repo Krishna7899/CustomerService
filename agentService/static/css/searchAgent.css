@@ -14,9 +14,9 @@
       border-radius: 5px;
 }
 .search-field-input {
-        line-height:20px;
-        width:60%
-        padding: 10px 20px;
+        width:200px;
+        line-height:10px;
+        padding: 5px;
         margin: 8px 0;
         margin-left:100px;
         border-radius:10px;
@@ -29,7 +29,7 @@
 }
 #div1{
     padding:0px;
-    margin-left:350px;
+    margin-left:300px;
 }
 .search-field .username:focus {
   border: 2px solid  #0040ff;
@@ -45,30 +45,32 @@
 .searchAgent-button input[type="submit"]{
       background-color: #87ceeb;
       border: none;
-      border-radius:5px;
+      border-radius:10px;
       color: white;
-      padding: 4px 20px;
+      padding: 5px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       margin-left:10px;
-      width:100%;
+      font-weight:200;
+      width:100px;
 }
 .advSearchAgent-button input[type="submit"]{
       background-color: #87ceeb;
       border: none;
-      border-radius:5px;
+      border-radius:10px;
       color: white;
-      padding: 5px 25px;
+      padding: 5px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
+      font-size: 14px;
       margin: 4px 2px;
       cursor: pointer;
-      width:100%;
+      outline:none;
+      width:150px;
 }
 
 .advancedSearch{
@@ -127,9 +129,10 @@
 
 #firstName,#lastName,#username{
         line-height:5px;
-        width: 70%;
+        width: 150px;
         padding:5px 5px;
         border-radius:10px;
+        margin-left:5px;
         box-sizing: border-box;
         border: 1px solid #ccc;
         -webkit-transition: 0.5s;
@@ -143,7 +146,7 @@
 }
 
 #advSearch-option-table{
-                margin-left:100px;
+                margin-left:200px;
 }
 #advSearch-option-table tr{
                 display:inline-block;
@@ -159,15 +162,15 @@
 #agent-search-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 500px;
   margin-left:auto;
   margin-right:auto;
 }
 
 #agent-search-table td, #agent-search-table th {
   border: 1px solid #ddd;
-  padding: 1px 1px 1px;
-  text-align: center;
+  padding: 0px;
+  text-align: left;
 
 }
 
@@ -189,7 +192,7 @@
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 70vw;
-  margin-left:100px;
+  margin-left:200px;
 }
 
 #advSearchagent-table td, #advSearchagent-table th {
@@ -285,4 +288,5 @@ ul.tabs li a.active {
     color:#000;
     border: solid 1px #ccc;
     border-width: 1px 1px 0 1px;
+    display:block;
     }

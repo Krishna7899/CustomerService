@@ -90,3 +90,10 @@ def auto_search(request):
         keys_list_dict = dict(filter(lambda item: search_value in item[0], url_dict.items()))
         results =SearchSerialize(keys_list_dict, many=True).data
     return Response(results)
+
+def oldPasswordValidate(request):
+    oldPassword = request.GET.get('old-password', None)
+    data = {
+        'is_taken': User.objects.filter(password__iexact=oldPassword).exists()
+    }
+    return JsonResponse(data)
