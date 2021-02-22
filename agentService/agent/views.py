@@ -69,7 +69,7 @@ def agentLogin(request):
             return render(request, 'agentDetails.html', {"agentProfile": agent_Obj, "pAddr": pAddr, "tAddr": tAddr,
                                                          "AddressForm": addressForm,
                                                          "usertype": request.session["usertype"],
-                                                         "last_login": last_login})
+                                                         "last_login": last_login,"myProfile":"active"})
 
         except ServiceException as ex:
             return render(request, "agentLogin.html", {"msg": ex.errorMessage})
@@ -118,7 +118,7 @@ def searchByAgent(request):
     last_login = getLastLoginTime(request.session["id"])
     if request.method == "GET":
         form = AgentForm()
-        return render(request, "searchAgent.html", {"form": form, "usertype": usertype, "last_login": last_login})
+        return render(request, "searchAgent.html", {"form": form, "usertype": usertype, "last_login": last_login,"search":"active"})
     if request.method == "POST":
         username = request.POST.get("username")
         try:
@@ -127,12 +127,10 @@ def searchByAgent(request):
             if search_by_name:
                 return render(request, "searchAgent.html",
                               {"search_by_name": search_by_name, "usertype": usertype, "form": form,
-                               "last_login": last_login})
+                               "last_login": last_login,"search":"active"})
         except:
             return render(request, "searchAgent.html",
-                          {"usertype": usertype, "form": form, "msg": "No data Found"})
-
-
+                          {"usertype": usertype, "form": form, "msg": "No data Found","search":"active"})
 def advSearchByAgent(request):
     usertype = request.session["usertype"]
     if 'firstName' in request.GET:
@@ -152,10 +150,10 @@ def advSearchByAgent(request):
         last_login = getLastLoginTime(request.session["id"])
         return render(request, "searchAgent.html",
                       {"adv_search_obj": adv_search_obj, "usertype": usertype, 'page_obj': page_obj,
-                       'GET_params': GET_params, "last_login": last_login})
+                       'GET_params': GET_params, "last_login": last_login,"advancedSearch":"active"})
 
     else:
-        return render(request, "searchAgent.html", {"usertype": usertype,"advSearchMsg":"NoData"})
+        return render(request, "searchAgent.html", {"usertype": usertype,"advSearchMsg":"No Data Found","advancedSearch":"active"})
 
 
 # Once Login as Supervisor show below page
@@ -208,7 +206,7 @@ def agentDetails(request):
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
                            "usertype": usertype,
-                           "msg": "MY Image", "last_login": last_login})
+                           "msg": "MY Image", "last_login": last_login,"myProfile":"active"})
 
 
 # Editing profile of agent when agent login only
@@ -230,9 +228,9 @@ def editProfile(request):
             agent_detail_obj = editLoggedInAgentProfile(request, firstName, lastName, email, myId)
             if agent_detail_obj:
                 return render(request, 'agentDetails.html',
-                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"msg": "MY Image","last_login": last_login})
+                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"msg": "MY Image","last_login": last_login,"updateProfile":"active"})
         except ServiceException as ex:
-            return render(request, 'agentDetails.html', {"agentProfile":edit_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"usertype":usertype,"errorMsg": ex.errorMessage})
+            return render(request, 'agentDetails.html', {"agentProfile":edit_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"usertype":usertype,"updateProfile":"active","errorMsg": ex.errorMessage})
 
 
 # Changing password of agent when by agent only
