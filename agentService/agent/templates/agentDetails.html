@@ -206,11 +206,12 @@
                             <ul style="list-style: none;" id="pAddress-change-ul">
                                 <form action="/agent/pAddressUpdate/" method="POST">
                                     {% csrf_token %}
-                                <li><input type="text" id="pdno" name="pDoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="pStreet" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="pCity" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="pState" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="pPincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" id="pAddrType" name="AddrType" value="{{pAddr.AddressType}}" class="pAddressType-text" style="visibility:hidden;" readonly/></li>
+                                <li><input type="text" id="pdno" name="DoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="Street" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="City" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="State" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="Pincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
                                 <li><input type="submit" id="pSubmit" class="pAddress-update-button" style="visibility:hidden;"></li>
                                 </form>
                             </ul>
@@ -238,13 +239,15 @@
                            <td>
                                <br>
                             <ul style="list-style: none;">
-                             <form>
-                                <li><input type="text" id="tdno" name="tDoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="tStreet" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="tCity" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="tState" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="tPincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;">
+                             <form action="/agent/pAddressUpdate/" method="POST">
+                                  {% csrf_token %}
+                                  <li><input type="text" id="tAddrType" name="AddrType" value="{{tAddr.AddressType}}" class="tAddressType-text" style="visibility:hidden;" readonly/></li>
+                                <li><input type="text" id="tdno" name="DoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="Street" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="City" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="State" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="Pincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;"></li>
                              </form>
                             </ul>
                           </td>

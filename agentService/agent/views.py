@@ -395,10 +395,15 @@ def createAddress(request):
                                                           "addressMsg": " address inserted"})
 def pAddressUpdate(request):
     if request.method == "POST":
-       doorNo=request.POST["pDoorNo"]
-       street=request.POST["pStreet"]
-       city=request.POST["pCity"]
-       state=request.POST["pState"]
-       pincode=request.POST["pPincode"]
-       pAddr=AddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
-       return render(request,"agentDetails.html",{"pAddr":pAddr})
+       addressType=request.POST["AddrType"]
+       doorNo=request.POST["DoorNo"]
+       street=request.POST["Street"]
+       city=request.POST["City"]
+       state=request.POST["State"]
+       pincode=request.POST["Pincode"]
+       if addressType == "PermanentAddress":
+            pAddr=AddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
+            return render(request,"agentDetails.html",{"pAddr":pAddr})
+       if addressType == "TemporaryAddress":
+           tAddr = AddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street,City=city, State=state,Pincode=pincode)
+           return render(request, "agentDetails.html", {"tAddr": tAddr})
