@@ -168,7 +168,6 @@
 }
 
 #agent-search-table td, #agent-search-table th {
-  border: 1px solid #ddd;
   padding: 0px;
   text-align: left;
 
@@ -184,8 +183,7 @@
 
 #agent-search-table th {
   padding-top: 5px;
-  background-color: #88e1fc;
-  color: white;
+  color: black;
 }
 
 #advSearchagent-table{
@@ -295,6 +293,4 @@ ul.tabs li a.active {
         color:#f70505;
         font-size:12px;
         font-family:
-
-
 }

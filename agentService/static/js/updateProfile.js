@@ -15,9 +15,6 @@
     }
   });
 
-
-
-
 });*/
 $(document).ready(function() {
 $('.change-password-submit').click(function(e){
@@ -35,10 +32,6 @@ $('.change-password-submit').click(function(e){
     }
 });
 });
-
-
-
-
 
 
 
@@ -95,12 +88,14 @@ $(".accordion_head").click(function(){
 })*/
 
 /*$(document).ready(function() {
-  $("#tab2-updateProfile").click(function() {
-    $("#profile-details").hide();
+  $("#pUpdateAddress").click(function() {
+    $("#pAddress-table-row").hide();
     $("#tab3-change").hide();
     $("#tab2-update").toggle();
   });
-});
+});*/
+
+/*
 $(document).ready(function() {
  $("#tab3-changePassword").click(function() {
     $("#profile-details").hide();

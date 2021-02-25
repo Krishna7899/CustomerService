@@ -55,6 +55,8 @@ def agentLogin(request):
         try:
             # Call function getAgentLoginValidation() from DB utils
             agent_Obj = getAgentLoginValidation(request, username, password)
+            pAddr=showPermanentAddressMethod()
+            tAddr = showTemporaryAddressMethod()
             request.session["id"] = agent_Obj.id
             request.session["firstName"] = agent_Obj.firstName
             request.session["lastName"] = agent_Obj.lastName
@@ -63,13 +65,9 @@ def agentLogin(request):
             saveLoginTime(agent_Obj.id)
             # addrObj=Address.objects.filter(agent_id=request.session["id"])
             addressForm = AddressForm()
-            pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-            tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
 
             return render(request, 'agentDetails.html', {"agentProfile": agent_Obj, "pAddr": pAddr, "tAddr": tAddr,
-                                                         "AddressForm": addressForm,
-                                                         "usertype": request.session["usertype"],
-                                                         "last_login": last_login,"myProfile":"active"})
+                                                         "AddressForm": addressForm,"last_login": last_login,"myProfile":"active"})
 
         except ServiceException as ex:
             return render(request, "agentLogin.html", {"msg": ex.errorMessage})
@@ -78,20 +76,18 @@ def agentLogin(request):
 # Registration of agent by supervisor only
 def handleAgent(request):
     last_login = getLastLoginTime(request.session["id"])
-    usertype = request.session["usertype"]
     if request.method == "GET":
         form = AgentForm()
         addressForm = AddressForm()
         return render(request, 'agentRegistration.html',
-                      {'form': form, "AddressForm": addressForm, "usertype": usertype, "last_login": last_login})
+                      {'form': form, "AddressForm": addressForm, "last_login": last_login})
     if request.method == "POST":
         email = request.POST["email"]
         username = request.POST["username"]
     form = AgentForm(request.POST, request.FILES)
     try:
-        createEmployeeValidation(request, email, username)
-        if form.is_valid():
-            form.save()
+        createAgent_Obj=createEmployeeValidation(request, email, username,form)
+        if createAgent_Obj:
             return render(request, 'agentRegistration.html',
                           {'form': form, 'message': 'success', "last_login": last_login})
     except ServiceException as ex:
@@ -108,8 +104,7 @@ def showAgents(request):
         if show_agent_obj:
             last_login = getLastLoginTime(request.session["id"])
             return render(request, "showAgents.html",
-                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj,
-                           "usertype": request.session["usertype"], "last_login": last_login})
+                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj,"last_login": last_login})
 
 
 # Search agent details by using Id or username
@@ -118,7 +113,7 @@ def searchByAgent(request):
     last_login = getLastLoginTime(request.session["id"])
     if request.method == "GET":
         form = AgentForm()
-        return render(request, "searchAgent.html", {"form": form, "usertype": usertype, "last_login": last_login,"search":"active"})
+        return render(request, "searchAgent.html", {"form": form,"last_login": last_login,"search":"active"})
     if request.method == "POST":
         username = request.POST.get("username")
         try:
@@ -126,7 +121,7 @@ def searchByAgent(request):
             search_by_name = getDetailsByName(username)
             if search_by_name:
                 return render(request, "searchAgent.html",
-                              {"search_by_name": search_by_name, "usertype": usertype, "form": form,
+                              {"search_by_name": search_by_name,"form": form,
                                "last_login": last_login,"search":"active"})
         except:
             return render(request, "searchAgent.html",
@@ -149,7 +144,7 @@ def advSearchByAgent(request):
     if adv_search_obj:
         last_login = getLastLoginTime(request.session["id"])
         return render(request, "searchAgent.html",
-                      {"adv_search_obj": adv_search_obj, "usertype": usertype, 'page_obj': page_obj,
+                      {"adv_search_obj": adv_search_obj,'page_obj': page_obj,
                        'GET_params': GET_params, "last_login": last_login,"advancedSearch":"active"})
 
     else:
@@ -189,7 +184,7 @@ def imageUpload(request):
             image_uploadObj.image = form.cleaned_data['image']
             image_uploadObj.save()
             return render(request, 'agentDetails.html',
-                          {"agentProfile": image_uploadObj, "msg": "MY Image", "last_login": last_login})
+                          {"agentProfile": image_uploadObj, "last_login": last_login})
 
 
 # Navigate to  Agent details page when we click on myprofile
@@ -205,8 +200,7 @@ def agentDetails(request):
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
-                           "usertype": usertype,
-                           "msg": "MY Image", "last_login": last_login,"myProfile":"active"})
+                           "last_login": last_login,"myProfile":"active"})
 
 
 # Editing profile of agent when agent login only
@@ -228,7 +222,7 @@ def editProfile(request):
             agent_detail_obj = editLoggedInAgentProfile(request, firstName, lastName, email, myId)
             if agent_detail_obj:
                 return render(request, 'agentDetails.html',
-                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"msg": "MY Image","last_login": last_login,"updateProfile":"active"})
+                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"updateProfile":"active"})
         except ServiceException as ex:
             return render(request, 'agentDetails.html', {"agentProfile":edit_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"usertype":usertype,"updateProfile":"active","errorMsg": ex.errorMessage})
 
@@ -271,16 +265,16 @@ def createDepartment(request):
     if request.method == "POST":
         deptName = request.POST["deptName"]
         createdBy_id = request.session["id"]
-        # deptName=AgentTable.objects.get(dept=deptName_Id)
-        if Department.objects.filter(deptName=deptName).exists():
-            return render(request, "createDepartment.html",
-                          {"usertype": usertype, "msg": "department name is already in use"})
-        else:
-            Department.objects.create(deptName=deptName, createdBy_id=createdBy_id)
-            form = DepartmentForm(request.POST, request.FILES)
-            return render(request, "createDepartment.html",
-                          {"form": form, "usertype": usertype, "last_login": last_login, "msg": "Success", })
+        form = DepartmentForm(request.POST, request.FILES)
+        try:
+            create_deptObj=createDepartmentMethod(deptName,createdBy_id)
 
+            if create_deptObj:
+                return render(request, "createDepartment.html",
+                              {"form": form, "last_login": last_login, "msg": "Success"})
+        except ServiceException as ex:
+               return render(request, "createDepartment.html",
+                      {"usertype": usertype, "msg":ex.errorMessage})
 
 # Showing all departments by supervisor
 def showAllDepartments(request):
@@ -292,7 +286,7 @@ def showAllDepartments(request):
         page_obj = paginator.get_page(page_number)
         last_login = getLastLoginTime(request.session["id"])
         return render(request, "showAllDepartments.html",
-                      {"show_Dept_Obj": show_Dept_Obj, "usertype": usertype, "page_obj": page_obj,
+                      {"show_Dept_Obj": show_Dept_Obj,"page_obj": page_obj,
                        "last_login": last_login})
 
 
@@ -322,81 +316,68 @@ def showRequests(request):
         last_login = getLastLoginTime(request.session["id"])
         if show_req_obj:
             return render(request, "showRequest.html",
-                          {"show_req_obj": show_req_obj, "usertype": usertype, "last_login": last_login})
+                          {"show_req_obj": show_req_obj, "last_login": last_login})
         else:
             return render(request, "showRequest.html",
-                          {"last_login": last_login, "usertype": usertype, "message": "no data found"})
+                          {"last_login": last_login, "message": "no data found"})
 
 def unlockRequest(request, requestedBy):
     # requestedBy = request.POST.get('requestedBy')
-    count_obj = AgentTable.objects.get(username=requestedBy)
-    if count_obj.count >= 5:
-        AgentTable.objects.filter(username=requestedBy).update(count=0)
-        Requests.objects.filter(requestedUserName=requestedBy).update(status="closed")
-        return render(request, "showRequest.html", {"message": "unlock success"})
-    else:
-        Requests.objects.filter(requestedUserName=requestedBy).update(status="closed")
-        return render(request, "showRequest.html", {"message": "Approved Already"})
-
+    try:
+        unlock_obj=unlockRequestMethod(requestedBy)
+        #count_obj = AgentTable.objects.get(username=requestedBy)
+        if unlock_obj:
+           return render(request, "showRequest.html", {"message": "unlock success"})
+    except ServiceException as ex:
+           return render(request, "showRequest.html", {"message": ex.errorMessage})
 
 def imageData(request, id):
     image_details = getAgentDetailsImageClick(id)
-    # image_details=AgentTable.objects.get(id=id)
-    usertype = request.session["usertype"]
     last_login = getLastLoginTime(request.session["id"])
     try:
         if image_details:
-            return render(request, "showDetailImageClick.html",
-                          {"show_image_obj": image_details, "usertype": usertype, "last_login": last_login})
+            return render(request, "showDetailImageClick.html",{"show_image_obj": image_details,"last_login": last_login})
 
     except:
         return render(request, "showDetailImageClick.html", {"msg": "No details Found"})
 
 
 def deptData(request, dept):
-    usertype = request.session["usertype"]
     deptDetails = getDepartmentDetails(dept)
-    # deptDetails=Department.objects.filter(deptName=dept)
     last_login = getLastLoginTime(request.session["id"])
     try:
         if deptDetails:
             return render(request, "showDeptDetailsClick.html",
-                          {"deptDetails": deptDetails, "usertype": usertype, "last_login": last_login})
-
+                          {"deptDetails": deptDetails,"last_login": last_login})
     except:
         return render(request, "showDeptDetailsClick.html", {"msg": "No details Found"})
 
 
 def searchByDepartment(request):
-    usertype = request.session['usertype']
     last_login = getLastLoginTime(request.session["id"])
     if request.method == 'GET':
         form = DepartmentForm()
-        return render(request, "searchdepartment.html", {'form': form,"last_login":last_login, "usertype": usertype})
+        return render(request, "searchDepartment.html", {'form': form,"last_login":last_login})
     if request.method == "POST":
         department = request.POST["department"]
         form = DepartmentForm(request.POST)
         try:
             search_by_department = getdetailsbyDepartment(department)
             if search_by_department:
-                return render(request, "searchdepartment.html",
-                              {"search_by_department": search_by_department, "usertype": usertype, 'form': form})
+                return render(request, "searchDepartment.html",
+                              {"search_by_department": search_by_department,'form': form})
         except:
-            return render(request, "searchdepartment.html",
-                          {"usertype": usertype, "form": form, "msg": "No details found"})
+            return render(request, "searchDepartment.html",{"form": form, "msg": "No details found"})
 
 
 def createAddress(request):
     last_login = getLastLoginTime(request.session["id"])
-    usertype = request.session["usertype"]
-    # agent=Address.objects.get("agent")
     addressForm = AddressForm()
     form = AgentForm()
     if request.method == "GET":
-        return render(request, 'agentRegistration.html',
-                      {"form": form, 'AddressForm': addressForm, "usertype": usertype, "last_login": last_login})
+        return render(request, 'agentRegistration.html',{"form": form, 'AddressForm': addressForm, "last_login": last_login})
     if request.method == 'POST':
-        addressForm = AddressForm(request.POST)
+        addressForm = AddressForm(request.POST,request.FILES)
         Dno = request.POST["Dno"]
         Street = request.POST["Street"]
         City = request.POST["City"]
@@ -405,8 +386,19 @@ def createAddress(request):
         Agent = request.session["id"]
         Agent_id = Agent
         AddressType = request.POST["AddressType"]
-        AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
-                                    AddressType=AddressType)
-        return render(request, 'agentRegistration.html', {"form": form, 'pAddressForm': addressForm,
-                                                          "usertype": usertype, "last_login": last_login,
+        create_addr_obj=createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType)
+        """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
+                                    AddressType=AddressType)"""
+        if create_addr_obj:
+            return render(request, 'agentRegistration.html', {"form": form, 'pAddressForm': addressForm,
+                                                          "last_login": last_login,
                                                           "addressMsg": " address inserted"})
+def pAddressUpdate(request):
+    if request.method == "POST":
+       doorNo=request.POST["pDoorNo"]
+       street=request.POST["pStreet"]
+       city=request.POST["pCity"]
+       state=request.POST["pState"]
+       pincode=request.POST["pPincode"]
+       pAddr=AddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
+       return render(request,"agentDetails.html",{"pAddr":pAddr})

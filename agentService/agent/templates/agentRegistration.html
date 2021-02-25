@@ -2,17 +2,11 @@
 {% block code %}
 
 
-  <div class="column side">
-
-  </div>
-
 <div class="column middle">
-
-
-    <form action="/agent/register/" name="registration-page" method="post">
+        <span>{{message}}</span>
+    <div class="registration-field-container">
+        <form action="/agent/register/" name="registration-page" method="post">
             {% csrf_token %}
-          {{message}}
-            <div class="field-container">
                 <div class="agent-field">
                     <label class="agent-field-label">First Name</label>
                     {{form.firstName}}
@@ -59,8 +53,8 @@
                 <div class="field agentRegister-submit">
                     <input type="submit" value="Register" class="agentRegister-submit-button" >
                 </div>
-           </div>
     </form>
+          </div>
       {{addressMsg}}
     <!--<a href="#addressForm">Address</a>-->
  <!--   {% if AddressForm %}

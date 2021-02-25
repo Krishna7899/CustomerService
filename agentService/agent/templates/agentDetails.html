@@ -22,13 +22,14 @@
                 crossorigin="anonymous"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/addressChange.css' %}">
         <script src="{% static 'js/imageUpload.js' %}"></script>
         <script src="{% static 'js/resetPassword.js' %}"></script>
         <script src="{% static 'js/updateProfile.js' %}"></script>
-        <script src="{% static 'js/index.js' %}"></script>
+        <script src="{% static 'js/registration.js' %}"></script>
        <script src="{% static 'js/search.js' %}"></script>
-
- </head>
+       <script src="{% static 'js/addressChange.js' %}"></script>
+   </head>
 <body>
         <div class="header">
             <h5 class="welcome">Welcome {{request.session.firstName}}!! </h5>
@@ -46,14 +47,14 @@
         <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a></span>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
-          {% if usertype == "supervisor" %}
+          {% if request.session.usertype == "supervisor" %}
           <li><a class="dropdown-item" href="/agent/showAgents/">Show Agents</a></li>
           <li><a class="dropdown-item" href="/agent/register/">Create Agent</a></li>
           {% endif %}
         </ul>
       </li>
     </ul>
-    {% if usertype == "supervisor" %}
+    {% if request.session.usertype == "supervisor" %}
     <ul class="navbar-nav">
       <li class="dropdown">
           <span><i class="fa fa-university" aria-hidden="true"></i>
@@ -116,7 +117,6 @@
                     </div>
               </div>
           </div>
-
         <div class="column middle">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="myTab">
@@ -187,10 +187,10 @@
                         </td>
                      </tr>
                 </table>
-                    <table id="address-table">
-                         <tr>
+                 <table class="address-table" id="pAddress">
+                         <tr id="pAddress-table-row">
                                {{tMsg}}
-                             <td style="border-collapse:collapse;border-spacing: 5px;">
+                             <td>
                             <ul style="list-style: none;">
                                 <span>{{pAddr.AddressType}}</span>
                                 <li>Door No</li>
@@ -201,58 +201,30 @@
                             </ul>
                           </td>
 
-                          <td style="border-collapse:collapse;border-spacing: 5px;">
+                          <td>
                             <br>
-                            <ul style="list-style: none;">
-                                <li>{{pAddr.Dno}}</li>
-                                <li>{{pAddr.Street}}</li>
-                                <li>{{pAddr.City}}</li>
-                                <li>{{pAddr.State}}</li>
-                                <li>{{pAddr.Pincode}}</li>
+                            <ul style="list-style: none;" id="pAddress-change-ul">
+                                <form action="/agent/pAddressUpdate/" method="POST">
+                                    {% csrf_token %}
+                                <li><input type="text" id="pdno" name="pDoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="pStreet" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="pCity" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="pState" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="pPincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="submit" id="pSubmit" class="pAddress-update-button" style="visibility:hidden;"></li>
+                                </form>
                             </ul>
                           </td>
-                                       <td valign="top">
-                          <div class="container">
-                              <a class="btn btn-primary" data-toggle="collapse" href="#updateAddress">Update Address</a>
-                              <div id="pupdateAddress" class="collapse" style="width:50px;position:absolute">
-                         <form action="/agent/createAddress/" method="POST">
-                           {% csrf_token %}
-                             <div class="update-address">
-                                <label>Address Type</label>
-                                {{AddressForm.AddressType}}
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">DoorNo</label>
-                                    <input type="text" name="DoorNo" id="pDoorNo" class="editAddress"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">Street</label>
-                                    <input type="text" name="Street" id="pStreet" class="editAddress"/>
-                             </div>
-                              <div>
-                                    <label class="update-addr-label">City</label>
-                                    <input type="text" name="City" id="pCity" class="editAddress"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">State</label>
-                                    <input type="text" name="State" id="pState" class="editAddr"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">Pincode</label>
-                                    <input type="text" name="Pincode" id="pPincode" class="editAddr"/>
-                             </div>
-                             <div class=" agentAddress-submit">
-                                    <input type="submit" value="save" class="Address-submit-button">
-                            </div>
-                        </form>
-                    </div>
-                      </div>
-                  </td>
-                        </tr>
-
+                               <td>
+                                    <!--<a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>-->
+                                   <button id="pButton">Update Permanent Address</button>
+                               </td>
+                         </tr>
+                         </table>
+                    <table class="address-table" id="tAddress">
                           <tr>
                               {{tMsg}}
-                           <td style="position:absolute">
+                           <td>
                                 <ul style="list-style: none;">
                                   <span>{{tAddr.AddressType}}</span>
                                 <li>Door No</li>
@@ -263,53 +235,22 @@
                             </ul>
 
                            </td>
-                           <td style="position:relative">
+                           <td>
                                <br>
                             <ul style="list-style: none;">
-                              <li>{{tAddr.Dno}}</li>
-                             <li>{{tAddr.Street}}</li>
-                             <li>{{tAddr.City}}</li>
-                             <li>{{tAddr.State}}</li>
-                             <li>{{tAddr.Pincode}}</li>
+                             <form>
+                                <li><input type="text" id="tdno" name="tDoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="tStreet" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="tCity" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="tState" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="tPincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;">
+                             </form>
                             </ul>
                           </td>
-                           <td valign="top">
-                          <div class="container">
-                              <a class="btn btn-primary" data-toggle="collapse" href="#updateAddress">Update Address</a>
-                              <div id="updateAddress" class="collapse" style="width:50px;position:absolute">
-                         <form action="/agent/createAddress/" method="POST">
-                           {% csrf_token %}
-                             <div class="update-address">
-                                <label>Address Type</label>
-                                {{AddressForm.AddressType}}
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">DoorNo</label>
-                                    <input type="text" name="DoorNo" id="DoorNo" class="editAddress"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">Street</label>
-                                    <input type="text" name="Street" id="Street" class="editAddress"/>
-                             </div>
-                              <div>
-                                    <label class="update-addr-label">City</label>
-                                    <input type="text" name="City" id="City" class="editAddress"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">State</label>
-                                    <input type="text" name="State" id="State" class="editAddr"/>
-                             </div>
-                             <div>
-                                    <label class="update-addr-label">Pincode</label>
-                                    <input type="text" name="Pincode" id="Pincode" class="editAddr"/>
-                             </div>
-                             <div class=" agentAddress-submit">
-                                    <input type="submit" value="save" class="Address-submit-button">
-                            </div>
-                        </form>
-                    </div>
-                      </div>
-                  </td>
+                           <td>
+                              <button id="tButton">Update Temporary Address</button>
+                            </td>
                  </tr>
                     </table>
                 </div>
