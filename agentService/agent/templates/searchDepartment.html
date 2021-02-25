@@ -1,0 +1,57 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+            {% load static %}
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/showDept.css' %}">
+            <div>
+               <form action="/agent/searchByDepartment/" name="registration-page" method="post" >
+                         {% csrf_token %}
+                    <div class="search-field">
+                         {{msg}}
+                       <label>Search</label>
+                        <input type="text" id="placeholder" name="department" placeholder="Enter department" class="dept-field-input" required/>
+
+                    </div>
+                    <div class="searchDepartment">
+                        <input type="submit" value="Search" id="button-1" class="searchDepartment-button">
+                    </div>
+           	   </form>
+            </div>
+
+    <div>
+        {{msg}}
+        {% if search_by_department %}
+        <table id="search-by-dept-table">
+            <tr>
+                <td>
+                     Details of {{search_by_department.deptName}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    Department
+                </th>
+                 <th>
+                    CreatedBy
+                </th>
+                <th>
+                    CreatedDate
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{search_by_department.deptName}}
+                </td>
+
+                <td>
+                     {{search_by_department.createdBy}}
+                </td>
+                 <td>
+                     {{search_by_department.created_date}}
+                 </td>
+            </tr>
+
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

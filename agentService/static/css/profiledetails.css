@@ -3,7 +3,7 @@
   box-sizing: border-box;
 }
 body {
-  margin: 0;
+  margin: 0px;
 }
 
 /* Style the header */
@@ -12,29 +12,106 @@ body {
   text-align: left;
 }
 /* Style the top navigation bar */
+.navbar{
+    background-color: #F8F8F8;
+/*=======
 .topnav {
   overflow: hidden;
-  background-color: #8c8f8f;
+  background-color: #136BC3;
+  line-height:50px;
 }
 .topnav h4{
 
     color: #747487;
+>>>>>>> Stashed changes*/
+}
+.nav-link-style,.logout{
+        color:white;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+.nav-link-style:hover{
+    color:orange;
+    text-decoration:none;
+}
+@media (min-width: 768px) {
+.navbar-nav .myProfile {
+    float: left;
+    margin: 0;
+    margin-left: -5px;
+}
 }
 
-/* Style the topnav links */
-.topnav a {
-  float: left;
-  display: block;
-  color: #ffffff;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+/*.navbar-nav .myProfile {
+    margin: 0 -10px;
+}*/
 
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: #0040ff;
+.dropdown-toggle{
+        padding:0px;
+
 }
+.dropdown-item > li > a{
+    padding:0px;
+
+}
+.navbar-nav > li > a {
+     padding-top:5px !important;
+     padding-bottom:5px !important;
+     }
+.navbar {
+   min-height:40px !important;
+   padding-top:8px;
+   font-size:12px;
+   }
+
+/*.font-awesome-icons*/
+i.fa-search {
+        position: absolute;
+        padding: 15px 5px;
+        right: 10px;
+        color:#FFA500;
+        }
+i.fa-user {
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+i.fa-home {
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:-62px;
+        margin-right:50px;
+        color:orange;
+        }
+
+i.fa-sign-out{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
+i.fa-university{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+i.fa-hand-pointer-o{
+     position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
 /* Create three unequal columns that floats next to each other */
 .column {
   float: left;
@@ -67,128 +144,39 @@ width: 25%;
 }
 /* Style the footer */
 .footer {
-  background-color:#8c8f8f;
+  background-color:#3b5998;
   color:#ffffff;
-  padding: 10px;
-  text-align: center;
+  padding: 3px;
+  text-align: left;
   position: fixed;
   left: 0;
-  bottom: 0;
   width: 100%;
   bottom: 0;
-}
+  }
 
-/*DropDown Buttons*/
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
 
-.dropdown .dropbtn {
-  font-size: 16px;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: arial;
-  margin: 0;
-}
-
-.dropdown:hover .dropbtn {
-  color: #0040ff;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: #0040ff;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-  color:#ffffff;
-}
-
-.navbar a:hover,.dropdown:hover .dropdown-content {
-  display: block;
-}
 /*search dropdown*/
-.search-dropdown {
-  float: left;
-  margin-left:100px;
-  margin-top:10px;
-  overflow: hidden;
+#myInput{
 
-}
-
-.search-dropdown .search-dropbtn {
-  font-size: 16px;
+  font-size: 14px;
   border: none;
-  outline: none;
-  color: #ffffff;
-  padding: 5px 10px;
-  background-color: #87ceeb;
-  width:175px;
-  font-family: arial;
-  margin: 0;
-}
-
-.search-dropdown:hover .search-dropbtn {
-  color: #0040ff;
-}
-
-.search-dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 175px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.search-dropdown-content a {
-  float: none;
-  color: #0040ff;
-  padding: 5px 10px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.search-dropdown-content a:hover {
-  background-color: #ddd;
-  color:#ffffff;
-}
-
-.search-dropdown:hover .search-dropdown-content {
-  display: block;
+  margin-right:1px;
+  padding:0px;
+  height:25px;
 }
 /*image update button in profile details*/
 
 .updateImage-btn{
-  background-color: #87ceeb;
+  background-color:#87ceeb;
   border: none;
   border-radius:5px;
   color: white;
-  padding: 10px 20px;
+  padding: 5px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 2px 15px;
+  margin:10px 20px;
   cursor: pointer;
 
 }
@@ -198,20 +186,15 @@ width: 25%;
 .updateImage-btn:focus{
         outline:none;
 }
-/*agent register button */
-.agentRegister-submit{
-            margin-left:200px;
+.column.side.left{
+       margin-left:50px;
 
 }
-/*.update-profile-container{
-        margin-left:200px;
-}*/
+.display-image img {
+    width:150px;
+    height:150px;
+}
 
-/*.change-password-container{
-        margin-left:200px;
-        width:100%
-
-}*/
 /*profile details container in middle column div */
 .profile-details-container{
       width: 70%;
@@ -246,102 +229,45 @@ margin-left:250px;
        line-height:20px;
        width:250px;
   }
-/*.update-profile a{
-    position:absolute;
-    top:200px;
-    right:250px;
-    text-decoration:none;
-    line-height:30px;
-    width:110px
-    font-color: white;
-    border-radius:5px;
-    background-color:#0040ff;
-    padding:5px;
-}
-.update-font-style{
-        color:white;
-}
-.change-password a{
-    position:absolute;
-    top:200px;
-    right:100px;
-    text-decoration:none;
-    line-height:30px;
-    color:#ffffff;
-    border-radius:5px;
-    background-color:#0040ff;
-    padding:5px;
-}*/
-
-.display-image img{
-    border-radius:0;
-
-}
-
-#agent {
-  font-family: Roboto;
-  width: 100%;
-  margin-left:0px;
-}
-
-#agent td, #agent th {
-    border:1px  #ddd;
-    text-align:right;
-    padding: 0px;
-}
-#agent td{
-    text-align:left;
-}
-#agent caption{
-    text-align:left;
-    color:#e856a4;
-    font-family:arial;
-    font-size:20px;
-}
-/*#agent tr:nth-child(even){background-color: #f2f2f2;}
-
-#agent tr:hover {background-color: #ddd;}*/
-
-#agent th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #87ceeb;
-  color: white;
-}
+/* agent details in myprofile page */
 #agent-details-table{
-        margin-left:50px;
+        margin-left:100px;
+
+}
+
+.agent-profile-details{
 
 }
 #agent-details-table td{
         col-span:2;
         font-family:arial;
-        font-size:20px;
-
+        font-size:13px;
         margin-left:100px;
-
-
-}
-#agent-details-table caption{
-        font-family:font-family:Roboto;
-        color:#87ceeb;
+        margin-top:0px;
+        padding-left:60px;
         text-align:left;
 }
-.dept-field{
-    margin-left:200px;
+#agent-details-table span{
+        color:#007bff;
 
 }
+.dept-field-container{
+        margin-left:50%;
+        margin-right:35%;
+        width:100%;
+}
+
 
 .deptName{
         line-height:10px;
-        width: 50%;
-        padding: 10px;
-        margin-left: 100px;
+        width: 30%;
+        padding: 5px;
+        margin-left: 10px;
         margin-top:10px;
         border-radius:10px;
         box-sizing: border-box;
         border: 1px solid #ccc;
-        -webkit-transition: 0.5s;
+       -webkit-transition: 0.5s;
         transition: 0.5s;
         outline: none;
 
@@ -357,12 +283,12 @@ margin-left:250px;
       border-radius:10px;
       padding: 5px;
       margin-top: 10px;
-      margin-left:400px;
-      display:box;
-      font-size: 20px;
-      font-weight: 500;
+      margin-left:100px;
+      /*display:inline;*/
+      font-size: 14px;
+      font-weight: 200;
       background:#87ceeb;
-      width:40%;
+      width:30%;
 }
 
 .request-label{
@@ -436,18 +362,53 @@ margin-left:250px;
 .description:focus{
     border: 2px solid  #0040ff;
 }
+#agent-request-table{
+    margin-left:200px;
+    border-collapse: collapse;
+    width:400px;
 
+}
+#agent-request-table th{
+     background-color: #88e1fc;
+     color: white;
+     line-height:20px;
+}
+#agent-request-table th,td{
+      padding: 1px 1px 1px;
+      text-align: center;
+
+}
+#agent-request-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+/*.field-container{
+       margin-left:auto;
+       margin-left:auto;
+}*/
+.registration-field-container{
+  width: 60vw;
+  padding: 8px 10px;
+  margin-left: 200px;
+  margin-top:30px;
+  display: block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-radius: 5px;
+
+
+}
 .agent-field-label{
       width:60%;
       display: inline-block;
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
 
 }
 
-.firstName,.lastName,.email,.username,.password,.confirmPassword,.userType,.dept-select,.usertype-select,.usertype-select{
+.firstName,.lastName,.email,.username,.password,.confirmPassword,
+               .userType,.dept-select,.usertype-select,.usertype-select,.dno,.street,.city,.state{
         line-height:10px;
         width: 50%;
         padding: 6px;
@@ -466,7 +427,7 @@ margin-left:250px;
       border-radius:10px;
       padding: 5px;
       margin-top: 10px;
-      margin-left:0px;
+      margin-left:200px;
       display:box;
       font-size: 20px;
       font-weight: 500;
@@ -475,82 +436,36 @@ margin-left:250px;
 
 }
 
-/*.accordion_container {
-  width: 250px;
-  margin-right:0px;
-}
-
-.accordion_container2 {
-  width: 250px;
-  margin-right:10px;
-}
-.accordion_head {
-  background-color: #87ceeb;
-  color: white;
-  cursor: pointer;
-  font-family: arial;
-  font-size: 14px;
-  margin: 0 0 1px 0;
-  padding: 7px;
-  font-weight: bold;
-}
-
-.accordion_body {
-  background: lightgray;
-}
-
-
-.plusminus {
-  float: right;
-}*/
-
-ul.tabs-buttons   {
-    margin-left:0px;
-}
-#tabs-container{
-    margin-left:100px;
-}
-#tab2-updateProfile{
-    border-top: solid 1px #ccc;
-    margin-top: -1px;
-}
-#tab3-changePassword {
-    border-top: solid 1px #ccc;
-    margin-top: -1px;
-}
-#tab1-profile-details{
-    border-top: solid 1px #ccc;
-    margin-top: -1px;
+/*agent address button */
+.agentAddress-submit{
+      color: #fff;
+      border: none;
+      border-radius:10px;
+      padding:0px;
+      margin-top: 10px;
+      margin-left:200px;
+      margin-bottom:100px;
+      display:box;
+      font-size: 20px;
+      font-weight: 500;
+      background: #87ceeb;
+      width:40%;
 
 }
-#tab2-update {
-    display:none;
-    width:100%;
-    margin-left:40px;
+
+.agentAddress-submit-button{
+      color: #fff;
+      border: none;
+      border-radius:10px;
+      padding: 5px;
+      font-size: 20px;
+      font-weight: 500;
+      text-align:center;
+      width:100%;
+      background: #87ceeb;
+
 }
-#tab3-change {
-    display:none;
-    width:100%;
-    margin-left:40px;
-}
-ul.tabs-buttons li  {
-    list-style:none;
-    display:inline;
-}
-ul.tabs-buttons li a{
-    width:30%;
-    padding:5px 10px;
-    display:inline-block;
-    background:#87ceeb;
-    color:#fff;
-    text-decoration:none;
-}
-ul.tabs-buttons li a:hover,a:active {
-    background:#fff;
-    color:#000;
-    border: solid 1px #ccc;
-    border-width: 1px 1px 0 1px;
-    }
+
 /*update expand label,fields,button properties*/
 .update-field-label{
       width:100%;
@@ -558,13 +473,14 @@ ul.tabs-buttons li a:hover,a:active {
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
+      font-weight: normal;
       margin-left:0px;
 }
 .editProfile-firstName ,.editProfile-lastName,.editProfile-email {
-       line-height:10px;
+       line-height:0px;
         width: 50%;
-        padding: 6px;
+        padding: 5px;
         margin-left: 10px;
         margin-top:10px;
         border-radius:10px;
@@ -583,12 +499,13 @@ ul.tabs-buttons li a:hover,a:active {
       margin-top: 10px;
       margin-left:210px;
       display:box;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
       background: #87ceeb;
       width:50%;
 
 }
+
 /*change password label,field,button properties*/
 .change-password-label{
       width:100%;
@@ -596,14 +513,15 @@ ul.tabs-buttons li a:hover,a:active {
       width: 200px;
       text-align: right;
       font-family:arial;
-      font-size:14px;
+      font-size:12px;
+      font-weight: normal;
       margin-left:0px;
 
 }
 .change-password-field{
-        line-height:10px;
+        line-height:0px;
         width: 50%;
-        padding: 6px;
+        padding: 5px;
         margin-left: 10px;
         margin-top:10px;
         border-radius:10px;
@@ -618,14 +536,153 @@ ul.tabs-buttons li a:hover,a:active {
       border: none;
       border-radius:10px;
       padding: 5px;
-      margin-top: 2px;
+      margin-top: 5px;
       margin-left:210px;
       display:box;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
       background: #87ceeb;
       width:50%;
+      outline:none;
+}
+.error-form{
+    position:absolute;
+    color:#ff0505;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    font-style:italic;
+    font-size:12px;
+    width:100%;
+}
+/* Show agents CSS along with table properties */
+#agent {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70vw;
+  margin-top:50px;
+  margin-left:auto;
+  margin-right:auto;
+  height:50vh;
+
+
+}
+
+#agent td, #agent th {
+  border: 1px solid #ddd;
+  padding: 1px 1px 1px;
+  text-align: center;
+}
+
+#agent tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#agent tr:hover {background-color: #ddd;}
+
+#agent th {
+  padding-top:5px;
+  padding-bottom: 5px;
+  background-color: #88e1fc;
+  color: white;
+}
+
+#image-click-agent-table{
+        font-family: Arial, Helvetica, sans-serif;
+         border-collapse: collapse;
+         width: 70%;
+         margin-top:50px;
+         margin-left:auto;
+         margin-right:auto;
 }
 
 
+#image-click-agent-table td,th{
+          border: 1px solid #ddd;
+          padding: 1px 1px 1px;
+          text-align: center;
+
+}
+
+#image-click-agent-table th {
+   padding-top: 5px;
+   padding-bottom: 5px;
+   background-color: #88e1fc;
+   text-align: center;
+  color: white;
+}
+#image-click-agent-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#image-click-agent-table tr:hover {background-color: #ddd;}
+
+#agent-dept-click-table{
+          font-family: Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 50%;
+          margin-left:auto;
+          margin-right:auto;
+          margin-top:50px;
+
+}
+
+#agent-dept-click-table th,#agent-dept-click-table td{
+          border: 1px solid #ddd;
+          padding: 1px 1px 1px;
+          text-align: center;
+
+}
+
+#agent-dept-click-table th {
+   padding-top: 5px;
+   padding-bottom:5px;
+   background-color: #88e1fc;
+   color: white;
+}
+
+#agent-dept-click-table tr:nth-child(even){
+        background-color: #f2f2f2;
+}
+#agent-dept-click-table tr:hover {
+    background-color: #ddd;
+}
+
+.pagination{
+      /*box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 170px;
+      height:40px;
+      padding:0px;*/
+      margin:10px 200px;
+      font-size:12px;
+}
+.current{
+      margin-right:12px;
+}
+.address-table{
+   margin-top:5px;
+   margin-left:120px;
+   margin-right:20px;
+}
+
+.address-table li{
+        margin-left:2px;
+        list-style:none;
+}
+.address-table span{
+        color:#007bff;
+}
+
+.address-table td{
+  /*border: 1px solid #ddd;*/
+  padding: 1px 1px 1px;
+  text-align: left;
+  font-size:12px;
+     height:70px;
+
+.agent-details-card,.update-profile-card,.change-password-card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  height:50vh;
+
+}
 

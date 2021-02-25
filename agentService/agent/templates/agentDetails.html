@@ -1,65 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Agent Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-    </script>
+    <!--bootstrap cdn-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--Auto search css-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"
                 integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
                 crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/profiledetails.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/imageUpload.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/addressChange.css' %}">
         <script src="{% static 'js/imageUpload.js' %}"></script>
         <script src="{% static 'js/resetPassword.js' %}"></script>
         <script src="{% static 'js/updateProfile.js' %}"></script>
-        <script src="{% static 'js/index.js' %}"></script>
-
-</head>
+        <script src="{% static 'js/registration.js' %}"></script>
+       <script src="{% static 'js/search.js' %}"></script>
+       <script src="{% static 'js/addressChange.js' %}"></script>
+   </head>
 <body>
         <div class="header">
-            <h2 class="welcome">Welcome {{request.session.firstName}}!! </h2>
+            <h5 class="welcome">Welcome {{request.session.firstName}}!! </h5>
             <span>Last login:{{last_login}}</span>
         </div>
-        <div class="topnav">
-               <a href="/agent/agentProfile/">My Profile</a>
-                   <div class="dropdown">
-                      <button class="dropbtn">Agent</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/searchByAgent/">Search</a>
-                   {% if usertype == "supervisor" %}
-                      <a href="/agent/showAgents/">ShowAgents</a>
-                      <a href="/agent/register/">Create Agent</a>
-                    {% endif %}
-                       </div>
-                   </div>
-                    {% if usertype == "supervisor" %}
-                   <div class="dropdown">
-                      <button class="dropbtn">Department</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/createDepartment/">Create Department</a>
-                      <a href="/agent/showAllDepartments/">ShowAllDepartments</a>
-                      <a href="/agent/searchByDepartment/">SearchByDepartment</a>
-                      </div>
-                   </div>
-                   <div class="dropdown">
-                      <button class="dropbtn">Requests</button>
-                      <div class="dropdown-content">
-                      <a href="/agent/showRequests/">ShowRequests </a>
-                      </div>
-                   </div>
-                   {% endif %}
-                        <a href="/agent/agentLogout/">Logout</a>
-        </div>
+  <nav class="navbar navbar-expand-lg" role="navigation" style="background-color: #3b5998;">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+         <li>
+             <span><i class="fa fa-home"></i><a class="nav-link-style py-0 myProfile" href="/agent/myProfile/">MyProfile</a></span></li>
+     </ul>
+    <ul class="navbar-nav">
+      <li class="dropdown">
+        <span> <i class="fa fa-user" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a></span>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
+          {% if request.session.usertype == "supervisor" %}
+          <li><a class="dropdown-item" href="/agent/showAgents/">Show Agents</a></li>
+          <li><a class="dropdown-item" href="/agent/register/">Create Agent</a></li>
+          {% endif %}
+        </ul>
+      </li>
+    </ul>
+    {% if request.session.usertype == "supervisor" %}
+    <ul class="navbar-nav">
+      <li class="dropdown">
+          <span><i class="fa fa-university" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Department</a></span>
+         <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/showDepartments/">Show Departments</a></li>
+          <li><a class="dropdown-item" href="/agent/searchByDepartment/">Search by Department</a></li>
+          <li><a class="dropdown-item" href="/agent/createDepartment/">Create Department</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="dropdown">
+       <span><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Requests</a></span>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/showRequests/">Show Requests</a></li>
+        </ul>
+      </li>
+    </ul>
+    {% endif %}
+    <ul class="navbar-nav mr-auto">
+    <li>
+        <span><i class="fa fa-sign-out" aria-hidden="true"></i><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></span></li>
+  </ul>
+    <form action="/agent/search_url/" class="form-inline navbar-right my-2 my-lg-0" id="search-form" method="GET">
+         {% csrf_token %}
+      <input type="text" name="myInput" id="myInput" placeholder="Go To Page...." class="form-control">
+         <i class="fa fa-search"></i>
+    </form>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </div>
+</nav>
         {% block code %}
       <div class="row">
           <div class="column side left">
              <div class="display-image">
                     {% if agentProfile.image %}
-                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="200px" height="150px"/>
+                        <img src="{{agentProfile.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg" width="150px" height="150px"/>
                     {% else %}
 
                     {% endif %}
@@ -69,7 +104,7 @@
              </div>
               <div>
                     <div id="upload" style="display:none;">
-                        <form action='/agent/upload/' method="post" enctype="multipart/form-data">
+                        <form action='/agent/imageUpload/' method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="field">
                                     <input id="id_image" type="file" class="profile-image" name="image">
@@ -82,88 +117,157 @@
                     </div>
               </div>
           </div>
-
         <div class="column middle">
-             <div id='tabs-container'>
-                <ul class='tabs-buttons'>
-                    <td>
-                        <li><a href="#profile-details" id='tab1-profile-details'>My Profile</a></li>
-                    </td>
-                    <td>
-                        <li><a href="#tab2-update" id='tab2-updateProfile'>UpdateProfile</a></li>
-                    </td>
-                    <td>
-                        <li><a href="#tab3-change" id='tab3-changePassword'>ChangePassword</a></li>
-                    </td>
-                </ul>
-            </div>
-            <div id="profile-details" style="display:block" class="profile-details-container">
-                <table id="agent-details-table">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTab">
+              <li class="nav-item">
+                <a href="#myProfile" class="nav-link {{myProfile}}"  data-toggle="tab">MyProfile</a>
+              </li>
+              <li class="nav-item">
+                <a  href="#update-profile" class="nav-link {{updateProfile}}"  data-toggle="tab">UpdateProfile</a>
+              </li>
+              <li class="nav-item">
+                <a href="#change-password" class="nav-link {{changePassword}}"  data-toggle="tab">ChangePassword</a>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content card">
+              <div class="tab-pane {{myProfile}}" id="myProfile">
+               <div class="card-body">
+                 <table id="agent-details-table">
+                     <tr>
+                         <td>
+                               <span>Profile Details</span>
+                         </td>
+                     </tr>
                     <tr>
-                    <caption>Profile Details</caption>
-                    </tr>
-                    <tr>
+
                         <td>
-                          <label>First Name:</label>
+                          First Name:
                         </td>
                         <td>
-                            <div class="field">
                             {{agentProfile.firstName}}
-                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label> Last Name:</label>
+                            Last Name:
                         </td>
                         <td>
-                            <div class="field">
                                    {{agentProfile.lastName}}
-                            </div>
                         </td>
                     </tr>
                      <tr>
                         <td>
-                           <label>Email Id:</label>
+                           Email Id:
                         </td>
 
                         <td>
-                             <div class="field">
                                     {{agentProfile.email}}
-                             </div>
                         </td>
                      </tr>
                      <tr>
                         <td>
-                           <label>UserName:</label>
+                             UserName:
                         </td>
                         <td>
-                            <div class="field">
+
                           {{agentProfile.username}}
-                            </div>
+
                         </td>
                      </tr>
                      <tr>
                        <td>
-                             <label>Department:</label>
+                             Department:
                        </td>
                         <td>
-                            <div class="field">
                              {{agentProfile.dept}}
-                            </div>
+
                         </td>
                      </tr>
                 </table>
-            </div>
+                 <table class="address-table" id="pAddress">
+                         <tr id="pAddress-table-row">
+                               {{tMsg}}
+                             <td>
+                            <ul style="list-style: none;">
+                                <span>{{pAddr.AddressType}}</span>
+                                <li>Door No</li>
+                                <li>Street</li>
+                                <li>City</li>
+                                <li>State</li>
+                                <li>PinCode</li>
+                            </ul>
+                          </td>
 
-            <div id='tab2-update'>
-                <form action="/agent/editProfile/" method="post">
+                          <td>
+                            <br>
+                            <ul style="list-style: none;" id="pAddress-change-ul">
+                                <form action="/agent/pAddressUpdate/" method="POST">
                                     {% csrf_token %}
-                               {{errorMsg}}
+                                <li><input type="text" id="pAddrType" name="AddrType" value="{{pAddr.AddressType}}" class="pAddressType-text" style="visibility:hidden;" readonly/></li>
+                                <li><input type="text" id="pdno" name="DoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="Street" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="City" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="State" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" name="Pincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="submit" id="pSubmit" class="pAddress-update-button" style="visibility:hidden;"></li>
+                                </form>
+                            </ul>
+                          </td>
+                               <td>
+                                    <!--<a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>-->
+                                   <button id="pButton">Update Permanent Address</button>
+                               </td>
+                         </tr>
+                         </table>
+                    <table class="address-table" id="tAddress">
+                          <tr>
+                              {{tMsg}}
+                           <td>
+                                <ul style="list-style: none;">
+                                  <span>{{tAddr.AddressType}}</span>
+                                <li>Door No</li>
+                                <li>Street</li>
+                                <li>City</li>
+                                <li>State</li>
+                                <li>PinCode</li>
+                            </ul>
+
+                           </td>
+                           <td>
+                               <br>
+                            <ul style="list-style: none;">
+                             <form action="/agent/pAddressUpdate/" method="POST">
+                                  {% csrf_token %}
+                                  <li><input type="text" id="tAddrType" name="AddrType" value="{{tAddr.AddressType}}" class="tAddressType-text" style="visibility:hidden;" readonly/></li>
+                                <li><input type="text" id="tdno" name="DoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="Street" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="City" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="State" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" name="Pincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;"></li>
+                             </form>
+                            </ul>
+                          </td>
+                           <td>
+                              <button id="tButton">Update Temporary Address</button>
+                            </td>
+                 </tr>
+                    </table>
+                </div>
+              </div>
+           <div class="tab-pane {{updateProfile}}" id="update-profile">
+           <div class="update-profile-card card-body">
+               <span class="error-form">{{errorMsg}}</span>
+           <form action="/agent/editProfile/" method="post">
+                                                    {% csrf_token %}
+                              <div>
                                 <div>
                                     <label class="update-field-label">First Name</label>
                                     <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
-                                    value="{{agentProfile.firstName}}" />
+                                    value="{{agentProfile.firstName}}"/>
                                 </div>
                                 <div>
                                     <label class="update-field-label"> Last Name</label>
@@ -175,57 +279,52 @@
                                     <input type="text" name="email" id="email" class="editProfile-email"
                                     value="{{agentProfile.email}}" />
                                 </div>
+
                                 <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>
-                </form>
+                              </div>
+                            </form>
+                         <div class="container">
+    <!--<a class="btn btn-primary" data-toggle="collapse" href="#updateAddress" role="button" aria-expanded="false" aria-controls="collapseExample">Update Address</a>-->
+
+                </div>
             </div>
-             <div id='tab3-change'>
-                  <form action="/agent/changePassword/" method="post">
-                          {% csrf_token %}
+       </div>
+        <div class="tab-pane {{changePassword}}" id="change-password">
+            <div class="change-password-card card-body">
+                <span class="error-form" id="changePasswordError">{{changeMsg}}</span>
+                <span class="error-form" id="errorMessage"></span><br>
+                <form action="/agent/changePassword/" method="post">
+
+		                           {% csrf_token %}
                         <div>
                             <label class="change-password-label">Enter Old Password</label>
                             <input type="password" name="old-password" class="change-password-field" id="old-password-field" required/>
                         </div>
                         <div>
-                            <label class="change-password-label">Enter New Password</label>
+                            <label class="change-password-label">Type New Password</label>
                             <input type="password" name="new-password" class="change-password-field" id="password-field"/>
                         </div>
                         <div>
 
-                            <label class="change-password-label">Confirm New Password</label>
+                            <label class="change-password-label">Re-Type New Password</label>
                             <input type="password" name="confirm-Password" class="change-password-field" id="confirm-password-field"/>
 
                         </div>
-                        <p>{{changeMsg}}</p>
-                        <span class="error_form" id="errorMessage"></span>
+
                          <input type="submit" value="Change" class="change-password-submit" id="button-2">
-
                     </form>
-              </div>
              </div>
-           <div class="search-dropdown">
-              <button class="search-dropbtn"><font color="black">Search</font></button>
-              <div class="search-dropdown-content">
-                   <input id="myInput" type="text" placeholder="Search..">
-                   <ul id="myList" style="list-style-type:none;text-align:left;">
-                          <li><a href="/agent/agentProfile/">My Profile</a></li>
-                          <li><a href="/agent/searchByAgent/">Search</a></li>
-                          <li><a href="/agent/showAgents/">ShowAgents</a></li>
-                          <li><a href="/agent/register/">Create Agent</a></li>
-                          <li> <a href="/agent/createDepartment/">Create Department</a></li>
-                          <li> <a href="/agent/showAllDepartments/">ShowAllDepartments</a></li>
-                          <li><a href="/agent/searchByDepartment/">SearchByDepartment</a>  </li>
-                   </ul>
-              </div>
-       </div>
-        </div>
-          <div class="column side">
+</div>
+             </div>
 
-          </div>
+
         {% endblock %}
-</body>
       </div>
+      </div>
+</body>
+
         <div class="footer">
-          <p>Footer</p>
+          <p>Copy right @CSR Application 2021<br> version: v1.0 </p>
         </div>
 
 </html>

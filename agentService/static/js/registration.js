@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function(){
 
          $("#firstName_error_message").hide();
          $("#lastName_error_message").hide();

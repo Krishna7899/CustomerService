@@ -1,13 +1,7 @@
 {% extends "agentDetails.html" %}
 {% block code %}
-{% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
-<div class="column middle">
-       <table id="agent" >
-             <tr>
-               <caption>List Of Agents</caption>
-            </tr>
-
+        <table id="agent">
+            <tr><td>List Of Agents</td></tr>
             <tr>
                  <th>Image</th>
                  <th>FirstName</th>
@@ -16,7 +10,6 @@
                  <th>Username</th>
                  <th>UserType</th>
                  <th>Department</th>
-
             </tr>
            {% for show_agent_obj in page_obj %}
             <tr>
@@ -24,56 +17,36 @@
                     {% if show_agent_obj.image %}
                     <a href="{% url 'agent:imageData' id=show_agent_obj.id %}"><img src="{{show_agent_obj.image.url}}" alt="MyImage" accept=".png,.jpg,.jpeg"
                                                 width="70px" height="25px"/>  </a>
-
                      {% else %}
                             {{msg}}
                     {% endif %}
-
-
             </td>
             <td>
-
                     {{show_agent_obj.firstName}}
-
             <td>
-
                         {{show_agent_obj.lastName}}
-
             </td>
             <td>
-
                  {{show_agent_obj.email}}
-
             </td>
             <td>
-
                  {{show_agent_obj.username}}
 
-
             </td>
             <td>
-
              {{show_agent_obj.usertype}}
-
             </td>
             <td>
-
-
        <a href="{% url 'agent:deptData' dept=show_agent_obj.dept %}">{{show_agent_obj.dept}}</a>
-
-
-                </td>
+            </td>
             </tr>
              {% endfor %}
-            <tr>
-
-            </tr>
-       </table><br/>
-             <div class="pagination">
+       </table>
+       <div class="pagination">
           <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
             {% endif %}
           </span>
           <span class="current">
@@ -81,14 +54,9 @@
           </span>
           </span>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}">next  &raquo;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last  &raquo;</a>
             {% endif %}
           </span>
-        </div>
-
-
-
-    </div>
-
+       </div>
 {% endblock%}

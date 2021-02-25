@@ -4,8 +4,8 @@
 <div class="column middle">
     <div class="showRequests">
         {{message}}
-        <table id="agent">
-             <caption>All Requests </caption>
+        <table id="agent-request-table">
+             <td>All Requests </td>
             <tr>
                   <th>UserName</th>
                   <th>Description</th>
@@ -38,10 +38,16 @@
                 </td>
 
                 <td>
-                    <div class="field">
-                        <label></label>
-                         <a href="{% url 'agent:unlockRequest' requestedBy=show_req_obj.requestedBy %}">approve</a>
-                    </div>
+                     {% if show_req_obj.status == "closed" %}
+                     <div>
+                      <span>{{show_req_obj.status}}</span>
+                        </div>
+                    {% else %}
+                        <div class="field">
+                            <label></label>
+                             <a href="{% url 'agent:unlockRequest' requestedBy=show_req_obj.requestedBy %}">approve</a>
+                        </div>
+                    {% endif %}
 
                 </td>
                 </form>

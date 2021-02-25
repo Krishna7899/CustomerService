@@ -15,14 +15,12 @@
     }
   });
 
-
-
-
 });*/
 $(document).ready(function() {
 $('.change-password-submit').click(function(e){
     var password= $("#password-field").val();
     var confirmPassword=$("#confirm-password-field").val();
+    var changePassword= $("#changePasswordError").val();
     if (confirmPassword!=password){
         e.preventDefault()
         $("#errorMessage").html("Password and Confirm password did not match");
@@ -34,6 +32,23 @@ $('.change-password-submit').click(function(e){
     }
 });
 });
+
+
+
+/*$(document).ready(function() {
+   $('#old-password-field').change(function(e)
+   var changePassword= $("#changePasswordError").val();
+   if (changePassword.length > 1){
+    e.preventDefault()
+    $('#changePassword').show();
+   }
+   else if(changePassword.length > 1){
+             e.preventDefault()
+             $("#errorMessage").html("Password not exists");
+             $("#errorMessage").show();
+});
+});*/
+
 /*$(document).ready(function() {
 $(".accordion_head").click(function(){
     if ($(this).find(".accordion_body").slideDown('slow');
@@ -72,21 +87,23 @@ $(".accordion_head").click(function(){
             })
 })*/
 
-$(document).ready(function() {
-  $("#tab2-updateProfile").click(function() {
-    $("#profile-details").hide();
+/*$(document).ready(function() {
+  $("#pUpdateAddress").click(function() {
+    $("#pAddress-table-row").hide();
     $("#tab3-change").hide();
     $("#tab2-update").toggle();
   });
-});
+});*/
+
+/*
 $(document).ready(function() {
  $("#tab3-changePassword").click(function() {
     $("#profile-details").hide();
     $("#tab2-update").hide();
     $("#tab3-change").toggle();
   });
-});
-$(document).ready(function() {
+});*/
+/*$(document).ready(function() {
  $("#tab1-profile-details").click(function() {
     $("#profile-details").toggle();
     $("#tab2-update").hide();
@@ -94,3 +111,19 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+ $("#update-profile").click(function() {
+    $("#tab2-update").toggle();
+    $("#profile-details").hide();
+    $("#tab3-change").hide();
+    $("#address").hide();
+  });
+});
+
+$(document).ready(function() {
+ $("#change-password").click(function() {
+    $("#profile-details").hide();
+    $("#tab2-update").hide();
+    $("#tab3-change").toggle();
+  });
+});*/

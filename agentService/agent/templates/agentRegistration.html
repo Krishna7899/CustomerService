@@ -2,17 +2,11 @@
 {% block code %}
 
 
-  <div class="column side">
-
-  </div>
-
 <div class="column middle">
-
-
-    <form action="/agent/register/" name="registration-page" method="post">
+        <span>{{message}}</span>
+    <div class="registration-field-container">
+        <form action="/agent/register/" name="registration-page" method="post">
             {% csrf_token %}
-          {{message}}
-            <div class="field-container">
                 <div class="agent-field">
                     <label class="agent-field-label">First Name</label>
                     {{form.firstName}}
@@ -55,14 +49,52 @@
                     <label class="agent-field-label">Department</label>
                     {{form.dept}}
                 </div>
+
                 <div class="field agentRegister-submit">
                     <input type="submit" value="Register" class="agentRegister-submit-button" >
                 </div>
-           </div>
-
     </form>
+          </div>
+      {{addressMsg}}
+    <!--<a href="#addressForm">Address</a>-->
+ <!--   {% if AddressForm %}
+      <div id="addressForm">
+        <form action="/agent/createAddress/" method="POST">
+               {% csrf_token %}
+            <div>
+             <div class="agent-field">
+                    <label class="agent-field-label">Address Type</label>
+                    {{AddressForm.AddressType}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">Door No</label>
+                    {{AddressForm.Dno}}
+            </div>
+
+            <div class="agent-field">
+                    <label class="agent-field-label">Street</label>
+                    {{AddressForm.Street}}
+            </div>
+             <div class="agent-field">
+                    <label class="agent-field-label">City</label>
+                    {{AddressForm.City}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">State</label>
+                    {{AddressForm.State}}
+            </div>
+            <div class="agent-field">
+                    <label class="agent-field-label">PinCode</label>
+                    {{AddressForm.Pincode}}
+            </div>
+            <div class=" agentAddress-submit">
+                    <input type="submit" value="save" class="agentAddress-submit-button" >
+            </div>
+            </div>
+        </form>
+        </div>
+      {% endif %}-->
 
   </div>
 
 {% endblock %}
-

@@ -15,20 +15,40 @@
 
 $(document).ready(function(){
   $('#button-2').click(function(e){
-
      var firstName = $("#firstName").val();
      var lastName = $("#lastName").val();
      var username = $("#username").val();
+     var advSearchMsg = "{{advSearchMsg}}";
      if (firstName.length == 0 && lastName.length ==0 && username.length==0){
-        e.preventDefault()
+           e.preventDefault()
         $("#error_message").html("At least One Field value is mandatory!!");
         $("#error_message").show();
 
         }
      else{
+          $('#tab2').show();
+          $('#tab1').hide();
          $("#error_message").hide();
      }
+     if( advSearchMsg == "No Data" ){
+          $("#view_error_message").html("No Data found Please try with Other Details");
+          $("#view_error_message").show();
+
+        }else{
+           $("#view_error_message").hide();
+        }
   });
+
+
+/*$(document.ready).function(){
+   var advSearchMsg = "{{advSearchMsg}}";
+   if (advSearchMsg == "NoData"){
+        e.preventDefault()
+        $("#error_message").html("No Data Found Please try with other details");
+        $("#error_message").show();
+   }
+}*/
+
 
 $('ul.tabs').each(function(){
     var $active, $content, $links = $(this).find('a');

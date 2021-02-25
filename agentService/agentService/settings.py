@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'agent',
     'rest_framework',
     'django_cleanup.apps.CleanupConfig',
+    'corsheaders',
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,3 +155,5 @@ MEDIA_URL = '/media/'
     'django.contrib.auth.backends.ModelBackend',
     #'demos.auth.CustomEmailBackend.EmailAuthBackend',
 ]"""
+
+CORS_ORIGIN_ALLOW_ALL = True

@@ -14,11 +14,11 @@
       border-radius: 5px;
 }
 .search-field-input {
-        line-height:30px;
-        width:60%
-        padding: 15px 20px;
+        width:200px;
+        line-height:10px;
+        padding: 5px;
         margin: 8px 0;
-        margin-left:30px;
+        margin-left:100px;
         border-radius:10px;
         box-sizing: border-box;
         border: 1px solid #ccc;
@@ -26,6 +26,10 @@
         transition: 0.5s;
         outline: none;
 
+}
+#div1{
+    padding:0px;
+    margin-left:300px;
 }
 .search-field .username:focus {
   border: 2px solid  #0040ff;
@@ -41,30 +45,32 @@
 .searchAgent-button input[type="submit"]{
       background-color: #87ceeb;
       border: none;
-      border-radius:5px;
+      border-radius:10px;
       color: white;
-      padding: 5px 15px;
+      padding: 5px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
-      margin-left:0px;
-      width:100%;
+      margin-left:10px;
+      font-weight:200;
+      width:100px;
 }
 .advSearchAgent-button input[type="submit"]{
       background-color: #87ceeb;
       border: none;
-      border-radius:5px;
+      border-radius:10px;
       color: white;
-      padding: 5px 25px;
+      padding: 5px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: 16px;
+      font-size: 14px;
       margin: 4px 2px;
       cursor: pointer;
-      width:100%;
+      outline:none;
+      width:150px;
 }
 
 .advancedSearch{
@@ -110,11 +116,7 @@
   cursor: pointer;
 
 }
-#div1{
-padding:2px;
-margin-left:300px;
 
-}
 .field label{
       margin-right:30px;
       display: inline-block;
@@ -126,11 +128,11 @@ margin-left:300px;
   }
 
 #firstName,#lastName,#username{
-        line-height:20px;
-        width: 70%;
-        padding:5px 8px;
-        margin: 0px 0;
+        line-height:5px;
+        width: 150px;
+        padding:5px 5px;
         border-radius:10px;
+        margin-left:5px;
         box-sizing: border-box;
         border: 1px solid #ccc;
         -webkit-transition: 0.5s;
@@ -138,15 +140,21 @@ margin-left:300px;
         outline: none;
   }
 
-
-
 .#firstName,#lastName,#username:focus {
   border: 2px solid  #0040ff;
+  margin:0px;
 }
 
+#advSearch-option-table{
+                margin-left:200px;
+}
 #advSearch-option-table tr{
-                display:inline;
-                float:left;
+                display:inline-block;
+
+}
+#advSearch-option-table td{
+          margin:0px;
+          padding:0
 
 }
 
@@ -154,33 +162,35 @@ margin-left:300px;
 #agent-search-table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 70%;
-  margin-left:100px;
+  width: 500px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #agent-search-table td, #agent-search-table th {
-  border: 1px solid #ddd;
   padding: 0px;
-  text-align: center;
+  text-align: left;
 
 }
 
-#agent-search-table tr:nth-child(even){background-color: #f2f2f2;}
+#agent-search-table tr:nth-child(even){
+            background-color: #f2f2f2;
+            }
 
-#agent-search-table tr:hover {background-color: #ddd;}
+#agent-search-table tr:hover {
+        background-color: #ddd;
+        }
 
 #agent-search-table th {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background-color: #88e1fc;
-  color: white;
+  padding-top: 5px;
+  color: black;
 }
 
 #advSearchagent-table{
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 70vw;
-  margin-left:50px;
+  margin-left:200px;
 }
 
 #advSearchagent-table td, #advSearchagent-table th {
@@ -195,8 +205,8 @@ margin-left:300px;
 #advSearchagent-table  tr:hover {background-color: #ddd;}
 
 #advSearchagent-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 5px;
+  padding-bottom:5px;
   background-color: #88e1fc;
   color: white;
 }
@@ -249,22 +259,23 @@ margin-left:300px;
 }
 
 ul.tabs   {
-    margin-left:0px;
+    margin:10px 0px 0px ;
 
 }
-#tab1, #tab2 {
+#tab1,#tab2 {
     border-top: solid 1px #ccc;
-    margin-top: -1px;
+    margin-top:0px;
     }
 #tab2 {
     display:none;
     }
 ul.tabs li  {
     list-style:none;
-    display:inline;
+    display:inline-block;
 }
 ul.tabs li a {
-    padding:5px 10px;
+    padding:6px;
+    border-radius:5px;
     display:inline-block;
     background:#87ceeb;
     color:#fff;
@@ -275,4 +286,11 @@ ul.tabs li a.active {
     color:#000;
     border: solid 1px #ccc;
     border-width: 1px 1px 0 1px;
+    display:block;
     }
+
+.card-body span{
+        color:#f70505;
+        font-size:12px;
+        font-family:
+}

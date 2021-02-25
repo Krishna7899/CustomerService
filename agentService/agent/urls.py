@@ -4,41 +4,46 @@ from django.urls import path, include
 
 from .import views, restviews
 from rest_framework import routers
-
+from .commons import *
 
 # rest web services
 from .restviews import AgentImageAPIView
 
 router = routers.DefaultRouter()
 
-
 urlpatterns=[
     path('rest/', include(router.urls)),
     path('rest/getAgents/photo', AgentImageAPIView.as_view(),name="getagent-page"),
-    path('', views.handleShowAgent, name="agent-page"),
-    path('index/', views.index, name="index-page"),
-    path('search/', views.search, name="search"),
-    path('register/', views.handleAgent, name="register-page"),
-    path('showAgents/', views.showAgents, name="showAgents-page"),
-    path('searchByAgent/', views.searchByAgent, name="searchAgents-page"),
-    path('agentLogin/', views.agentLogin, name="login-page"),
+    path('rest/search/', restviews.search,name="search"),
+    path('rest/auto_search/',restviews.auto_search ,name="auto_search"),
+    path('getKey/', views.getKey, name="getKey"),
+    path('', views.handleShowAgent, name="agentLoginHome"),
+    #path(url_dict["index"], views.index, name="index"),
+    path('search_url/', views.search_url, name="search_url"),
+    path(url_dict["Create Agent"], views.handleAgent, name="Create Agent"),
+    path(url_dict["Show Agents"], views.showAgents, name="Show Agents"),
+    path(url_dict["Search Agent"], views.searchByAgent, name="Search Agent"),
+    path(url_dict["advSearch"], views.advSearchByAgent, name="advSearch"),
+    path('agentLogin/', views.agentLogin, name="agentLogin"),
     path('agentLogout/', views.agentLogout, name="logout-page"),
-    path('upload/', views.imageUpload,name="upload-page"),
+    path('imageUpload/', views.imageUpload,name="imageUpload"),
     #path('supervisorImageUpload/', views.supervisorImageUpload,name="superUserImageUpload-page"),
-    path('agentProfile/', views.agentDetails, name="profile-page"),
+    path(url_dict["MY Profile"], views.agentDetails, name="MY Profile"),
     path('editProfile/', views.editProfile, name="edit-page"),
     path('changePassword/', views.changePassword, name="changePassword-page"),
-    path('createDepartment/', views.createDepartment, name="createDepartment-page"),
-    path('showAllDepartments/', views.showAllDepartments, name="createDepartment-page"),
-    path('createRequest/', views.createRequest, name="createRequest-page"),
-    path('showRequests/', views.showRequests, name="showRequests-page"),
+    path(url_dict["Create Department"], views.createDepartment, name="createDepartment"),
+    path(url_dict["Show Departments"], views.showAllDepartments, name="Show Departments"),
+    path('createRequest/', views.createRequest, name="createRequest"),
+    path(url_dict["Show Requests"], views.showRequests, name="Show Requests"),
     #path('supervisorDetails/', views.supervisorDetails, name="showSupervisor-page"),
-    path('advSearchByAgent/', views.advSearchByAgent, name="advSearchByAgent-page"),
+
     path('<requestedBy>/unlockRequest/', views.unlockRequest, name="unlockRequest"),
     path('<int:id>/imageData/', views.imageData, name="imageData"),
     path('<dept>/deptData/', views.deptData, name="deptData"),
-    path('searchbydepartment/',views.searchbydepartment,name="searchbydepartment-page"),
-
+    path(url_dict["Search Department"],views.searchByDepartment,name="Search Department"),
+    path('createAddress/', views.createAddress, name="createAddress"),
+    path('pAddressUpdate/', views.pAddressUpdate, name="pAddressUpdate"),
+    #path('createTaddress/', views.createTaddress, name="createTaddress"),
     #path('showAllDepartments/', views.showAllDepartments, name="showAllDepartments-page"),
     #path('searchByDepartment/', views.searchByDepartment, name="showAllDepartments-page"),
 ]

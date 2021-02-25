@@ -5,9 +5,7 @@ from django.utils import timezone
 # Create your models here.
 # Model class
 
-
-
-
+AddressOptions = (('PermanentAddress', 'PermanentAddress'), ('TemporaryAddress', "TemporaryAddress"))
 
 
 class AgentTable(models.Model):
@@ -76,3 +74,40 @@ class LogTable(models.Model):
     agentId=models.IntegerField(default=0)
     def __str__(self):
         return self.loginTime
+'''class PermanentAddress(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    pDno = models.CharField(max_length=10)
+    pStreet = models.CharField(max_length=20)
+    pCity = models.CharField(max_length=20)
+    pState = models.CharField(max_length=20)
+    pPincode = models.CharField(max_length=6)
+    pAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    pAddressType = models.CharField(max_length=30, choices=AddressOptions)
+    def __str__(self):
+        return self.pDno
+
+class TemporaryAddress(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    tDno = models.CharField(max_length=10)
+    tStreet = models.CharField(max_length=20)
+    tCity = models.CharField(max_length=20)
+    tState = models.CharField(max_length=20)
+    tPincode = models.CharField(max_length=6)
+    tAgent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    tAddressType = models.CharField(max_length=30, choices=AddressOptions)
+
+    def __str__(self):
+        return self.tDno'''
+class AddressTable(models.Model):
+
+    id = models.AutoField(auto_created=True, primary_key=True)
+    Dno = models.CharField(max_length=10)
+    Street = models.CharField(max_length=20)
+    City = models.CharField(max_length=20)
+    State = models.CharField(max_length=20)
+    Pincode = models.CharField(max_length=6)
+    Agent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    AddressType = models.CharField(max_length=30, choices=AddressOptions)
+
+    def __str__(self):
+        return self.Dno

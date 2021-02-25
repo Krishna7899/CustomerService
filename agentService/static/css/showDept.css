@@ -4,28 +4,99 @@
 
 }
 
-
-#agent {
+#show-all-dept {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 30vw;
-  margin-left:300px;
+  width: 400px;
+  margin-left:200px;
 }
 
-#agent td, #agent th {
+#show-all-dept td, #show-all-dept th {
   border: 1px solid #ddd;
   padding: 0px;
   text-align: center;
 
 }
 
-#agent tr:nth-child(even){background-color: #f2f2f2;}
+#show-all-dept tr:nth-child(even){background-color: #f2f2f2;}
 
-#agent tr:hover {background-color: #ddd;}
+#show-all-dept tr:hover {background-color: #ddd;}
 
-#agent th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+#show-all-dept th {
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color: #34ebe1;
   color: white;
+}
+
+#search-by-dept-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 30vw;
+  margin-left:400px;
+  margin-top:50px;
+}
+
+#search-by-dept-table td, #search-by-dept-table th {
+  border: 1px solid #ddd;
+  padding: 0px;
+  text-align: center;
+
+}
+
+#search-by-dept-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#search-by-dept-table tr:hover {background-color: #ddd;}
+
+#search-by-dept-table th {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #34ebe1;
+  color: white;
+}
+.search-field-input {
+        line-height:30px;
+        width:60%;
+        padding: 15px 20px;
+        margin: 8px 0;
+        margin-left:30px;
+        border-radius:10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+
+}
+.search-field label{
+        margin-left:400px;
+}
+.dept-field-input{
+        line-height:20px;
+        width:200px;
+        padding: 5px;
+        margin: 8px 0;
+        margin-left:20px;
+        border-radius:10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+
+}
+
+.searchDepartment-button{
+      background-color: #87ceeb;
+      border: none;
+      border-radius:5px;
+      color: white;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left:450px;
+      width:200px;
 }
