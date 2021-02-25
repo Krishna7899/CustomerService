@@ -3,7 +3,7 @@
         {% load static %}
 <div class="column middle">
     <div class="showRequests">
-        {{message}}
+
         <table id="agent-request-table">
              <caption>All Requests </caption>
             <tr>
@@ -18,9 +18,7 @@
                 {% csrf_token %}
                 <td>
 
-
            {{show_req_obj.requestedBy}}
-
 
                 <td>
 
@@ -34,14 +32,19 @@
 
              {{show_req_obj.requestType}}
                 </div>
-
                 </td>
 
                 <td>
-                    <div class="field">
-                        <label></label>
-                         <a href="{% url 'agent:unlockRequest' requestedBy=show_req_obj.requestedBy %}">approve</a>
-                    </div>
+                    {% if show_req_obj.status == "closed" %}
+                     <div>
+                      <span>{{show_req_obj.status}}</span>
+                        </div>
+                    {% else %}
+                        <div class="field">
+                            <label></label>
+                             <a href="{% url 'agent:unlockRequest' requestedBy=show_req_obj.requestedBy %}">approve</a>
+                        </div>
+                    {% endif %}
 
                 </td>
                 </form>
@@ -49,6 +52,38 @@
              {% endfor %}
 
         </table>
+                  <!--  {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>&nbsp;&nbsp;
+                        <a href="?page={{page_obj.previous_page_number}}">previous</a>
+                    {% endif %}
+                     {% if page_obj.has_next %}
+                        <a href="?page={{page_obj.next_page_number}}">next</a>&nbsp;&nbsp;
+                        <a href="?page={{page_obj.pagination.num_pages}}">last </a>
+                     {% endif %}-->
+        <div class="pagination">
+
+          <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+          </span>
+          <span class="current">
+              {% if page_obj.number == 1 %}
+                   page{{page_obj.number}}
+              {% else %}
+                    Page {{ page_obj.number }} of {{ page_obj.pagination.num_pages }}
+          </span>
+            {% endif %}
+          </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.pagination.num_pages }}">last &raquo;</a>
+            {% endif %}
+          </span>
+
+        </div>
+
 
    </div>
 </div>

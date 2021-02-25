@@ -5,7 +5,7 @@
 
 <div class="column middle">
     <div class="showDept">
-        <table id="agent">
+        <table id="show-all-departments">
             <caption>All Departments </caption>
             <tr>
                   <th>creadted_by</th>
@@ -44,8 +44,12 @@
             {% endif %}
           </span>
           <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              {% if page_obj.number == 1 %}
+                   page{{page_obj.number}}
+              {% else %}
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
           </span>
+            {% endif %}
           </span>
             {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">next</a>
