@@ -15,14 +15,12 @@
     }
   });
 
-
-
-
 });*/
 $(document).ready(function() {
 $('.change-password-submit').click(function(e){
     var password= $("#password-field").val();
     var confirmPassword=$("#confirm-password-field").val();
+    var changePassword= $("#changePasswordError").val();
     if (confirmPassword!=password){
         e.preventDefault()
         $("#errorMessage").html("Password and Confirm password did not match");
@@ -34,6 +32,23 @@ $('.change-password-submit').click(function(e){
     }
 });
 });
+
+
+
+/*$(document).ready(function() {
+   $('#old-password-field').change(function(e)
+   var changePassword= $("#changePasswordError").val();
+   if (changePassword.length > 1){
+    e.preventDefault()
+    $('#changePassword').show();
+   }
+   else if(changePassword.length > 1){
+             e.preventDefault()
+             $("#errorMessage").html("Password not exists");
+             $("#errorMessage").show();
+});
+});*/
+
 /*$(document).ready(function() {
 $(".accordion_head").click(function(){
     if ($(this).find(".accordion_body").slideDown('slow');
@@ -73,12 +88,14 @@ $(".accordion_head").click(function(){
 })*/
 
 /*$(document).ready(function() {
-  $("#tab2-updateProfile").click(function() {
-    $("#profile-details").hide();
+  $("#pUpdateAddress").click(function() {
+    $("#pAddress-table-row").hide();
     $("#tab3-change").hide();
     $("#tab2-update").toggle();
   });
-});
+});*/
+
+/*
 $(document).ready(function() {
  $("#tab3-changePassword").click(function() {
     $("#profile-details").hide();

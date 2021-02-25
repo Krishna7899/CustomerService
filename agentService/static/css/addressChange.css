@@ -1,0 +1,41 @@
+#pAddress-change-ul{
+        list-style:none;
+}
+#pButton{
+     border:none;
+     outline:none;
+     background-color:#87ceeb;
+     color:white;
+     font-size:12px;
+}
+#tButton{
+     border:none;
+     outline:none;
+     background-color:#87ceeb;
+     color:white;
+     font-size:12px;
+}
+.pAddress-update-text,.pAddressType-text,.tAddressType-text{
+        border:none;
+        outline:none;
+        line-height:10px;
+        width:100%;
+        padding: 2px;
+        border-radius:10px;
+        outline: none;
+}
+.tAddress-update-text{
+      border:none;
+      outline:none;
+      line-height:10px;
+      width:100%;
+      padding: 2px;
+      border-radius:10px;
+      outline: none;
+}
+
+.pAddressType-text{
+
+    visibility:hidden;
+
+}

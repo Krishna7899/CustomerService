@@ -1,12 +1,12 @@
 {% extends "agentDetails.html" %}
 {% block code %}
         {% load static %}
-            <link rel="stylesheet" type="text/css" href="{% static 'css/showAgents.css' %}">
+
 <div>
     <table id="image-click-agent-table">
 
           {% if show_image_obj %}
-              <caption>Details of {{show_image_obj.username}} </caption>
+            <tr><td>Details of {{show_image_obj.username}}</td></tr>
             <tr>
                 <th>Image</th>
                 <th>FirstName</th>
