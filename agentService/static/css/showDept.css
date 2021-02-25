@@ -1,20 +1,19 @@
 .showDept{
-    margin-left:40px;
-    margin-right:40px;
-
+    margin-left:30px;
+    margin-right:30px;
 }
 
-
-#agent {
+#show-all-departments {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 10vw;
+  width: 20vw;
   margin-left:300px;
 }
 
-#agent td, #agent th {
+#show-all-departments td, #show-all-departments th {
   border: 1px solid #ddd;
   padding: 0px;
+  background-color: #34ebe1;
   text-align: center;
 
 }
@@ -23,15 +22,9 @@
 
 #agent tr:hover {background-color: #ddd;}
 
-#agent th {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #34ebe1;
-  color: white;
-}
 .search-field-input {
         line-height:30px;
-        width:60%
+        width:50%
         padding: 15px 20px;
         margin: 8px 0;
         margin-left:30px;
@@ -43,21 +36,32 @@
         outline: none;
 
 }
-.search-field label{
-        margin-left:400px;
+.search-field{
+	margin: 8px 0;
+    margin-left:500px;
+
 }
+
+
+
 .dept-field-input{
         line-height:30px;
-        width:60%
+        width:50%
         padding: 15px 20px;
         margin: 8px 0;
-        margin-left:20px;
+        margin-left:10px;
         border-radius:10px;
         box-sizing: border-box;
         border: 1px solid #ccc;
         -webkit-transition: 0.5s;
         transition: 0.5s;
         outline: none;
+
+}
+.search-for-department{
+	 margin-top:20px;
+     margin-left:400px;
+
 
 }
 
@@ -75,3 +79,23 @@
       margin-left:450px;
       width:200px;
 }
+.search-by-departmentName th{
+  padding-top:2px;
+  padding-bottom: 2px;
+  background-color: #34ebe1;
+  color: white;
+  margin-left:500px;
+  width: 30vw;
+ }
+.search-by-departmentName td{
+    border: 1px solid #ddd;
+    padding: 0px;
+    text-align: center;
+ }
+ .search-by-departmentName{
+  padding-top:2px;
+  padding-bottom: 2px;
+  margin-left:350px;
+  border-collapse: collapse;
+  width: 30vw;
+ }
