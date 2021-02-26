@@ -1,4 +1,4 @@
-from .models import AgentTable, Requests, Department, LogTable, AddressTable
+from .models import AgentTable, Requests, Department, LogTable, MyAddressTable
 from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
@@ -164,6 +164,6 @@ def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType):
                                 AddressType=AddressType)
 
 def showPermanentAddressMethod():
-    return AddressTable.objects.get(AddressType="PermanentAddress")
+    return MyAddressTable.objects.get(AddressType="PermanentAddress")
 def showTemporaryAddressMethod():
-    return AddressTable.objects.get(AddressType="TemporaryAddress")
+    return MyAddressTable.objects.get(AddressType="TemporaryAddress")

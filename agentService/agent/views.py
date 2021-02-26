@@ -9,7 +9,7 @@ from .DButils import *
 from django.contrib.auth import logout
 from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm
 from django.shortcuts import render, redirect
-from .models import Department, LogTable, AddressTable
+from .models import Department, LogTable, MyAddressTable
 from .commons import url_dict
 from django.http import HttpResponse
 import json
@@ -195,8 +195,8 @@ def agentDetails(request):
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
         addressForm = AddressForm()
-        pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-        tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+        pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+        tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
@@ -208,8 +208,8 @@ def editProfile(request):
     myId = request.session['id']
     edit_obj = getLoggedInUserObject(myId)
     usertype=request.session["usertype"]
-    pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-    tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+    pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+    tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
     if request.method == 'GET':
         return render(request, 'editProfile.html', {"agentProfile": edit_obj})
     if request.method == 'POST':
@@ -230,8 +230,8 @@ def editProfile(request):
 # Changing password of agent when by agent only
 def changePassword(request):
     last_login = getLastLoginTime(request.session["id"])
-    pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-    tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+    pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+    tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
     usertype=request.session["usertype"]
     myId=request.session["id"]
     edit_obj = getLoggedInUserObject(myId)
@@ -383,8 +383,7 @@ def createAddress(request):
         City = request.POST["City"]
         State = request.POST["State"]
         Pincode = request.POST["Pincode"]
-        Agent = request.session["id"]
-        Agent_id = Agent
+        Agent_id = request.session["id"]
         AddressType = request.POST["AddressType"]
         create_addr_obj=createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType)
         """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
@@ -402,8 +401,8 @@ def pAddressUpdate(request):
        state=request.POST["State"]
        pincode=request.POST["Pincode"]
        if addressType == "PermanentAddress":
-            pAddr=AddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
+            pAddr=MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="PermanentAddress")).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
             return render(request,"agentDetails.html",{"pAddr":pAddr})
        if addressType == "TemporaryAddress":
-           tAddr = AddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street,City=city, State=state,Pincode=pincode)
+           tAddr = MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
            return render(request, "agentDetails.html", {"tAddr": tAddr})

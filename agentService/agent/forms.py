@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import AgentTable, Requests, Department,AddressTable
+from .models import AgentTable, Requests, Department,MyAddressTable
 from django import forms
 
 
@@ -7,7 +7,7 @@ from django.core.exceptions import NON_FIELD_ERRORS
 
 
 # ModelForm class
-OPTIONS = (("agent", "agent"), ("supervisor", "supervisor"))
+OPTIONS = (("agent", "agent"), ("supervisor", "supervisor"),("sales manager","sales manager"))
 class AgentForm(forms.ModelForm):
 
     firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'firstName','id': 'firstName'}))
@@ -55,7 +55,7 @@ class AddressForm(forms.ModelForm):
     Pincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
 
     class Meta:
-        model=AddressTable
+        model=MyAddressTable
         fields=["Dno","Street","City","State","Pincode","AddressType"]
 
 
