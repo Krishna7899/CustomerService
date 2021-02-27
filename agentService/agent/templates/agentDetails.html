@@ -75,6 +75,17 @@
         </ul>
       </li>
     </ul>
+       <ul class="navbar-nav">
+      <li class="dropdown">
+       <span><i class="fa fa-group" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#" id="menu-partner">Partner</a></span>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/createPartner/" id="dropdown-create-partner">Create Partner</a></li>
+           <li><a class="dropdown-item" href="/agent/partnerSearch/" id="dropdown-search-partner">Search Partner</a></li>
+           <li><a class="dropdown-item" href="" id="dropdown-update-partner">Update Partner</a></li>
+        </ul>
+      </li>
+    </ul>
     {% endif %}
     <ul class="navbar-nav mr-auto">
     <li>
@@ -202,7 +213,6 @@
                           </td>
 
                           <td>
-                            <br>
                             <ul style="list-style: none;" id="pAddress-change-ul">
                                 <form action="/agent/pAddressUpdate/" method="POST" id="permanent-address-form">
                                     {% csrf_token %}
@@ -218,12 +228,10 @@
                           </td>
                                <td>
                                     <!--<a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>-->
-                                   <button id="pButton">Update Permanent Address</button>
+                                   <button id="pButton">UpdatePermanentAddress</button>
                                </td>
                          </tr>
-                         </table>
-                    <table class="address-table" id="tAddress">
-                          <tr>
+                         <tr>
                               {{tMsg}}
                            <td>
                                 <ul style="list-style: none;">
@@ -252,7 +260,7 @@
                             </ul>
                           </td>
                            <td>
-                              <button id="tButton" name="tButton" id="tButton">Update Temporary Address</button>
+                              <button id="tButton" name="tButton" id="tButton">UpdateTemporaryAddress</button>
                             </td>
                  </tr>
                     </table>

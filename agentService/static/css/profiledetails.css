@@ -105,7 +105,15 @@ i.fa-university{
         color:orange;
         }
 i.fa-hand-pointer-o{
-     position: relative;
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
+
+i.fa-group{
+        position: relative;
         right: 0px;
         padding:0px;
         margin-left:10px;
@@ -231,7 +239,7 @@ margin-left:250px;
   }
 /* agent details in myprofile page */
 #agent-details-table{
-        margin-left:100px;
+        margin-left:60px;
 
 }
 
@@ -657,10 +665,13 @@ margin-left:250px;
 .current{
       margin-right:12px;
 }
+
+
 .address-table{
-   margin-top:5px;
-   margin-left:120px;
-   margin-right:20px;
+   margin-top:0px;
+   margin-left:80px;
+   margin-right:30px;
+
 }
 
 .address-table li{
@@ -677,6 +688,7 @@ margin-left:250px;
   text-align: left;
   font-size:12px;
      height:70px;
+     margin-left:0px;
 
 .agent-details-card,.update-profile-card,.change-password-card{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

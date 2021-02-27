@@ -1,0 +1,20 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+
+
+    <div class="column middle">
+        <span class="error_form" id="error_message">{{msg}}</span>
+        <form action="/agent/createPartner/" name="createPartner" id="createPartner" method="post">
+            {% csrf_token %}
+            <div class="dept-field-container">
+                <div class="dept-field">
+                     {{form.as_p}}</br>
+                    <input type="submit" value="Create" class="dept-field-button">
+               </div>
+           </div>
+
+        </form>
+
+  </div>
+
+{% endblock %}

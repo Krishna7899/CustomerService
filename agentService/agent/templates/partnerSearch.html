@@ -1,0 +1,180 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+                <script src="{% static 'js/searchAgent.js' %}"></script>
+        <ul class="nav nav-tabs" id="myTab">
+              <li class="nav-item">
+                <a href="#search" class="nav-link {{search}}"  data-toggle="tab">Search</a>
+              </li>
+        <!--  <li class="nav-item">
+                <a  href="#advSearch" class="nav-link {{advancedSearch}}"  data-toggle="tab">Advanced Search</a>
+              </li>-->
+	    </ul>
+
+	<div class="tab-content card">
+	    <div class="tab-pane {{search}}" id="search">
+               <div class="card-body">
+                       <table style="margin-left:100px;">
+                <span style="position:absolute;margin-left:450px"><b>{{msg}}</b></span><br>
+                <tr>
+               <form action="/agent/partnerSearch/" name="partnerSearch" method="post" id="form1">
+            {% csrf_token %}
+
+                     <td>
+                <div class="search-field">
+                 <!-- <label>Search</label>  <span class="search-field-input">{{form.username}}</span>-->
+                    <input type="text" id="placeholder" name="partnerName" placeholder=" search here" class="search-field-input" required/>
+
+                </div>
+                     </td>
+                     <td>
+                        <div class="searchAgent-button">
+                    <input type="submit" value="Search" id="button-1">
+                </div>
+                     </td>
+               </form>
+                </tr>
+                   <tr>
+                <td>
+                <div class="radio-field" id="div1">
+                   Id&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio" onclick="changePlaceholder1()"/>&nbsp;&nbsp;
+                   Name&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio"  onclick="changePlaceholder2()"/>
+                    <span class="error_form" id="searchById_error_message"></span>
+                </div>
+                </td>
+                  </form>
+               </tr>
+          </table>
+
+		</div>
+            </div>
+      <!--      <div class="tab-pane {{advancedSearch}}" id="advSearch">
+               <div class="card-body">
+			 <form action="/agent/partnerAdvSearch/" name="partnerAdvSearch" id="form2">
+                {% csrf_token %}
+                  <table id="advSearch-option-table">
+                    <span style="position:absolute; margin-left:400px" class="error_form" id="error_message"></span><br>
+                    <span style="position:absolute; margin-left:400px" class="view_error" id="view_error_message"></span><br>
+                     <p style="position:absolute;margin-left:450px;"><b>{{advSearchMsg}}</b></p></br>
+
+                    <tr>
+                     <td>
+                      <input type="text" id="firstName" name="firstName" placeholder="FirstName">
+                     </td>
+                     <td>
+                      <input type="text" id="lastName" name="lastName" placeholder="LastName">
+                      </td>
+                      <td>
+                      <input type="text" id="username" name="username" placeholder="username">
+                      </td>
+                    <td>
+                <div class="advSearchAgent-button">
+                        <input type="submit" value="Search" id="button-2" >
+                </div>
+                    </td>
+                    </tr>
+                    </table>
+                 </form>
+		      </div>
+            </div>-->
+        </div>
+     <div>
+        <table id="agent-search-table">
+          {% if search_by_name %}
+            <tr>
+                <td>
+                    <span style="position:absolute;">Details of Partner</span><br>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                   <th>Partner Name</th>
+                </td>
+                <td>
+                    {{search_by_name.name}}
+                <td>
+            </tr>
+            <tr>
+                <td>
+                   <th>Partner Code</th>
+                </td>
+                <td>
+                     {{search_by_name.code}}
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                    <th>GST Id</th>
+                 </td>
+                 <td>
+
+                     {{search_by_name.GSTCode}}
+                 </td>
+            </tr>
+
+             {% endif %}
+        </table>
+
+  </div>
+
+ <!--<div>
+       {% if adv_search_obj %}
+        <table id="advSearchagent-table">
+
+            <tr>
+                <td>Searched Partners</td>
+            </tr>
+
+            <tr>
+                <th>Partner Name</th>
+                <th>Partner Code</th>
+                 <th>GST Code</th>
+            </tr>
+            {% for adv_search_obj in page_obj %}
+            <tr>
+
+                <td>
+
+                    {{adv_search_obj.name}}
+
+                <td>
+
+
+                     {{adv_search_obj.code}}
+
+                </td>
+                <td>
+                     {{adv_search_obj.GSTCode}}
+
+
+                </td>
+            </tr>
+            {% endfor %}
+
+       </table>
+        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?{{GET_params.urlencode}}&amp;page=1">&laquo; first</a>
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.next_page_number}}">next</a>
+            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+
+  </div>
+        {% endif %}
+        </div>
+
+</div>-->
+{% endblock %}
+
+

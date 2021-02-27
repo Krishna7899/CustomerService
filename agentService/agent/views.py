@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm
+from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm,PartnerForm
 from django.shortcuts import render, redirect
 from .models import Department, LogTable, MyAddressTable
 from .commons import url_dict
@@ -406,3 +406,54 @@ def pAddressUpdate(request):
        if addressType == "TemporaryAddress":
            tAddr = MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
            return render(request, "agentDetails.html", {"tAddr": tAddr})
+
+
+def partnerCreate(request):
+    partnerForm = PartnerForm()
+    if request.method=="GET":
+        return render(request,"partnerCreate.html",{"form":partnerForm})
+    if request.method=="POST":
+        name=request.POST["name"]
+        code=request.POST["code"]
+        GSTCode=request.POST["GSTCode"]
+        createdBy_id=request.session["id"]
+        partner_obj=createPartnerMethod(name,code,GSTCode,createdBy_id)
+        if partner_obj:
+            return render(request, "partnerCreate.html", {"form": partnerForm,"msg":"Partner created Successfully"})
+
+def partnerSearch(request):
+    if request.method=="GET":
+        return render(request,"partnerSearch.html",{"search":"active"})
+    if request.method=="POST":
+            name = request.POST.get("partnerName")
+            try:
+                search = getDetailsByPartnerName(name)
+                if search:
+                    return render(request, "partnerSearch.html",{"search_by_name": search,"search": "active"})
+            except:
+                return render(request, "partnerSearch.html",{"msg": "No data Found", "search": "active"})
+
+'''def partnerAdvSearch(request):
+        usertype = request.session["usertype"]
+        if 'name' in request.GET:
+            name = request.GET["name"]
+        if 'code' in request.GET:
+           code = request.GET["code"]
+        # adv_search_obj = AgentTable.objects.filter(Q(firstName=firstName) | Q(lastName=lastName) | Q(username=username))
+        adv_search_obj = partnerAdvsearchMethod(name,code)
+        paginator = Paginator(adv_search_obj, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        GET_params = request.GET.copy()
+
+        if adv_search_obj:
+            last_login = getLastLoginTime(request.session["id"])
+            return render(request, "searchAgent.html",
+                          {"adv_search_obj": adv_search_obj, 'page_obj': page_obj,
+                           'GET_params': GET_params, "last_login": last_login, "advancedSearch": "active"})
+
+        else:
+            return render(request, "searchAgent.html",
+                          {"usertype": usertype, "advSearchMsg": "No Data Found", "advancedSearch": "active"})
+
+'''

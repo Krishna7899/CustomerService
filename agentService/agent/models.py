@@ -7,7 +7,6 @@ from django.utils import timezone
 
 AddressOptions = (('PermanentAddress', 'PermanentAddress'), ('TemporaryAddress', "TemporaryAddress"))
 
-
 class AgentTable(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     firstName = models.CharField(max_length=8, default="")
@@ -91,10 +90,10 @@ class Branch(models.Model):
 
 class MyAddressTable(AddressBase):
     id = models.AutoField(auto_created=True, primary_key=True)
-    agent_id = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    agent_id = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='',blank=True,null=True)
     AddressType = models.CharField(max_length=30, choices=AddressOptions)
-    partner_id= models.ForeignKey(Partner, on_delete=models.CASCADE, default='')
-    branch_id= models.ForeignKey(Branch, on_delete=models.CASCADE, default='')
+    partner_id= models.ForeignKey(Partner,on_delete=models.CASCADE, default='',blank=True,null=True)
+    branch_id= models.ForeignKey(Branch, on_delete=models.CASCADE, default='',blank=True,null=True)
 
     def __str__(self):
         return self.Dno

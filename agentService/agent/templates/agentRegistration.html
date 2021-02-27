@@ -57,7 +57,7 @@
           </div>
       {{addressMsg}}
     <!--<a href="#addressForm">Address</a>-->
- <!--   {% if AddressForm %}
+ {% if AddressForm %}
       <div id="addressForm">
         <form action="/agent/createAddress/" method="POST">
                {% csrf_token %}
@@ -87,13 +87,25 @@
                     <label class="agent-field-label">PinCode</label>
                     {{AddressForm.Pincode}}
             </div>
+               <div class="agent-field">
+                    <label class="agent-field-label">PartnerId</label>
+                    {{AddressForm.agent_id}}
+            </div>
+             <div class="agent-field">
+                    <label class="agent-field-label">PartnerId</label>
+                    {{AddressForm.partner_id}}
+            </div>
+              <div class="agent-field">
+                    <label class="agent-field-label">BranchId</label>
+                    {{AddressForm.partner_id}}
+            </div>
             <div class=" agentAddress-submit">
                     <input type="submit" value="save" class="agentAddress-submit-button" >
             </div>
             </div>
         </form>
         </div>
-      {% endif %}-->
+      {% endif %}
 
   </div>
 
