@@ -427,6 +427,7 @@ def partnerSearch(request):
     if request.method=="POST":
             name = request.POST.get("partnerName")
             try:
+                form = AgentForm(request.POST, request.FILES)
                 search = getDetailsByPartnerName(name)
                 if search:
                     return render(request, "partnerSearch.html",{"search_by_name": search,"search": "active"})

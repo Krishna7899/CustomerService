@@ -7,10 +7,7 @@
               <li class="nav-item">
                 <a href="#search" class="nav-link {{search}}"  data-toggle="tab">Search</a>
               </li>
-        <!--  <li class="nav-item">
-                <a  href="#advSearch" class="nav-link {{advancedSearch}}"  data-toggle="tab">Advanced Search</a>
-              </li>-->
-	    </ul>
+   	    </ul>
 
 	<div class="tab-content card">
 	    <div class="tab-pane {{search}}" id="search">
@@ -20,19 +17,16 @@
                 <tr>
                <form action="/agent/partnerSearch/" name="partnerSearch" method="post" id="form1">
             {% csrf_token %}
-
-                     <td>
-                <div class="search-field">
-                 <!-- <label>Search</label>  <span class="search-field-input">{{form.username}}</span>-->
-                    <input type="text" id="placeholder" name="partnerName" placeholder=" search here" class="search-field-input" required/>
-
-                </div>
-                     </td>
-                     <td>
-                        <div class="searchAgent-button">
+                <td>
+                    <div class="search-field">
+                       <input type="text" id="placeholder" name="partnerName" placeholder=" search here" class="search-field-input" required/>
+                    </div>
+                </td>
+                <td>
+                    <div class="searchAgent-button">
                     <input type="submit" value="Search" id="button-1">
-                </div>
-                     </td>
+                    </div>
+                </td>
                </form>
                 </tr>
                    <tr>
@@ -49,36 +43,7 @@
 
 		</div>
             </div>
-      <!--      <div class="tab-pane {{advancedSearch}}" id="advSearch">
-               <div class="card-body">
-			 <form action="/agent/partnerAdvSearch/" name="partnerAdvSearch" id="form2">
-                {% csrf_token %}
-                  <table id="advSearch-option-table">
-                    <span style="position:absolute; margin-left:400px" class="error_form" id="error_message"></span><br>
-                    <span style="position:absolute; margin-left:400px" class="view_error" id="view_error_message"></span><br>
-                     <p style="position:absolute;margin-left:450px;"><b>{{advSearchMsg}}</b></p></br>
-
-                    <tr>
-                     <td>
-                      <input type="text" id="firstName" name="firstName" placeholder="FirstName">
-                     </td>
-                     <td>
-                      <input type="text" id="lastName" name="lastName" placeholder="LastName">
-                      </td>
-                      <td>
-                      <input type="text" id="username" name="username" placeholder="username">
-                      </td>
-                    <td>
-                <div class="advSearchAgent-button">
-                        <input type="submit" value="Search" id="button-2" >
-                </div>
-                    </td>
-                    </tr>
-                    </table>
-                 </form>
-		      </div>
-            </div>-->
-        </div>
+          </div>
      <div>
         <table id="agent-search-table">
           {% if search_by_name %}
@@ -118,63 +83,6 @@
 
   </div>
 
- <!--<div>
-       {% if adv_search_obj %}
-        <table id="advSearchagent-table">
-
-            <tr>
-                <td>Searched Partners</td>
-            </tr>
-
-            <tr>
-                <th>Partner Name</th>
-                <th>Partner Code</th>
-                 <th>GST Code</th>
-            </tr>
-            {% for adv_search_obj in page_obj %}
-            <tr>
-
-                <td>
-
-                    {{adv_search_obj.name}}
-
-                <td>
-
-
-                     {{adv_search_obj.code}}
-
-                </td>
-                <td>
-                     {{adv_search_obj.GSTCode}}
-
-
-                </td>
-            </tr>
-            {% endfor %}
-
-       </table>
-        <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?{{GET_params.urlencode}}&amp;page=1">&laquo; first</a>
-            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.next_page_number}}">next</a>
-            <a href="?{{GET_params.urlencode}}&amp;page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-
-  </div>
-        {% endif %}
-        </div>
-
-</div>-->
 {% endblock %}
 
 
