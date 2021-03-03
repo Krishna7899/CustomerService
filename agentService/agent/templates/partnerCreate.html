@@ -1,16 +1,26 @@
 {% extends "agentDetails.html" %}
 {% block code %}
-
+{% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
 
     <div class="column middle">
-        <span class="error_form" id="error_message">{{msg}}</span>
         <form action="/agent/createPartner/" name="createPartner" id="createPartner" method="post">
             {% csrf_token %}
-            <div class="dept-field-container">
-                <div class="dept-field">
-                     {{form.as_p}}</br>
-                    <input type="submit" value="Create" class="dept-field-button">
+            <div class="partner-field-container">
+                <span class="error_form" id="error_message" style="position:absolute">{{msg}}</span><br>
+                <div class="partner-field">
+                    <label class="update-field-label">Partner Name</label>
+                    <input type="text" name="name" id="partner-name"/>
                </div>
+                 <div class="partner-field">
+                     <label class="update-field-label">Partner Code</label>
+                    <input type="text" name="code" id="partner-code"/>
+               </div>
+                 <div class="partner-field">
+                     <label class="update-field-label">GST Code</label>
+                    <input type="text" name="GSTCode" id="partner-GSTCode"/>
+               </div>
+                    <input type="submit" value="Create" class="partner-field-submit">
            </div>
 
         </form>

@@ -160,8 +160,7 @@ def getdetailsbyDepartment(department):
     return Department.objects.get(deptName=department)
 
 def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType):
-    return AgentTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
-                                AddressType=AddressType)
+    return MyAddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, agent_id_id=Agent_id,AddressType=AddressType)
 
 def showPermanentAddressMethod():
     return MyAddressTable.objects.get(AddressType="PermanentAddress")
@@ -179,3 +178,5 @@ def getDetailsByPartnerName(name):
 
 def getPartnerNames(search_name):
     return Partner.objects.filter(name__icontains=search_name)
+def partnerLiveSearchMethod():
+    return Partner.objects.all()

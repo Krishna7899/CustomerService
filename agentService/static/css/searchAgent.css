@@ -330,3 +330,37 @@ ul.tabs li a.active {
       font-weight:200;
       width:100px;
 }
+.partner-field-container{
+        margin-left:200px;
+        width:100%;
+
+}
+.partner-field input[type="text"]{
+       line-height:5px;
+        width: 200px;
+        padding:5px 5px;
+        border-radius:10px;
+        margin-left:5px;
+        margin-top:2px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+}
+.partner-field-submit{
+      background-color: #87ceeb;
+      border: none;
+      border-radius:10px;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left:220px;
+      margin-top:10px;
+      font-weight:200;
+      width:150px;
+}

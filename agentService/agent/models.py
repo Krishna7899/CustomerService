@@ -71,7 +71,6 @@ class AddressBase(models.Model):
         abstract = True
         ordering = ['Dno','Street','City','State','Country','Pincode']
 
-
 class Partner(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     name =models.CharField(max_length=40,default='')

@@ -3,8 +3,8 @@
 
 
 <div class="column middle">
-        <span>{{message}}</span>
     <div class="registration-field-container">
+        <span style="position:absolute">{{message}}</span>
         <form action="/agent/register/" name="registration-page" method="post">
             {% csrf_token %}
                 <div class="agent-field">
@@ -88,7 +88,7 @@
                     {{AddressForm.Pincode}}
             </div>
                <div class="agent-field">
-                    <label class="agent-field-label">PartnerId</label>
+                    <label class="agent-field-label">AgentId</label>
                     {{AddressForm.agent_id}}
             </div>
              <div class="agent-field">

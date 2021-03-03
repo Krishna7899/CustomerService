@@ -383,7 +383,7 @@ def createAddress(request):
         City = request.POST["City"]
         State = request.POST["State"]
         Pincode = request.POST["Pincode"]
-        Agent_id = request.session["id"]
+        Agent_id = request.POST["agent_id"]
         AddressType = request.POST["AddressType"]
         create_addr_obj=createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType)
         """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
@@ -403,12 +403,16 @@ def pAddressUpdate(request):
        state=request.POST["State"]
        pincode=request.POST["Pincode"]
        if addressType == "PermanentAddress":
-            pAddr=MyAddressTable.objects.filter(agent_id_id=request.session["id"]).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-            return render(request,"agentDetails.html",{"pAddr":pAddr,"myProfile":"active","agentProfile": agent_detail_obj})
+            MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
+            tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
+            pAddr=MyAddressTable.objects.get(AddressType="PermanentAddress")
+            if pAddr:
+                return render(request,"agentDetails.html",{"pAddr":pAddr,"tAddr":tAddr,"myProfile":"active","agentProfile": agent_detail_obj})
        if addressType == "TemporaryAddress":
-           tAddr = MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-           return render(request, "agentDetails.html", {"tAddr": tAddr,"agentProfile": agent_detail_obj})
-
+           MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
+           tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
+           pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+           return render(request, "agentDetails.html", {"pAddr":pAddr,"tAddr": tAddr,"myProfile":"active","agentProfile": agent_detail_obj})
 
 def partnerCreate(request):
     partnerForm = PartnerForm()
@@ -451,12 +455,12 @@ def partnerUpdateSubmit(request):
         GSTCode = request.POST.get("GSTCode")
         update_obj = Partner.objects.filter(name__iexact=name).update(name=name, code=code, GSTCode=GSTCode)
     if update_obj:
-        return render(request, "partnerUpdate.html", {"msg": "Update Success"})
+        return render(request, "partnerUpdate.html", {"msg": "Partner Details Updated Successfully"})
 
 def partnerLiveSearch(request):
     if 'term' in request.GET:
         search_term=request.GET.get('term')
-    part_obj=Partner.objects.all()
+    part_obj=partnerLiveSearchMethod()
     part_list=[]
     search_list=[]
     for i in part_obj:
