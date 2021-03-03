@@ -97,3 +97,17 @@ def oldPasswordValidate(request):
         'is_taken': User.objects.filter(password__iexact=oldPassword).exists()
     }
     return JsonResponse(data)
+
+#@api_view(['GET', 'POST'])
+def partnerLiveSearch(request):
+     partner_list = []
+     if "name" in request.GET:
+        search_name=request.GET.get("name")
+        part_obj=getPartnerNames(search_name)
+        for list in part_obj:
+            partner_list.append(list.name)
+        if partner_list:
+            return JsonResponse(partner_list,safe=False)
+        else:
+            mesg=["No Data Found"]
+            return JsonResponse(mesg,safe=False)

@@ -1,0 +1,59 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+                <script src="{% static 'js/searchAgent.js' %}"></script>
+                <script src="{% static 'js/partnerUpdate.js' %}"></script>
+
+
+               <div class="card-body">
+                       <table style="margin-left:100px;">
+                <span style="position:absolute;margin-left:450px"><b>{{msg}}</b></span><br>
+                <tr>
+
+               <form action="/agent/partnerUpdate/" name="partnerSearch" method="POST" id="partner-search-form">
+            {% csrf_token %}
+                <td>
+                    <div class="search-field">
+                       <input type="text" id="searchPartner" name="name" placeholder="Search Partner Here..." class="search-field-input" required/>
+                    </div>
+                </td>
+                <td>
+                    <div class="searchAgent-button">
+                    <input type="submit" value="Search" id="button-1">
+                    </div>
+                </td>
+               </form>
+                    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                </tr>
+          </table>
+		</div>
+        {% if partner_obj %}
+        <div class="partner-update-container">
+            <span style="position:absolute">{{msg}}</span>
+        <form action="/agent/partnerUpdateSubmit/" id="update-profile-form" method="post">
+                                                    {% csrf_token %}
+          <div>
+            <div>
+                <label class="update-field-label">Name</label>
+                <input type="text" name="name" id="name" class="partner-update"
+                value="{{partner_obj.name}}"/>
+            </div>
+            <div>
+                <label class="update-field-label"> Code</label>
+                <input type="text" name="code" id="code" class="partner-update"
+                value="{{partner_obj.code}}" />
+            </div>
+            <div>
+                <label class="update-field-label">GST Code</label>
+                <input type="text" name="GSTCode" id="gst" class="partner-update"
+                value="{{partner_obj.GSTCode}}" />
+            </div>
+
+            <input type="submit" id="button-2" value="Update" class="partner-update-submit"/>
+          </div>
+        </form>
+        </div>
+        {% endif %}
+{% endblock %}

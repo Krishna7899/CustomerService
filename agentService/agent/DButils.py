@@ -172,7 +172,10 @@ def createPartnerMethod(name,code,GSTCode,createdBy_id):
     return Partner.objects.create(name=name,code=code,GSTCode=GSTCode,createdBy_id=createdBy_id)
 
 def getDetailsByPartnerName(name):
-    return Partner.objects.filter(Q(name=name) | Q(id=name))
+    return Partner.objects.get(Q(name__iexact=name) | Q(id__iexact=name))
 
 '''def partnerAdvsearchMethod(name,code):
     return Partner.objects.filter(Q(name=name) | Q(code=code))'''
+
+def getPartnerNames(search_name):
+    return Partner.objects.filter(name__icontains=search_name)

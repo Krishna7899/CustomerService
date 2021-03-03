@@ -393,6 +393,8 @@ def createAddress(request):
                                                           "last_login": last_login,
                                                           "addressMsg": " address inserted"})
 def pAddressUpdate(request):
+    myId = request.session['id']
+    agent_detail_obj = getLoggedInUserObject(myId)
     if request.method == "POST":
        addressType=request.POST["AddrType"]
        doorNo=request.POST["DoorNo"]
@@ -401,11 +403,11 @@ def pAddressUpdate(request):
        state=request.POST["State"]
        pincode=request.POST["Pincode"]
        if addressType == "PermanentAddress":
-            pAddr=MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="PermanentAddress")).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-            return render(request,"agentDetails.html",{"pAddr":pAddr})
+            pAddr=MyAddressTable.objects.filter(agent_id_id=request.session["id"]).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
+            return render(request,"agentDetails.html",{"pAddr":pAddr,"myProfile":"active","agentProfile": agent_detail_obj})
        if addressType == "TemporaryAddress":
-           tAddr = MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-           return render(request, "agentDetails.html", {"tAddr": tAddr})
+           tAddr = MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
+           return render(request, "agentDetails.html", {"tAddr": tAddr,"agentProfile": agent_detail_obj})
 
 
 def partnerCreate(request):
@@ -425,36 +427,43 @@ def partnerSearch(request):
     if request.method=="GET":
         return render(request,"partnerSearch.html",{"search":"active"})
     if request.method=="POST":
-            name = request.POST.get("partnerName")
-            try:
-                form = AgentForm(request.POST, request.FILES)
-                search = getDetailsByPartnerName(name)
-                if search:
-                    return render(request, "partnerSearch.html",{"search_by_name": search,"search": "active"})
-            except:
-                return render(request, "partnerSearch.html",{"msg": "No data Found", "search": "active"})
+        try:
+            name = request.POST.get("name")
+            search = getDetailsByPartnerName(name)
+            if search:
+                return render(request,"partnerSearch.html",{"search_by_name":search,"search": "active"})
+        except:
+            return render(request,"partnerSearch.html",{"msg": "No data Found", "search": "active"})
 
-'''def partnerAdvSearch(request):
-        usertype = request.session["usertype"]
-        if 'name' in request.GET:
-            name = request.GET["name"]
-        if 'code' in request.GET:
-           code = request.GET["code"]
-        # adv_search_obj = AgentTable.objects.filter(Q(firstName=firstName) | Q(lastName=lastName) | Q(username=username))
-        adv_search_obj = partnerAdvsearchMethod(name,code)
-        paginator = Paginator(adv_search_obj, 3)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        GET_params = request.GET.copy()
+def partnerUpdate(request):
+    if request.method=="GET":
+        return render(request,"partnerUpdate.html",{})
+    if request.method=="POST":
+        name=request.POST.get("name")
+        if name:
+            partner_obj=Partner.objects.get(name=name)
+            return render(request,"partnerUpdate.html",{"partner_obj":partner_obj})
 
-        if adv_search_obj:
-            last_login = getLastLoginTime(request.session["id"])
-            return render(request, "searchAgent.html",
-                          {"adv_search_obj": adv_search_obj, 'page_obj': page_obj,
-                           'GET_params': GET_params, "last_login": last_login, "advancedSearch": "active"})
+def partnerUpdateSubmit(request):
+    if request.method=="POST":
+        name = request.POST.get("name")
+        code = request.POST.get("code")
+        GSTCode = request.POST.get("GSTCode")
+        update_obj = Partner.objects.filter(name__iexact=name).update(name=name, code=code, GSTCode=GSTCode)
+    if update_obj:
+        return render(request, "partnerUpdate.html", {"msg": "Update Success"})
 
-        else:
-            return render(request, "searchAgent.html",
-                          {"usertype": usertype, "advSearchMsg": "No Data Found", "advancedSearch": "active"})
+def partnerLiveSearch(request):
+    if 'term' in request.GET:
+        search_term=request.GET.get('term')
+    part_obj=Partner.objects.all()
+    part_list=[]
+    search_list=[]
+    for i in part_obj:
+        part_list.append(i.name)
+    for j in part_list:
+        if search_term.lower() in j.lower():
+            search_list.append(j)
+    return JsonResponse(search_list,safe=False)
 
-'''
+
