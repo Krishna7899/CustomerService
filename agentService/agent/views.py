@@ -274,7 +274,7 @@ def createDepartment(request):
                               {"form": form, "last_login": last_login, "msg": "Success"})
         except ServiceException as ex:
                return render(request, "createDepartment.html",
-                      {"usertype": usertype, "msg":ex.errorMessage})
+                      {"form": form,"usertype": usertype, "msg":ex.errorMessage})
 
 # Showing all departments by supervisor
 def showAllDepartments(request):

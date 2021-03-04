@@ -3,10 +3,10 @@
 
 
     <div class="column middle">
-        <span class="error_form" id="error_message">{{msg}}</span>
         <form action="/agent/createDepartment/" name="createDepartment-page" method="post">
             {% csrf_token %}
             <div class="dept-field-container">
+                <span class="error_form" id="error_message" style="position:absolute;">{{msg}}</span><br>
                 <div class="dept-field">
                    <label class="dept-field-label"> Department Name</label>
                     {{form.deptName}}</br>
