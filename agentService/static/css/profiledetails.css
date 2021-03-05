@@ -31,7 +31,15 @@ body {
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
+
 }
+/*.dropdown-menu{
+    width:100px;
+
+}
+.dropdown-menu .dropdown-item{
+       padding:2px 2px 2px;
+}*/
 .nav-link-style:hover{
     color:orange;
     text-decoration:none;

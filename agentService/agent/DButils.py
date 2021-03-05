@@ -168,7 +168,10 @@ def showTemporaryAddressMethod():
     return MyAddressTable.objects.get(AddressType="TemporaryAddress")
 
 def createPartnerMethod(name,code,GSTCode,createdBy_id):
-    return Partner.objects.create(name=name,code=code,GSTCode=GSTCode,createdBy_id=createdBy_id)
+    if Partner.objects.filter(name=name).exists():
+        raise ServiceException("Partner Already Created")
+    else:
+        return Partner.objects.create(name=name,code=code,GSTCode=GSTCode,createdBy_id=createdBy_id)
 
 def getDetailsByPartnerName(name):
     return Partner.objects.get(Q(name__iexact=name) | Q(id__iexact=name))
@@ -180,3 +183,24 @@ def getPartnerNames(search_name):
     return Partner.objects.filter(name__icontains=search_name)
 def partnerLiveSearchMethod():
     return Partner.objects.all()
+def partnerUpdateMethod(name,code,GSTCode):
+   return Partner.objects.filter(name__iexact=name).update(name=name, code=code, GSTCode=GSTCode)
+
+def permanentAddressUpdate(addressType,doorNo,street,city,state,pincode,agent_id_id):
+   return MyAddressTable.objects.filter(Q(agent_id_id=agent_id_id) & Q(AddressType=addressType)).update(Dno=doorNo,
+                                                                                                            Street=street,
+                                                                                                            City=city,
+                                                                                                            State=state,
+                                                                                                            Pincode=pincode)
+
+def temporaryAddressUpdate(addressType,doorNo,street,city,state,pincode,agent_id_id):
+   return MyAddressTable.objects.filter(Q(agent_id_id=agent_id_id) & Q(AddressType=addressType)).update(Dno=doorNo,
+                                                                                                            Street=street,
+                                                                                                            City=city,
+                                                                                                            State=state,
+                                                                                                            Pincode=pincode)
+def getTemporaryAddressObject():
+    return MyAddressTable.objects.get(AddressType="TemporaryAddress")
+def getPermanentAddressObject():
+    return MyAddressTable.objects.get(AddressType="PermanentAddress")
+

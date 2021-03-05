@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm,PartnerForm
+from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm, PartnerForm
 from django.shortcuts import render, redirect
 from .models import Department, LogTable, MyAddressTable
 from .commons import url_dict
@@ -55,7 +55,7 @@ def agentLogin(request):
         try:
             # Call function getAgentLoginValidation() from DB utils
             agent_Obj = getAgentLoginValidation(request, username, password)
-            pAddr=showPermanentAddressMethod()
+            pAddr = showPermanentAddressMethod()
             tAddr = showTemporaryAddressMethod()
             request.session["id"] = agent_Obj.id
             request.session["firstName"] = agent_Obj.firstName
@@ -67,7 +67,8 @@ def agentLogin(request):
             addressForm = AddressForm()
 
             return render(request, 'agentDetails.html', {"agentProfile": agent_Obj, "pAddr": pAddr, "tAddr": tAddr,
-                                                         "AddressForm": addressForm,"last_login": last_login,"myProfile":"active"})
+                                                         "AddressForm": addressForm, "last_login": last_login,
+                                                         "myProfile": "active"})
 
         except ServiceException as ex:
             return render(request, "agentLogin.html", {"msg": ex.errorMessage})
@@ -86,7 +87,7 @@ def handleAgent(request):
         username = request.POST["username"]
     form = AgentForm(request.POST, request.FILES)
     try:
-        createAgent_Obj=createEmployeeValidation(request, email, username,form)
+        createAgent_Obj = createEmployeeValidation(request, email, username, form)
         if createAgent_Obj:
             return render(request, 'agentRegistration.html',
                           {'form': form, 'message': 'success', "last_login": last_login})
@@ -104,7 +105,7 @@ def showAgents(request):
         if show_agent_obj:
             last_login = getLastLoginTime(request.session["id"])
             return render(request, "showAgents.html",
-                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj,"last_login": last_login})
+                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj, "last_login": last_login})
 
 
 # Search agent details by using Id or username
@@ -113,7 +114,7 @@ def searchByAgent(request):
     last_login = getLastLoginTime(request.session["id"])
     if request.method == "GET":
         form = AgentForm()
-        return render(request, "searchAgent.html", {"form": form,"last_login": last_login,"search":"active"})
+        return render(request, "searchAgent.html", {"form": form, "last_login": last_login, "search": "active"})
     if request.method == "POST":
         username = request.POST.get("username")
         try:
@@ -121,11 +122,13 @@ def searchByAgent(request):
             search_by_name = getDetailsByName(username)
             if search_by_name:
                 return render(request, "searchAgent.html",
-                              {"search_by_name": search_by_name,"form": form,
-                               "last_login": last_login,"search":"active"})
+                              {"search_by_name": search_by_name, "form": form,
+                               "last_login": last_login, "search": "active"})
         except:
             return render(request, "searchAgent.html",
-                          {"usertype": usertype, "form": form, "msg": "No data Found","search":"active"})
+                          {"usertype": usertype, "form": form, "msg": "No data Found", "search": "active"})
+
+
 def advSearchByAgent(request):
     usertype = request.session["usertype"]
     if 'firstName' in request.GET:
@@ -144,11 +147,12 @@ def advSearchByAgent(request):
     if adv_search_obj:
         last_login = getLastLoginTime(request.session["id"])
         return render(request, "searchAgent.html",
-                      {"adv_search_obj": adv_search_obj,'page_obj': page_obj,
-                       'GET_params': GET_params, "last_login": last_login,"advancedSearch":"active"})
+                      {"adv_search_obj": adv_search_obj, 'page_obj': page_obj,
+                       'GET_params': GET_params, "last_login": last_login, "advancedSearch": "active"})
 
     else:
-        return render(request, "searchAgent.html", {"usertype": usertype,"advSearchMsg":"No Data Found","advancedSearch":"active"})
+        return render(request, "searchAgent.html",
+                      {"usertype": usertype, "advSearchMsg": "No Data Found", "advancedSearch": "active"})
 
 
 # Once Login as Supervisor show below page
@@ -195,19 +199,19 @@ def agentDetails(request):
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
         addressForm = AddressForm()
-        pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
-        tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
+        tAddr = getTemporaryAddressObject()
+        pAddr = getPermanentAddressObject()
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
-                           "last_login": last_login,"myProfile":"active"})
+                           "last_login": last_login, "myProfile": "active"})
 
 
 # Editing profile of agent when agent login only
 def editProfile(request):
     myId = request.session['id']
     edit_obj = getLoggedInUserObject(myId)
-    usertype=request.session["usertype"]
+    usertype = request.session["usertype"]
     pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
     tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
     if request.method == 'GET':
@@ -222,9 +226,12 @@ def editProfile(request):
             agent_detail_obj = editLoggedInAgentProfile(request, firstName, lastName, email, myId)
             if agent_detail_obj:
                 return render(request, 'agentDetails.html',
-                              {"agentProfile": agent_detail_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"updateProfile":"active"})
+                              {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr,
+                               "last_login": last_login, "updateProfile": "active"})
         except ServiceException as ex:
-            return render(request, 'agentDetails.html', {"agentProfile":edit_obj,"pAddr": pAddr,"tAddr": tAddr,"last_login": last_login,"usertype":usertype,"updateProfile":"active","errorMsg": ex.errorMessage})
+            return render(request, 'agentDetails.html',
+                          {"agentProfile": edit_obj, "pAddr": pAddr, "tAddr": tAddr, "last_login": last_login,
+                           "usertype": usertype, "updateProfile": "active", "errorMsg": ex.errorMessage})
 
 
 # Changing password of agent when by agent only
@@ -232,8 +239,8 @@ def changePassword(request):
     last_login = getLastLoginTime(request.session["id"])
     pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
     tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
-    usertype=request.session["usertype"]
-    myId=request.session["id"]
+    usertype = request.session["usertype"]
+    myId = request.session["id"]
     edit_obj = getLoggedInUserObject(myId)
     '''if request.method == 'GET':
         myId = request.session["id"]
@@ -250,9 +257,13 @@ def changePassword(request):
         change_obj = passwordChangeObject(request, oldPassword, newPassword, myId)
 
         if (change_obj):
-            return render(request, 'agentDetails.html', {"agentProfile": change_obj,"usertype":usertype,"pAddr": pAddr,"tAddr": tAddr, "last_login": last_login,"changePassword":"active"})
+            return render(request, 'agentDetails.html',
+                          {"agentProfile": change_obj, "usertype": usertype, "pAddr": pAddr, "tAddr": tAddr,
+                           "last_login": last_login, "changePassword": "active"})
     except ServiceException as ex:
-        return render(request, 'agentDetails.html', {"agentProfile": edit_obj,"usertype":usertype,"pAddr": pAddr,"tAddr": tAddr,"changeMsg": ex.errorMessage,"last_login": last_login,"changePassword":"active"})
+        return render(request, 'agentDetails.html',
+                      {"agentProfile": edit_obj, "usertype": usertype, "pAddr": pAddr, "tAddr": tAddr,
+                       "changeMsg": ex.errorMessage, "last_login": last_login, "changePassword": "active"})
 
 
 # Department creation by supervisor
@@ -267,14 +278,15 @@ def createDepartment(request):
         createdBy_id = request.session["id"]
         form = DepartmentForm(request.POST, request.FILES)
         try:
-            create_deptObj=createDepartmentMethod(deptName,createdBy_id)
+            create_deptObj = createDepartmentMethod(deptName, createdBy_id)
 
             if create_deptObj:
                 return render(request, "createDepartment.html",
                               {"form": form, "last_login": last_login, "msg": "Success"})
         except ServiceException as ex:
-               return render(request, "createDepartment.html",
-                      {"form": form,"usertype": usertype, "msg":ex.errorMessage})
+            return render(request, "createDepartment.html",
+                          {"form": form, "usertype": usertype, "msg": ex.errorMessage})
+
 
 # Showing all departments by supervisor
 def showAllDepartments(request):
@@ -286,7 +298,7 @@ def showAllDepartments(request):
         page_obj = paginator.get_page(page_number)
         last_login = getLastLoginTime(request.session["id"])
         return render(request, "showAllDepartments.html",
-                      {"show_Dept_Obj": show_Dept_Obj,"page_obj": page_obj,
+                      {"show_Dept_Obj": show_Dept_Obj, "page_obj": page_obj,
                        "last_login": last_login})
 
 
@@ -321,22 +333,25 @@ def showRequests(request):
             return render(request, "showRequest.html",
                           {"last_login": last_login, "message": "no data found"})
 
+
 def unlockRequest(request, requestedBy):
     # requestedBy = request.POST.get('requestedBy')
     try:
-        unlock_obj=unlockRequestMethod(requestedBy)
-        #count_obj = AgentTable.objects.get(username=requestedBy)
+        unlock_obj = unlockRequestMethod(requestedBy)
+        # count_obj = AgentTable.objects.get(username=requestedBy)
         if unlock_obj:
-           return render(request, "showRequest.html", {"message": "unlock success"})
+            return render(request, "showRequest.html", {"message": "unlock success"})
     except ServiceException as ex:
-           return render(request, "showRequest.html", {"message": ex.errorMessage})
+        return render(request, "showRequest.html", {"message": ex.errorMessage})
+
 
 def imageData(request, id):
     image_details = getAgentDetailsImageClick(id)
     last_login = getLastLoginTime(request.session["id"])
     try:
         if image_details:
-            return render(request, "showDetailImageClick.html",{"show_image_obj": image_details,"last_login": last_login})
+            return render(request, "showDetailImageClick.html",
+                          {"show_image_obj": image_details, "last_login": last_login})
 
     except:
         return render(request, "showDetailImageClick.html", {"msg": "No details Found"})
@@ -348,7 +363,7 @@ def deptData(request, dept):
     try:
         if deptDetails:
             return render(request, "showDeptDetailsClick.html",
-                          {"deptDetails": deptDetails,"last_login": last_login})
+                          {"deptDetails": deptDetails, "last_login": last_login})
     except:
         return render(request, "showDeptDetailsClick.html", {"msg": "No details Found"})
 
@@ -357,7 +372,7 @@ def searchByDepartment(request):
     last_login = getLastLoginTime(request.session["id"])
     if request.method == 'GET':
         form = DepartmentForm()
-        return render(request, "searchDepartment.html", {'form': form,"last_login":last_login})
+        return render(request, "searchDepartment.html", {'form': form, "last_login": last_login})
     if request.method == "POST":
         department = request.POST["department"]
         form = DepartmentForm(request.POST)
@@ -365,9 +380,9 @@ def searchByDepartment(request):
             search_by_department = getdetailsbyDepartment(department)
             if search_by_department:
                 return render(request, "searchDepartment.html",
-                              {"search_by_department": search_by_department,'form': form})
+                              {"search_by_department": search_by_department, 'form': form})
         except:
-            return render(request, "searchDepartment.html",{"form": form, "msg": "No details found"})
+            return render(request, "searchDepartment.html", {"form": form, "msg": "No details found"})
 
 
 def createAddress(request):
@@ -375,9 +390,10 @@ def createAddress(request):
     addressForm = AddressForm()
     form = AgentForm()
     if request.method == "GET":
-        return render(request, 'agentRegistration.html',{"form": form, 'AddressForm': addressForm, "last_login": last_login})
+        return render(request, 'agentRegistration.html',
+                      {"form": form, 'AddressForm': addressForm, "last_login": last_login})
     if request.method == 'POST':
-        addressForm = AddressForm(request.POST,request.FILES)
+        addressForm = AddressForm(request.POST, request.FILES)
         Dno = request.POST["Dno"]
         Street = request.POST["Street"]
         City = request.POST["City"]
@@ -385,89 +401,108 @@ def createAddress(request):
         Pincode = request.POST["Pincode"]
         Agent_id = request.POST["agent_id"]
         AddressType = request.POST["AddressType"]
-        create_addr_obj=createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType)
+        create_addr_obj = createAddressMethod(Dno, Street, City, State, Pincode, Agent_id, AddressType)
         """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
                                     AddressType=AddressType)"""
         if create_addr_obj:
             return render(request, 'agentRegistration.html', {"form": form, 'pAddressForm': addressForm,
-                                                          "last_login": last_login,
-                                                          "addressMsg": " address inserted"})
+                                                              "last_login": last_login,
+                                                              "addressMsg": " address inserted"})
+
+
 def pAddressUpdate(request):
     myId = request.session['id']
+    tAddr = getTemporaryAddressObject()
+    pAddr = getPermanentAddressObject()
     agent_detail_obj = getLoggedInUserObject(myId)
     if request.method == "POST":
-       addressType=request.POST["AddrType"]
-       doorNo=request.POST["DoorNo"]
-       street=request.POST["Street"]
-       city=request.POST["City"]
-       state=request.POST["State"]
-       pincode=request.POST["Pincode"]
-       if addressType == "PermanentAddress":
-            MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-            tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
-            pAddr=MyAddressTable.objects.get(AddressType="PermanentAddress")
-            if pAddr:
-                return render(request,"agentDetails.html",{"pAddr":pAddr,"tAddr":tAddr,"myProfile":"active","agentProfile": agent_detail_obj})
-       if addressType == "TemporaryAddress":
-           MyAddressTable.objects.filter(Q(agent_id_id=request.session["id"]) & Q(AddressType=addressType)).update(Dno=doorNo, Street=street, City=city, State=state, Pincode=pincode)
-           tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
-           pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
-           return render(request, "agentDetails.html", {"pAddr":pAddr,"tAddr": tAddr,"myProfile":"active","agentProfile": agent_detail_obj})
+        addressType = request.POST["AddrType"]
+        doorNo = request.POST["DoorNo"]
+        street = request.POST["Street"]
+        city = request.POST["City"]
+        state = request.POST["State"]
+        pincode = request.POST["Pincode"]
+        agent_id_id = request.session["id"]
+        if addressType == "PermanentAddress":
+            per_addr_update = temporaryAddressUpdate(addressType, doorNo, street, city, state, pincode, agent_id_id)
+            if per_addr_update:
+                return render(request, "agentDetails.html",
+                              {"pAddr": pAddr, "tAddr": tAddr, "myProfile": "active", "agentProfile": agent_detail_obj})
+        if addressType == "TemporaryAddress":
+            temp_addr_update = permanentAddressUpdate(addressType, doorNo, street, city, state, pincode, agent_id_id)
+            if temp_addr_update:
+                return render(request, "agentDetails.html",
+                              {"pAddr": pAddr, "tAddr": tAddr, "myProfile": "active", "agentProfile": agent_detail_obj})
+
 
 def partnerCreate(request):
     partnerForm = PartnerForm()
-    if request.method=="GET":
-        return render(request,"partnerCreate.html",{"form":partnerForm})
-    if request.method=="POST":
-        name=request.POST["name"]
-        code=request.POST["code"]
-        GSTCode=request.POST["GSTCode"]
-        createdBy_id=request.session["id"]
-        partner_obj=createPartnerMethod(name,code,GSTCode,createdBy_id)
-        if partner_obj:
-            return render(request, "partnerCreate.html", {"form": partnerForm,"msg":"Partner created Successfully"})
+    last_login = getLastLoginTime(request.session["id"])
+    if request.method == "GET":
+        return render(request, "partnerCreate.html", {"form": partnerForm, "last_login": last_login})
+    if request.method == "POST":
+        name = request.POST["name"]
+        code = request.POST["code"]
+        GSTCode = request.POST["GSTCode"]
+        createdBy_id = request.session["id"]
+        try:
+            partner_obj = createPartnerMethod(name, code, GSTCode, createdBy_id)
+            if partner_obj:
+                return render(request, "partnerCreate.html",
+                              {"form": partnerForm, "msg": "Partner created Successfully", "last_login": last_login})
+        except ServiceException as ex:
+            return render(request, "partnerCreate.html",
+                          {"form": partnerForm, "msg": ex.errorMessage, "last_login": last_login})
+
 
 def partnerSearch(request):
-    if request.method=="GET":
-        return render(request,"partnerSearch.html",{"search":"active"})
-    if request.method=="POST":
+    last_login = getLastLoginTime(request.session["id"])
+    if request.method == "GET":
+        return render(request, "partnerSearch.html", {"search": "active", "last_login": last_login})
+    if request.method == "POST":
         try:
             name = request.POST.get("name")
             search = getDetailsByPartnerName(name)
             if search:
-                return render(request,"partnerSearch.html",{"search_by_name":search,"search": "active"})
+                return render(request, "partnerSearch.html",
+                              {"search_by_name": search, "search": "active", "last_login": last_login})
         except:
-            return render(request,"partnerSearch.html",{"msg": "No data Found", "search": "active"})
+            return render(request, "partnerSearch.html",
+                          {"msg": "No data Found", "search": "active", "last_login": last_login})
+
 
 def partnerUpdate(request):
-    if request.method=="GET":
-        return render(request,"partnerUpdate.html",{})
-    if request.method=="POST":
-        name=request.POST.get("name")
+    last_login = getLastLoginTime(request.session["id"])
+    if request.method == "GET":
+        return render(request, "partnerUpdate.html", {})
+    if request.method == "POST":
+        name = request.POST.get("name")
         if name:
-            partner_obj=Partner.objects.get(name=name)
-            return render(request,"partnerUpdate.html",{"partner_obj":partner_obj})
+            partner_obj = Partner.objects.get(name=name)
+            return render(request, "partnerUpdate.html", {"partner_obj": partner_obj, "last_login": last_login})
+
 
 def partnerUpdateSubmit(request):
-    if request.method=="POST":
+    last_login = getLastLoginTime(request.session["id"])
+    if request.method == "POST":
         name = request.POST.get("name")
         code = request.POST.get("code")
         GSTCode = request.POST.get("GSTCode")
-        update_obj = Partner.objects.filter(name__iexact=name).update(name=name, code=code, GSTCode=GSTCode)
+        update_obj = partnerUpdateMethod(name, code, GSTCode)
     if update_obj:
-        return render(request, "partnerUpdate.html", {"msg": "Partner Details Updated Successfully"})
+        return render(request, "partnerUpdate.html",
+                      {"last_login": last_login, "msg": "Partner Details Updated Successfully"})
+
 
 def partnerLiveSearch(request):
     if 'term' in request.GET:
-        search_term=request.GET.get('term')
-    part_obj=partnerLiveSearchMethod()
-    part_list=[]
-    search_list=[]
+        search_term = request.GET.get('term')
+    part_obj = partnerLiveSearchMethod()
+    part_list = []
+    search_list = []
     for i in part_obj:
         part_list.append(i.name)
     for j in part_list:
         if search_term.lower() in j.lower():
             search_list.append(j)
-    return JsonResponse(search_list,safe=False)
-
-
+    return JsonResponse(search_list, safe=False)

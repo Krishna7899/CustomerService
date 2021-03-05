@@ -289,16 +289,18 @@ ul.tabs li a.active {
     display:block;
     }
 
-.card-body span{
+/*.card-body span{
         color:#f70505;
         font-size:12px;
         font-family:
+}*/
+.partner-update-container span{
+        margin-left:250px;
+        color:green;
+        position:absolute;
 }
-
 .partner-update-container{
         margin-left:250px;
-
-
 }
 .partner-update{
         line-height:5px;
