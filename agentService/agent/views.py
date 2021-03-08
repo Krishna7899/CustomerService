@@ -139,7 +139,7 @@ def advSearchByAgent(request):
         username = request.GET["username"]
     # adv_search_obj = AgentTable.objects.filter(Q(firstName=firstName) | Q(lastName=lastName) | Q(username=username))
     adv_search_obj = advancedSearchMethod(firstName, lastName, username)
-    paginator = Paginator(adv_search_obj, 3)
+    paginator = Paginator(adv_search_obj, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     GET_params = request.GET.copy()

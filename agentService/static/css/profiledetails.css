@@ -661,15 +661,25 @@ margin-left:250px;
     background-color: #ddd;
 }
 
-.pagination{
-      /*box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
-      transition: 0.3s;
-      width: 170px;
-      height:40px;
-      padding:0px;*/
-      margin:10px 200px;
-      font-size:12px;
+.pagination {
+  display: inline-block;
+  margin:10px 200px;
+  font-size:12px;
 }
+
+.pagination a {
+  color:#6f42c1;
+  float:right;
+
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
 .current{
       margin-right:12px;
 }
