@@ -1,4 +1,4 @@
-function myImageUpload() {
+/*function myImageUpload() {
   var x = document.getElementById("upload");
   var y = document.getElementById("updateImage-btn")
 
@@ -8,4 +8,19 @@ function myImageUpload() {
   } else {
     x.style.display = "none";
   }
-}
+}*/
+
+$(document).ready(function(){
+    $("#updateImage-btn").click(function(){
+        $("#updateImage-btn").hide();
+        $("#upload").show();
+    });
+    $("#image-upload-button").click(function(){
+        $("#upload").hide();
+        $("#updateImage-btn").show();
+    });
+});
+
+
+
+
