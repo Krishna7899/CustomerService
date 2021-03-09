@@ -5,12 +5,13 @@
 
 <div class="Invoice-Select-Container">
     <form action="" method="post">
+         {% csrf_token %}
     <table>
         <tr>
             <td>
     <div class="Invoice-selection">
            <span>Invoice created from Branch
-            <select id="invoice-branch-select" name="branchList">
+            <select id="invoice-branch-select" name="branch">
                 <option  value="" selected="selected">---SELECT---</option>
             {% for branch in branch_Obj %}
                    <option>
@@ -23,7 +24,7 @@
           <td>
     <div class="Invoice-selection">
             <span>To Partner
-            <select id="invoice-partner-select" name="partnerList">
+            <select id="invoice-partner-select" name="partner">
                 <option  value="" selected="selected">---SELECT---</option>
             {% for partner in partner_Obj %}
                    <option>

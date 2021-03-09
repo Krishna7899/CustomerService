@@ -78,6 +78,8 @@ class Partner(models.Model):
     GSTCode = models.CharField(max_length=40,default='')
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.name
 
 class Branch(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
@@ -86,11 +88,13 @@ class Branch(models.Model):
     GSTid = models.CharField(max_length=40,default='')
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.BranchName
 
 class MyAddressTable(AddressBase):
     id = models.AutoField(auto_created=True, primary_key=True)
     agent_id = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='',blank=True,null=True)
-    AddressType = models.CharField(max_length=30, choices=AddressOptions)
+    AddressType = models.CharField(max_length=30, choices=AddressOptions,blank=True,null=True)
     partner_id= models.ForeignKey(Partner,on_delete=models.CASCADE, default='',blank=True,null=True)
     branch_id= models.ForeignKey(Branch, on_delete=models.CASCADE, default='',blank=True,null=True)
 

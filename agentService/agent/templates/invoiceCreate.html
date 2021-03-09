@@ -1,0 +1,99 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/invoice.css' %}">
+
+<div class="Invoice-Select-Container">
+    <div class="row">
+    <div class="Invoice-To-Address">
+            <span><b>To:</b></span><br/>
+            {{partner_Obj.name}} <br/>
+            {{partner_Obj.code}} <br/>
+            {{partner_addr_obj.Dno}} <br/>
+            {{partner_addr_obj.Street}} <br/>
+            {{partner_addr_obj.City}} <br/>
+            {{partner_addr_obj.State}} <br/>
+    </div>
+
+    <div class="Invoice-create">
+        <table class="Invoice-table">
+            <tr>
+                <th>
+                    S.No
+                </th>
+                 <th>
+                    Description
+                </th>
+                 <th>
+                    HSN Code
+                </th>
+                 <th>
+                    UOM
+                </th>
+                <th>
+                    QTY/Kg
+                </th>
+                 <th>
+                    Rate/Kg
+                </th>
+                 <th>
+                    Total Value(Rs.)
+                </th>
+                 <th>
+                    IGST
+                </th>
+                 <th>
+                    CGST
+                </th>
+            </tr>
+            <tr>
+                <form action="" method="post">
+                    <td>
+                      <input type="text" name="sno" id="sno"/>
+                    </td>
+                     <td>
+                        <textarea rows="2" cols="20" name="comment" placeholder="Description here..."></textarea>
+                    </td>
+                     <td>
+                      <input type="text" name="HSN" id="HSN" value="--" readonly/>
+                    </td>
+                     <td>
+                       <input type="text" name="UOM" id="UOM" value="AU" readonly/>
+                    </td>
+                     <td>
+                       <input type="text" name="qty" id="qty" value="" />
+                    </td>
+                     <td>
+                        <input type="text" name="rate" id="rate" value="" />
+                    </td>
+                     <td>
+                        <input type="text" name="totalValue" id="totalValue" value="" />
+                    </td>
+                    <td>
+                        <input type="text" name="igst" id="igst" value="18%" readonly/>
+                    </td>
+                    <td>
+                        <input type="text" name="cgst" id="cgst" value="18%" readonly/>
+                    </td>
+                </form>
+
+            </tr>
+        </table>
+
+    </div>
+    <br>
+    <div class="Invoice-From-Address">
+         <span><b>From:</b></span><br/>
+        {{branch_Obj.BranchName}}<br/>
+        {{branch_Obj.BranchCode}}<br/>
+        {{branch_addr_obj.Dno}} <br/>
+        {{branch_addr_obj.Street}} <br/>
+        {{branch_addr_obj.City}} <br/>
+        {{branch_addr_obj.State}} <br/>
+
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,5 +1,5 @@
 .Invoice-Select-Container{
-        margin-left:200px;
+        margin-left:50px;
 
 }
 .Invoice-selection{
@@ -15,4 +15,45 @@
         border:none;
         background:#87ceeb;
         width:100px;
+}
+
+.Invoice-To-Address{
+     width:10%;
+}
+
+.Invoice-From-Address{
+     width:10%;
+}
+.Invoice-create{
+        padding-top:150px;
+        padding-right:50px;
+        width:80%;
+
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.Invoice-table td{
+       background-color:#669999;
+
+
+}
+.Invoice-table input[type="text"]{
+        outline:none;
+        border:none;
+        text-align:center;
+        border-radius:5px;
+        padding:5px;
+
+}
+.Invoice-table textarea{
+        outline:none;
+        border:none;
+        text-align:center;
+        border-radius:5px;
+        padding:5px;
+
 }

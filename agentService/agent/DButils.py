@@ -159,8 +159,9 @@ def getDepartmentDetails(dept):
 def getdetailsbyDepartment(department):
     return Department.objects.get(deptName=department)
 
-def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType):
-    return MyAddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, agent_id_id=Agent_id,AddressType=AddressType)
+def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,partner_id,branch_id,AddressType):
+    return MyAddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode,
+                    agent_id_id=Agent_id,partner_id_id=partner_id, branch_id_id=branch_id,AddressType=AddressType)
 
 def showPermanentAddressMethod():
     return MyAddressTable.objects.get(AddressType="PermanentAddress")
@@ -230,3 +231,13 @@ def allBranchMethod():
     return Branch.objects.all()
 def allPartnerMethod():
     return Partner.objects.all()
+
+def getPartnerAddress(partner):
+    obj=Partner.objects.get(name=partner)
+    partner_id=obj.id
+    return MyAddressTable.objects.get(partner_id_id=partner_id)
+
+def getBranchAddress(branch):
+    obj=Branch.objects.get(BranchName=branch)
+    branch_obj=obj.id
+    return MyAddressTable.objects.get(branch_id_id=branch_obj)

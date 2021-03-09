@@ -402,8 +402,10 @@ def createAddress(request):
         State = request.POST["State"]
         Pincode = request.POST["Pincode"]
         Agent_id = request.POST["agent_id"]
+        partner_id=request.POST["partner_id"]
+        branch_id = request.POST["branch_id"]
         AddressType = request.POST["AddressType"]
-        create_addr_obj = createAddressMethod(Dno, Street, City, State, Pincode, Agent_id, AddressType)
+        create_addr_obj = createAddressMethod(Dno, Street, City, State, Pincode, Agent_id,partner_id,branch_id, AddressType)
         """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
                                     AddressType=AddressType)"""
         if create_addr_obj:
@@ -575,6 +577,22 @@ def branchLiveSearch(request):
 ###################################Invoice related Views##############################################################
 
 def invoiceSelect(request):
+    branch_Obj = allBranchMethod()
+    partner_Obj = allPartnerMethod()
+    if request.method=="GET":
+        return render(request,"invoiceSelect.html",{"branch_Obj":branch_Obj,"partner_Obj":partner_Obj})
+    if request.method=="POST":
+        branch=request.POST["branch"]
+        partner=request.POST["partner"]
+        branch=getdetailsbybranch(branch)
+        partner=getDetailsByPartnerName(partner)
+        partner_addr_obj=getPartnerAddress(partner)
+        branch_addr_obj = getBranchAddress(branch)
+        return render(request, "invoiceCreate.html", {"branch_Obj": branch, "partner_Obj": partner,
+                                            "partner_addr_obj":partner_addr_obj,"branch_addr_obj":branch_addr_obj})
+
+
+def invoiceCreate(request):
     if request.method=="GET":
         branch_Obj=allBranchMethod()
         partner_Obj=allPartnerMethod()
