@@ -1,0 +1,49 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/branch.css' %}">
+
+            <script src="{% static 'js/searchAgent.js' %}"></script>
+            <script src="{% static 'js/branchUpdate.js' %}"></script>
+            <div class="card-body">
+                <table style="margin-left:100px;">
+                     <span style="position:absolute;margin-left:600px;color:red"><b>{{msg}}</b></span><br>
+                    <tr>
+                        <form action="/agent/branchUpdate/" name="branchSearch" method="POST" id="branch-search-form">
+
+            {% csrf_token %}
+                             <td>
+                                <div class="search-field">
+                                    <input type="text" id="searchbranch" name="name" placeholder="Search branch Here..." class="search-field-input" required/>
+                                </div>
+                             </td>
+                        </form>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                    </tr>
+                </table>
+            </div>
+{% if branch_obj %}
+    <div class="branch-update-container">
+        <span font-color="green" style="position:absolute">{{msg}}</span>
+             <form action="/agent/branchUpdateSubmit/" id="update-profile-form" method="post">
+                 {% csrf_token %}
+                 <div>
+                     <div>
+                          <label class="update-field-label">BranchName</label>
+                          <input type="text" name="BranchName" id="BranchName" class="branch-update" value="{{branch_obj.BranchName}}"/>
+                     </div>
+                     <div>
+                          <label class="update-field-label">BranchCode</label>
+                          <input type="text" name="BranchCode" id="BranchCode" class="branch-update" value="{{branch_obj.BranchCode}}"/>
+                     </div>
+                 <div>
+                      <label class="update-field-label">GSTid</label>
+                      <input type="text" name="GSTid" id="GSTid" class="branch-update" value="{{branch_obj.GSTid}}"/>
+                      </div>
+            <input type="submit" id="button-2" value="Update" class="branch-update-submit"/>
+          </div>
+             </form>
+    </div>
+{% endif %}
+{% endblock %}

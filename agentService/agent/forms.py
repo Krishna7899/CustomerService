@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import AgentTable, Requests, Department, MyAddressTable, Partner
+from .models import AgentTable, Requests, Department, MyAddressTable, Partner, Branch
 from django import forms
 
 
@@ -62,3 +62,8 @@ class PartnerForm(forms.ModelForm):
     class Meta:
         model=Partner
         fields = ["name", "code", "GSTCode"]
+
+class BranchForm(forms.ModelForm):
+    class Meta:
+        model=Branch
+        fields=["BranchName","BranchCode","GSTid"]

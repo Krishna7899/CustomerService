@@ -1,4 +1,4 @@
-from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner
+from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner,Branch
 from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
@@ -204,3 +204,29 @@ def getTemporaryAddressObject():
 def getPermanentAddressObject():
     return MyAddressTable.objects.get(AddressType="PermanentAddress")
 
+
+
+def createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id):
+    #if Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id):
+       # raise ServiceException('branch is already created')
+    #else:
+    return Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id)
+
+
+def getdetailsbybranch(BranchName):
+    return Branch.objects.get(BranchName=BranchName)
+
+
+def getbranchNames(search_BranchName):
+    return Branch.objects.filter(BranchName__icontains=search_BranchName)
+
+def BranchLiveSearchMethod():
+    return Branch.objects.all()
+
+def BranchUpdateMethod(BranchName,BranchCode,GSTid):
+    return Branch.objects.filter(BranchName__iexact=BranchName).update(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid)
+
+def allBranchMethod():
+    return Branch.objects.all()
+def allPartnerMethod():
+    return Partner.objects.all()

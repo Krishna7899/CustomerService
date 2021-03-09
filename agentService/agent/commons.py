@@ -20,4 +20,7 @@ url_dict={
     "Department Data":'showAgents/',
     "Update Profile":'myProfile/',
     "Change Password":'myProfile',
+    "Create Partner":'createPartner/',
+    "Search Partner":'partnerSearch/',
+    "Update Partner" :'partnerUpdate/',
 }
