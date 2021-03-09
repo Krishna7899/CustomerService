@@ -76,6 +76,18 @@
       </li>
     </ul>
     {% endif %}
+      <ul class="navbar-nav">
+      <li class="dropdown">
+       <span><i class="fa fa-university"  aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Branch</a></span>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/createbranch/">createbranch</a></li>
+            <li><a class="dropdown-item" href="/agent/searchbranch/">searchbranch</a></li>
+            <li><a class="dropdown-item" href="/agent/branchUpdate/">branchUpdate</a> </li>
+        </ul>
+      </li>
+    </ul>
+
     <ul class="navbar-nav mr-auto">
     <li>
         <span><i class="fa fa-sign-out" aria-hidden="true"></i><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></span></li>
@@ -187,12 +199,13 @@
                         </td>
                      </tr>
                 </table>
+                    {{pMsg}}
                  <table class="address-table" id="pAddress">
                          <tr id="pAddress-table-row">
-                               {{tMsg}}
                              <td>
                             <ul style="list-style: none;">
                                 <span>{{pAddr.AddressType}}</span>
+
                                 <li>Door No</li>
                                 <li>Street</li>
                                 <li>City</li>
@@ -222,12 +235,13 @@
                                </td>
                          </tr>
                          </table>
+                    {{tMsg}}
                     <table class="address-table" id="tAddress">
-                          <tr>
-                              {{tMsg}}
+                        <tr>
                            <td>
                                 <ul style="list-style: none;">
                                   <span>{{tAddr.AddressType}}</span>
+
                                 <li>Door No</li>
                                 <li>Street</li>
                                 <li>City</li>

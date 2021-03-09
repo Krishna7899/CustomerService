@@ -1,7 +1,7 @@
 {% extends "agentDetails.html" %}
 {% block code %}
 
-
+<fieldset>
 <div class="column middle">
         <span>{{message}}</span>
     <div class="registration-field-container">
@@ -49,15 +49,15 @@
                     <label class="agent-field-label">Department</label>
                     {{form.dept}}
                 </div>
+            </form>
 
-                <div class="field agentRegister-submit">
-                    <input type="submit" value="Register" class="agentRegister-submit-button" >
-                </div>
-    </form>
           </div>
-      {{addressMsg}}
-    <!--<a href="#addressForm">Address</a>-->
- <!--   {% if AddressForm %}
+    </fieldset>
+
+
+<fieldset>
+    <a href="#addressForm">Address</a>
+         {% if AddressForm %}
       <div id="addressForm">
         <form action="/agent/createAddress/" method="POST">
                {% csrf_token %}
@@ -93,7 +93,7 @@
             </div>
         </form>
         </div>
-      {% endif %}-->
+      {% endif %}
 
   </div>
 

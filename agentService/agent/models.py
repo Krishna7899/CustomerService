@@ -1,7 +1,6 @@
 from django import forms
 from django.db import models
 from django.utils import timezone
-
 # Create your models here.
 # Model class
 
@@ -98,16 +97,51 @@ class TemporaryAddress(models.Model):
 
     def __str__(self):
         return self.tDno'''
-class AddressTable(models.Model):
+class AddressBase(models.Model):
+    Dno = models.CharField(max_length=10,default='')
+    Street = models.CharField(max_length=20,default='')
+    City = models.CharField(max_length=20,default='')
+    State = models.CharField(max_length=20,default='')
+    Country=models.CharField(max_length=20,default='')
+    Pincode = models.CharField(max_length=6,default='')
 
+    class Meta:
+        abstract = True
+        ordering = ['Dno','Street','City','State','Country','Pincode']
+
+
+class Partner(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
-    Dno = models.CharField(max_length=10)
-    Street = models.CharField(max_length=20)
-    City = models.CharField(max_length=20)
-    State = models.CharField(max_length=20)
-    Pincode = models.CharField(max_length=6)
-    Agent = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    name =models.CharField(max_length=40,default='')
+    code =models.CharField(max_length=40,default='')
+    GSTCode = models.CharField(max_length=40,default='')
+    createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    created_date = models.DateTimeField(default=timezone.now)
+
+class Branch(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    BranchName =models.CharField(max_length=40,default='')
+    BranchCode =models.CharField(max_length=40,default='')
+    GSTid = models.CharField(max_length=40,default='')
+    createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
+    created_date = models.DateTimeField(default=timezone.now)
+
+
+class MyAddressTable(AddressBase):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    agent_id = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='',blank=True,null=True)
     AddressType = models.CharField(max_length=30, choices=AddressOptions)
+    partner_id= models.ForeignKey(Partner,on_delete=models.CASCADE, default='',blank=True,null=True)
+    branch_id= models.ForeignKey(Branch, on_delete=models.CASCADE, default='',blank=True,null=True)
 
     def __str__(self):
         return self.Dno
+
+
+
+
+
+
+
+
+

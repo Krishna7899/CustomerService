@@ -46,4 +46,10 @@ urlpatterns=[
     #path('createTaddress/', views.createTaddress, name="createTaddress"),
     #path('showAllDepartments/', views.showAllDepartments, name="showAllDepartments-page"),
     #path('searchByDepartment/', views.searchByDepartment, name="showAllDepartments-page"),
+    path('createbranch/',views.createbranch,name="createbranch-page"),
+    path('searchbranch/',views.searchbranch,name="searchbranch-page"),
+    path('branchUpdate/',views.branchUpdate,name="branchUpdate-page"),
+    path('branchUpdateSubmit/',views.branchUpdateSubmit,name="branchUpdateSubmit-page"),
+    path('branchLiveSearch/',views.branchLiveSearch,name="branchLiveSearch-page"),
+
 ]

@@ -1,4 +1,4 @@
-from .models import AgentTable, Requests, Department, LogTable, AddressTable
+from .models import AgentTable, Requests, Department, LogTable,MyAddressTable,Branch
 from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
@@ -160,10 +160,37 @@ def getdetailsbyDepartment(department):
     return Department.objects.get(deptName=department)
 
 def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,AddressType):
-    return AgentTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
+    return MyAddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
                                 AddressType=AddressType)
 
 def showPermanentAddressMethod():
-    return AddressTable.objects.get(AddressType="PermanentAddress")
+    return MyAddressTable.objects.get(AddressType="PermanentAddress")
 def showTemporaryAddressMethod():
-    return AddressTable.objects.get(AddressType="TemporaryAddress")
+    return MyAddressTable.objects.get(AddressType="TemporaryAddress")
+
+
+def createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id):
+    #if Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id):
+       # raise ServiceException('branch is already created')
+    #else:
+    return Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id)
+
+
+def getdetailsbybranch(BranchName):
+    return Branch.objects.get(BranchName=BranchName)
+
+
+def getbranchNames(search_BranchName):
+    return Branch.objects.filter(BranchName__icontains=search_BranchName)
+
+def BranchLiveSearchMethod():
+    return Branch.objects.all()
+
+def BranchUpdateMethod(BranchName,BranchCode,GSTid):
+    return Branch.objects.filter(BranchName__iexact=BranchName).update(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid)
+
+
+
+
+
+

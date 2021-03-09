@@ -1,0 +1,27 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+ {% load static %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/branch.css' %}">
+    <div class="column middle">
+        <span class="error_form" id="error_message">{{msg}}</span>
+        <form action="/agent/createbranch/" name="createbranch-page" method="post">
+            {% csrf_token %}
+            <div class="branch-field-container">
+                <div class="branch-field">
+                   <label class="branch-field-label">BranchName</label>
+                    {{form.BranchName}}</br>
+		   <label class="branch-field-label">BranchCode </label>
+                    {{form.BranchCode }}</br>
+		   <label class="branch-field-label">GSTid</label>
+                    {{form.GSTid}}</br>
+
+                    <input type="submit" value="Create" class="branch-field-button">
+               </div>
+           </div>
+
+        </form>
+
+  </div>
+
+{% endblock %}

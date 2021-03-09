@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import AgentTable, Requests, Department,AddressTable
+from .models import AgentTable,Requests, Department,MyAddressTable,Branch
 from django import forms
 
 
@@ -55,7 +55,10 @@ class AddressForm(forms.ModelForm):
     Pincode = forms.CharField(widget=forms.TextInput(attrs={'class': 'pincode', 'id': 'pincode'}))
 
     class Meta:
-        model=AddressTable
-        fields=["Dno","Street","City","State","Pincode","AddressType"]
+        model=MyAddressTable
+        fields=["Dno","Street","City","State","Pincode","AddressType","agent_id","partner_id","branch_id"]
 
-
+class BranchForm(forms.ModelForm):
+    class Meta:
+        model=Branch
+        fields=["BranchName","BranchCode","GSTid"]

@@ -7,9 +7,9 @@ from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm
+from .forms import AgentForm, ImageForm, RequestsForm,DepartmentForm,AddressForm,BranchForm
 from django.shortcuts import render, redirect
-from .models import Department, LogTable, AddressTable
+from .models import Department, LogTable,MyAddressTable
 from .commons import url_dict
 from django.http import HttpResponse
 import json
@@ -195,12 +195,24 @@ def agentDetails(request):
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
         addressForm = AddressForm()
-        pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-        tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+        pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+        tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
                            "last_login": last_login,"myProfile":"active"})
+        elif MyAddressTable.objects.get(AddressType="PermanentAddress"):
+            return render(request, 'agentDetails.html',
+                          {"agentProfile": agent_detail_obj, "pAddr": pAddr,"tMsg":"no address found","AddressForm": addressForm,
+                           "last_login": last_login, "myProfile": "active"})
+        elif MyAddressTable.objects.get(AddressType="TemporaryAddress"):
+            return render(request, 'agentDetails.html',
+                          {"agentProfile": agent_detail_obj, "pMsg":"no address found", "tAddr":tAddr,"AddressForm": addressForm,
+                           "last_login": last_login, "myProfile": "active"})
+        else:
+            return render(request, 'agentDetails.html',
+                          {"agentProfile": agent_detail_obj, "pMsg": "no address found","tMsg":"no address found","AddressForm": addressForm,
+                           "last_login": last_login, "myProfile": "active"})
 
 
 # Editing profile of agent when agent login only
@@ -230,14 +242,14 @@ def editProfile(request):
 # Changing password of agent when by agent only
 def changePassword(request):
     last_login = getLastLoginTime(request.session["id"])
-    pAddr = AddressTable.objects.get(AddressType="PermanentAddress")
-    tAddr = AddressTable.objects.get(AddressType="TemporaryAddress")
+    pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
+    tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
     usertype=request.session["usertype"]
     myId=request.session["id"]
     edit_obj = getLoggedInUserObject(myId)
     '''if request.method == 'GET':
         myId = request.session["id"]
-        change_obj = getLoggedInUserObject(myId)
+        change_obj = getLoggedInUs erObject(myId)
         return render(request, 'changePassword.html', {"agentProfile": edit_obj, "last_login": last_login})
 '''
     if request.method == 'POST':
@@ -402,8 +414,73 @@ def pAddressUpdate(request):
        state=request.POST["State"]
        pincode=request.POST["Pincode"]
        if addressType == "PermanentAddress":
-            pAddr=AddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
+            pAddr=MyAddressTable.objects.filter(Q(Agent_id=request.session["id"] ) & Q(AddressType="PermanentAddress")).update(Dno=doorNo,Street=street,City=city,State=state,Pincode=pincode)
             return render(request,"agentDetails.html",{"pAddr":pAddr})
        if addressType == "TemporaryAddress":
-           tAddr = AddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street,City=city, State=state,Pincode=pincode)
+           tAddr = MyAddressTable.objects.filter(Q(Agent_id=request.session["id"]) & Q(AddressType="TemporaryAddress")).update(Dno=doorNo, Street=street,City=city, State=state,Pincode=pincode)
            return render(request, "agentDetails.html", {"tAddr": tAddr})
+
+
+def createbranch(request):
+    Branchform=BranchForm()
+    if request.method=="GET":
+        return render(request,"createbranch.html",{"form":Branchform})
+    if request.method=="POST":
+        BranchName=request.POST["BranchName"]
+        BranchCode=request.POST["BranchCode"]
+        GSTid=request.POST["GSTid"]
+        createdBy_id=request.session["id"]
+        branch_obj=createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id)
+        #try:
+        if branch_obj:
+            return render(request,"createbranch.html",{"form":Branchform,"msg":"branch created Successfully"})
+        #except ServiceException as ex:
+           # return render(request, "createbranch.html",{"msg": ex.errorMessage})
+
+
+def searchbranch(request):
+    form = BranchForm()
+    if request.method == 'GET':
+        return render(request, "searchbranch.html", {'form': form})
+    if request.method == "POST":
+        BranchName= request.POST.get("branch")
+        form =BranchForm(request.POST)
+        try:
+            searchbranch=getdetailsbybranch(BranchName)
+            if searchbranch:
+                return render(request, "searchbranch.html",
+                              {"searchbranch":searchbranch,'form': form})
+        except:
+            return render(request, "searchbranch.html",{"form": form, "msg": "No details found"})
+
+
+def branchUpdate(request):
+    if request.method=="GET":
+        return render(request,"branchUpdate.html",{})
+    if request.method=="POST":
+        BranchName=request.POST.get("name")
+        if BranchName:
+            branch_obj=Branch.objects.get(BranchName=BranchName)
+            return render(request,"branchUpdate.html",{"branch_obj":branch_obj})
+
+def branchUpdateSubmit(request):
+    if request.method=="POST":
+        BranchName=request.POST.get("BranchName")
+        BranchCode= request.POST.get("BranchCode")
+        GSTid  = request.POST.get("GSTid")
+        update_obj =Branch.objects.filter(BranchName__iexact=BranchName ).update(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid)
+        if update_obj:
+            return render(request, "branchUpdate.html", {"msg": "Branch Details Updated Successfully"})
+def branchLiveSearch(request):
+    if 'term' in request.GET:
+        search_term=request.GET.get('term')
+    part_obj=BranchLiveSearchMethod()
+    part_list=[]
+    search_list=[]
+    for i in part_obj:
+        part_list.append(i.BranchName)
+    for j in part_list:
+        if search_term.lower() in j.lower():
+            search_list.append(j)
+    return JsonResponse(search_list,safe=False)
+
