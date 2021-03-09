@@ -1,0 +1,43 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/invoice.css' %}">
+
+<div class="Invoice-Select-Container">
+    <form action="" method="post">
+    <table>
+        <tr>
+            <td>
+    <div class="Invoice-selection">
+           <span>Invoice created from Branch
+            <select id="invoice-branch-select" name="branchList">
+                <option  value="" selected="selected">---SELECT---</option>
+            {% for branch in branch_Obj %}
+                   <option>
+                       {{branch.BranchName}}
+                   </option>
+            {% endfor %}
+            </select></span>
+    </div>
+          </td>
+          <td>
+    <div class="Invoice-selection">
+            <span>To Partner
+            <select id="invoice-partner-select" name="partnerList">
+                <option  value="" selected="selected">---SELECT---</option>
+            {% for partner in partner_Obj %}
+                   <option>
+                       {{partner.name}}
+                   </option>
+            {% endfor %}
+            </select></span>
+       </div>
+            </td>
+        </tr>
+     </table>
+        <input type="submit" name="submit" value="Submit" id="select-submit">
+    </form>
+</div>
+
+
+{% endblock %}

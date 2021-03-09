@@ -1,0 +1,87 @@
+.branch-field-container{
+        width:800px;
+        padding: 5px;
+        text-align:right
+
+
+
+}
+.branch-field-label{
+        display:inline-block;
+        width:100px;
+        margin-left:200px;
+        font-size: 14px;
+        padding: 5px;
+        align:right;
+}
+.branch-field-button{
+     color: #fff;
+      border: none;
+      border-radius:10px;
+      padding: 5px;
+      margin-top: 10px;
+      margin-left:400px;
+      /*display:inline;*/
+      font-size: 14px;
+      font-weight: 200;
+      background:#87ceeb;
+      width:200px;
+
+}
+.error_form{
+    margin-left:550px;
+    font-size: 14px;
+    color:red;
+}
+
+
+.searchbranch-field{
+     margin-left:550px;
+    font-size: 14px;
+    color:red;
+
+}
+.search-branch-field{
+    margin-left:550px;
+    font-size: 14px;
+    margin-top:10px;
+
+}
+.searchbranch{
+      border: none;
+      border-radius:5px;
+      padding: 5px;
+      margin-top: 10px;
+      margin-left:600px;
+      /*display:inline;*/
+      font-size: 14px;
+      font-weight: 200;
+
+      width:80px;
+
+}
+#search-by-branch-table{
+    margin-left:550px;
+    margin-top: 30px;
+}
+
+#searchbranch{
+     margin-left:500px;
+}
+
+.update-field-label{
+    margin-left:450px;
+}
+.branch-update-submit{
+    color: #fff;
+    border: none;
+    border-radius:10px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-left:600px;
+    /*display:inline;*/
+    font-size: 14px;
+    font-weight: 200;
+    background:#87ceeb;
+    width:200px;
+}

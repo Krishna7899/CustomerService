@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.urls import reverse
 from .DButils import *
 from django.contrib.auth import logout
-from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm, PartnerForm
+from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm, PartnerForm,BranchForm
 from django.shortcuts import render, redirect
 from .models import Department, LogTable, MyAddressTable
 from .commons import url_dict
@@ -179,6 +179,8 @@ def agentLogout(request):
 # here we upload agent profile image
 
 def imageUpload(request):
+    pAddr = showPermanentAddressMethod()
+    tAddr = showTemporaryAddressMethod()
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         myId = request.session["id"]
@@ -188,7 +190,7 @@ def imageUpload(request):
             image_uploadObj.image = form.cleaned_data['image']
             image_uploadObj.save()
             return render(request, 'agentDetails.html',
-                          {"agentProfile": image_uploadObj, "last_login": last_login})
+                          {"agentProfile": image_uploadObj, "last_login": last_login,"myProfile": "active","pAddr": pAddr, "tAddr": tAddr})
 
 
 # Navigate to  Agent details page when we click on myprofile
@@ -506,3 +508,74 @@ def partnerLiveSearch(request):
         if search_term.lower() in j.lower():
             search_list.append(j)
     return JsonResponse(search_list, safe=False)
+####################################################################333
+
+def createbranch(request):
+    Branchform=BranchForm()
+    if request.method=="GET":
+        return render(request,"branchCreate.html",{"form":Branchform})
+    if request.method=="POST":
+        BranchName=request.POST["BranchName"]
+        BranchCode=request.POST["BranchCode"]
+        GSTid=request.POST["GSTid"]
+        createdBy_id=request.session["id"]
+        branch_obj=createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id)
+        #try:
+        if branch_obj:
+            return render(request,"branchCreate.html",{"form":Branchform,"msg":"branch created Successfully"})
+        #except ServiceException as ex:
+           # return render(request, "createbranch.html",{"msg": ex.errorMessage})
+
+
+def searchbranch(request):
+    form = BranchForm()
+    if request.method == 'GET':
+        return render(request, "branchSearch.html", {'form': form})
+    if request.method == "POST":
+        BranchName= request.POST.get("branch")
+        form =BranchForm(request.POST)
+        try:
+            searchbranch=getdetailsbybranch(BranchName)
+            if searchbranch:
+                return render(request, "branchSearch.html",
+                              {"searchbranch":searchbranch,'form': form})
+        except:
+            return render(request, "branchSearch.html",{"form": form, "msg": "No details found"})
+
+def branchUpdate(request):
+    if request.method=="GET":
+        return render(request,"branchUpdate.html",{})
+    if request.method=="POST":
+        BranchName=request.POST.get("name")
+        if BranchName:
+            branch_obj=Branch.objects.get(BranchName=BranchName)
+            return render(request,"branchUpdate.html",{"branch_obj":branch_obj})
+
+def branchUpdateSubmit(request):
+    if request.method=="POST":
+        BranchName=request.POST.get("BranchName")
+        BranchCode= request.POST.get("BranchCode")
+        GSTid  = request.POST.get("GSTid")
+        update_obj =Branch.objects.filter(BranchName__iexact=BranchName ).update(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid)
+        if update_obj:
+            return render(request, "branchUpdate.html", {"msg": "Branch Details Updated Successfully"})
+def branchLiveSearch(request):
+    if 'term' in request.GET:
+        search_term=request.GET.get('term')
+    part_obj=BranchLiveSearchMethod()
+    part_list=[]
+    search_list=[]
+    for i in part_obj:
+        part_list.append(i.BranchName)
+    for j in part_list:
+        if search_term.lower() in j.lower():
+            search_list.append(j)
+    return JsonResponse(search_list,safe=False)
+
+###################################Invoice related Views##############################################################
+
+def invoiceSelect(request):
+    if request.method=="GET":
+        branch_Obj=allBranchMethod()
+        partner_Obj=allPartnerMethod()
+        return render(request,"invoiceSelect.html",{"branch_Obj":branch_Obj,"partner_Obj":partner_Obj})

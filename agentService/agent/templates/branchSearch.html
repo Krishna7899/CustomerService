@@ -1,0 +1,60 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+ {% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static 'css/branch.css' %}">
+
+            <div>
+               <form action="/agent/searchbranch/"  method="post" >
+                         {% csrf_token %}
+                    <div class="searchbranch-field">
+                         {{msg}}
+                        </div>
+                   <div>
+                       <label class="search-branch-field">Search</label>
+                        <input type="text" id="placeholder" name="branch" placeholder="Enter branchname" class="branch-field-input" required/>
+
+                    </div>
+                    <div class="searchbranch">
+                        <input type="submit" value="Search" id="button-1" class="searchbranch-button">
+                    </div>
+           	   </form>
+            </div>
+
+    <div>
+
+        <table id="search-by-branch-table">
+            {% if searchbranch %}
+            <tr>
+                <td>
+                     Details of {{searchbranch.BranchName}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    BranchName
+                </th>
+                 <th>
+                    CreatedBy
+                </th>
+                <th>
+                    CreatedDate
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{searchbranch.BranchName}}
+                </td>
+
+                <td>
+                     {{searchbranch.createdBy}}
+                </td>
+                 <td>
+                     {{searchbranch.created_date}}
+                 </td>
+            </tr>
+
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

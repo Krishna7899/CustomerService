@@ -127,7 +127,13 @@ i.fa-group{
         margin-left:10px;
         color:orange;
         }
-
+i.fa-files-o{
+        position: relative;
+        right: 0px;
+        padding:0px;
+        margin-left:10px;
+        color:orange;
+        }
 /* Create three unequal columns that floats next to each other */
 .column {
   float: left;
