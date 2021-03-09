@@ -1,6 +1,18 @@
 .Invoice-Select-Container{
         margin-left:200px;
 
+}
+.Invoice-selection{
+      margin-left:20px;
 
+}
 
+.invoice-select-submit{
+        margin-left:200px;
+        margin-top:20px;
+        padding:5px;
+        border-radius:5px;
+        border:none;
+        background:#87ceeb;
+        width:100px;
 }
