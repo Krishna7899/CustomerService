@@ -31,25 +31,25 @@
        <script src="{% static 'js/addressChange.js' %}"></script>
    </head>
 <body>
-        <div class="header">
-            <h5 class="welcome">Welcome {{request.session.firstName}}!! </h5>
+        <div class="header" id="header">
+            <h5 class="welcome" id="welcome-title-id">Welcome {{request.session.firstName}}!! </h5>
             <span>Last login:{{last_login}}</span>
         </div>
-  <nav class="navbar navbar-expand-lg" role="navigation" style="background-color: #3b5998;">
+  <nav class="navbar navbar-expand-lg" role="navigation" style="background-color: #3b5998;" id="navbar">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
          <li>
-             <span><i class="fa fa-home"></i><a class="nav-link-style py-0 myProfile" href="/agent/myProfile/">MyProfile</a></span></li>
+             <span><i class="fa fa-home"></i><a class="nav-link-style py-0 myProfile" href="/agent/myProfile/" id="menu-profile">MyProfile</a></span></li>
      </ul>
     <ul class="navbar-nav">
       <li class="dropdown">
         <span> <i class="fa fa-user" aria-hidden="true"></i>
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Agent</a></span>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#" id="menu-agent">Agent</a></span>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/agent/searchByAgent/">Search</a></li>
+          <li><a class="dropdown-item" href="/agent/searchByAgent/" id="dropdown-search">Search</a></li>
           {% if request.session.usertype == "supervisor" %}
-          <li><a class="dropdown-item" href="/agent/showAgents/">Show Agents</a></li>
-          <li><a class="dropdown-item" href="/agent/register/">Create Agent</a></li>
+          <li><a class="dropdown-item" href="/agent/showAgents/" id="dropdown-showAgents">Show Agents</a></li>
+          <li><a class="dropdown-item" href="/agent/register/" id="dropdown-createAgent">Create Agent</a></li>
           {% endif %}
         </ul>
       </li>
@@ -58,27 +58,38 @@
     <ul class="navbar-nav">
       <li class="dropdown">
           <span><i class="fa fa-university" aria-hidden="true"></i>
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Department</a></span>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#" id="menu-dept">Department</a></span>
          <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/agent/showDepartments/">Show Departments</a></li>
-          <li><a class="dropdown-item" href="/agent/searchByDepartment/">Search by Department</a></li>
-          <li><a class="dropdown-item" href="/agent/createDepartment/">Create Department</a></li>
+          <li><a class="dropdown-item" href="/agent/showDepartments/" id="dropdown-showDept">Show Departments</a></li>
+          <li><a class="dropdown-item" href="/agent/searchByDepartment/" id="dropdown-searchDept">Search by Department</a></li>
+          <li><a class="dropdown-item" href="/agent/createDepartment/" id="dropdown-createDept">Create Department</a></li>
         </ul>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="dropdown">
        <span><i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
-        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Requests</a></span>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#" id="menu-requests">Requests</a></span>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/agent/showRequests/">Show Requests</a></li>
+          <li><a class="dropdown-item" href="/agent/showRequests/" id="dropdown-requests">Show Requests</a></li>
+        </ul>
+      </li>
+    </ul>
+       <ul class="navbar-nav">
+      <li class="dropdown">
+       <span><i class="fa fa-group" aria-hidden="true"></i>
+        <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#" id="menu-partner">Partner</a></span>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/agent/createPartner/" id="dropdown-create-partner">Create Partner</a></li>
+           <li><a class="dropdown-item" href="/agent/partnerSearch/" id="dropdown-search-partner">Search Partner</a></li>
+           <li><a class="dropdown-item" href="/agent/partnerUpdate/" id="dropdown-update-partner">Update Partner</a></li>
         </ul>
       </li>
     </ul>
     {% endif %}
     <ul class="navbar-nav mr-auto">
     <li>
-        <span><i class="fa fa-sign-out" aria-hidden="true"></i><a class="nav-link-style" href="/agent/agentLogout/">Logout</a></span></li>
+        <span><i class="fa fa-sign-out" aria-hidden="true"></i><a class="nav-link-style" id="menu-logout" href="/agent/agentLogout/">Logout</a></span></li>
   </ul>
     <form action="/agent/search_url/" class="form-inline navbar-right my-2 my-lg-0" id="search-form" method="GET">
          {% csrf_token %}
@@ -100,18 +111,18 @@
                     {% endif %}
              </div>
              <div class="field-update" >
-                <input type="submit" value="UpdateImage"  onclick="myImageUpload()" id="updateImage-btn" class="updateImage-btn" style="display:block"/>
+                <input type="submit" value="UpdateImage"  id="updateImage-btn" class="updateImage-btn" style="display:block"/>
              </div>
               <div>
                     <div id="upload" style="display:none;">
-                        <form action='/agent/imageUpload/' method="post" enctype="multipart/form-data">
+                        <form action='/agent/imageUpload/' method="post" enctype="multipart/form-data" id="image-upload-form">
                             {% csrf_token %}
                             <div class="field">
-                                    <input id="id_image" type="file" class="profile-image" name="image">
+                                    <input id="id_image" type="file" class="profile-image" name="image" id="image-file-upload">
                             </div>
 
                             <div class="field">
-                            <input type="submit" value="Upload" class="profile-image-upload-btn" />
+                            <input type="submit" value="Upload" class="profile-image-upload-btn" id="image-upload-button"/>
                             </div>
                         </form>
                     </div>
@@ -121,13 +132,13 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="myTab">
               <li class="nav-item">
-                <a href="#myProfile" class="nav-link {{myProfile}}"  data-toggle="tab">MyProfile</a>
+                <a href="#myProfile" class="nav-link {{myProfile}}"  data-toggle="tab" id="myProfile-tab">MyProfile</a>
               </li>
               <li class="nav-item">
-                <a  href="#update-profile" class="nav-link {{updateProfile}}"  data-toggle="tab">UpdateProfile</a>
+                <a  href="#update-profile" class="nav-link {{updateProfile}}"  data-toggle="tab" id="updateProfile-tab">UpdateProfile</a>
               </li>
               <li class="nav-item">
-                <a href="#change-password" class="nav-link {{changePassword}}"  data-toggle="tab">ChangePassword</a>
+                <a href="#change-password" class="nav-link {{changePassword}}"  data-toggle="tab" id="changePassword-tab">ChangePassword</a>
               </li>
             </ul>
 
@@ -202,28 +213,25 @@
                           </td>
 
                           <td>
-                            <br>
                             <ul style="list-style: none;" id="pAddress-change-ul">
-                                <form action="/agent/pAddressUpdate/" method="POST">
+                                <form action="/agent/pAddressUpdate/" method="POST" id="permanent-address-form">
                                     {% csrf_token %}
                                 <li><input type="text" id="pAddrType" name="AddrType" value="{{pAddr.AddressType}}" class="pAddressType-text" style="visibility:hidden;" readonly/></li>
                                 <li><input type="text" id="pdno" name="DoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="Street" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="City" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="State" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
-                                <li><input type="text" name="Pincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" id="pStreet" name="Street" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" id="pCity" name="City" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" id="pState" name="State" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></li>
+                                <li><input type="text" id="pPincode" name="Pincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></li>
                                 <li><input type="submit" id="pSubmit" class="pAddress-update-button" style="visibility:hidden;"></li>
                                 </form>
                             </ul>
                           </td>
                                <td>
                                     <!--<a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>-->
-                                   <button id="pButton">Update Permanent Address</button>
+                                   <button id="pButton">UpdatePermanentAddress</button>
                                </td>
                          </tr>
-                         </table>
-                    <table class="address-table" id="tAddress">
-                          <tr>
+                         <tr>
                               {{tMsg}}
                            <td>
                                 <ul style="list-style: none;">
@@ -239,29 +247,29 @@
                            <td>
                                <br>
                             <ul style="list-style: none;">
-                             <form action="/agent/pAddressUpdate/" method="POST">
+                             <form action="/agent/pAddressUpdate/" method="POST" id="temporary-address-form">
                                   {% csrf_token %}
                                   <li><input type="text" id="tAddrType" name="AddrType" value="{{tAddr.AddressType}}" class="tAddressType-text" style="visibility:hidden;" readonly/></li>
                                 <li><input type="text" id="tdno" name="DoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="Street" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="City" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="State" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
-                                <li><input type="text" name="Pincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" id="tStreet" name="Street" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" id="tCity" name="City" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" id="tState" name="State" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
+                                <li><input type="text" id="tPincode" name="Pincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></li>
                                 <li><input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;"></li>
                              </form>
                             </ul>
                           </td>
                            <td>
-                              <button id="tButton">Update Temporary Address</button>
+                              <button id="tButton" name="tButton" id="tButton">UpdateTemporaryAddress</button>
                             </td>
                  </tr>
                     </table>
                 </div>
               </div>
            <div class="tab-pane {{updateProfile}}" id="update-profile">
-           <div class="update-profile-card card-body">
+           <div class="update-profile-card card-body" id="update-profile-card">
                <span class="error-form">{{errorMsg}}</span>
-           <form action="/agent/editProfile/" method="post">
+           <form action="/agent/editProfile/" id="update-profile-form" method="post">
                                                     {% csrf_token %}
                               <div>
                                 <div>

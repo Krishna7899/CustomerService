@@ -1,0 +1,87 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+                <script src="{% static 'js/searchAgent.js' %}"></script>
+        <ul class="nav nav-tabs" id="myTab">
+              <li class="nav-item">
+                <a href="#search" class="nav-link {{search}}"  data-toggle="tab">Search</a>
+              </li>
+   	    </ul>
+
+	<div class="tab-content card">
+	    <div class="tab-pane {{search}}" id="search">
+               <div class="card-body">
+                       <table style="margin-left:100px;">
+                <span style="position:absolute;margin-left:450px"><b>{{msg}}</b></span><br>
+                <tr>
+               <form action="/agent/partnerSearch/" name="partnerSearch" method="post" id="form1">
+            {% csrf_token %}
+                <td>
+                    <div class="search-field">
+                       <input type="text" id="placeholder" name="name" placeholder=" search here" class="search-field-input" required/>
+                    </div>
+                </td>
+                <td>
+                    <div class="searchAgent-button">
+                    <input type="submit" value="Search" id="button-1">
+                    </div>
+                </td>
+               </form>
+                </tr>
+                   <tr>
+                <td>
+                <div class="radio-field" id="div1">
+                   Id&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio" onclick="changePlaceholder1()"/>&nbsp;&nbsp;
+                   Name&nbsp;&nbsp<input type="radio" class="radio-buttons" name="radio"  onclick="changePlaceholder2()"/>
+                    <span class="error_form" id="searchById_error_message"></span>
+                </div>
+                </td>
+               </tr>
+          </table>
+
+		</div>
+            </div>
+          </div>
+     <div>
+        <table id="agent-search-table">
+          {% if search_by_name %}
+            <tr>
+                <td>
+                    <span style="position:absolute;">Details of Partner</span><br>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                   <th>Partner Name</th>
+                </td>
+                <td>
+                    {{search_by_name.name}}
+                <td>
+            </tr>
+            <tr>
+                <td>
+                   <th>Partner Code</th>
+                </td>
+                <td>
+                     {{search_by_name.code}}
+                </td>
+            </tr>
+            <tr>
+                 <td>
+                    <th>GST Id</th>
+                 </td>
+                 <td>
+
+                     {{search_by_name.GSTCode}}
+                 </td>
+            </tr>
+
+             {% endif %}
+        </table>
+
+  </div>
+
+{% endblock %}
+
+

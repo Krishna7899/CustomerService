@@ -2,3 +2,9 @@ venv
 agentService/agent/__pycache__/*
 agentService/agent/__pycache__/commons.cpython-39.pyc
 *.pyc
+*.pyc
+*.pyc
+agentService/agent/__pycache__/DButils.cpython-39.pyc
+agentService/agent/__pycache__/restviews.cpython-39.pyc
+agentService/agent/__pycache__/urls.cpython-39.pyc
+agentService/agent/__pycache__/views.cpython-39.pyc
