@@ -1,4 +1,4 @@
-from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner,Branch
+from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner,Branch,Invoice
 from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
@@ -241,3 +241,8 @@ def getBranchAddress(branch):
     obj=Branch.objects.get(BranchName=branch)
     branch_obj=obj.id
     return MyAddressTable.objects.get(branch_id_id=branch_obj)
+
+def invoiceCreateMethod(sno,comment,HSN,UOM,qty,rate,totalValue,igst,cgst,totalTax,partner,branch):
+
+   return Invoice.objects.create(Sno=sno,Description=comment,HSNCode=HSN,UOM=UOM,QtyPerKg=qty,RatePerKg=rate,
+                TotalQtyCost=totalValue,IGST=igst,CGST=cgst,TotalTax=totalTax,partner=partner,branch=branch)

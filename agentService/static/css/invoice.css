@@ -1,5 +1,7 @@
 .Invoice-Select-Container{
-        margin-left:50px;
+        margin-left:0px;
+        min-width:100px;
+        max-width:900px;
 
 }
 .Invoice-selection{
@@ -16,44 +18,46 @@
         background:#87ceeb;
         width:100px;
 }
+.invoice-add-submit{
+        padding:5px;
+        border-radius:5px;
+        border:none;
+        background:#87ceeb;
+}
+.Invoice-submit{
+        position:absolute;
+        text-align:center;
 
+}
 .Invoice-To-Address{
      width:10%;
+     float:left;
 }
 
 .Invoice-From-Address{
      width:10%;
+     float:right;
+     margin-left:80%;
 }
 .Invoice-create{
-        padding-top:150px;
+        padding-top:50px;
         padding-right:50px;
-        width:80%;
+        width:70vw;
 
 }
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.table th{
+    padding: 0px 0px 0px 0px;
 }
-.Invoice-table td{
-       background-color:#669999;
-
-
+.table td,th{
+   padding:0 !important;
+   margin: 0 !important;
+   text-align:left;
 }
+
 .Invoice-table input[type="text"]{
         outline:none;
         border:none;
-        text-align:center;
         border-radius:5px;
-        padding:5px;
-
-}
-.Invoice-table textarea{
-        outline:none;
-        border:none;
-        text-align:center;
-        border-radius:5px;
-        padding:5px;
-
+        padding:0px;
+        margin:0px;
 }

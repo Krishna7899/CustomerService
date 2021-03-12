@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import AgentTable,Requests,Department,LogTable,MyAddressTable,Partner,Branch
+from .models import AgentTable,Requests,Department,LogTable,MyAddressTable,Partner,Branch,Invoice
 
 class MyAgentadmin(admin.ModelAdmin):
    	list_display = ('id','firstName', 'lastName', 'username','password', 'dept','created_date','usertype')
@@ -41,3 +41,7 @@ class MyBranchAdmin(admin.ModelAdmin):
 	list_display = ("BranchCode","GSTid")
 admin.site.register(Branch,MyBranchAdmin)
 
+class MyInvoiceAdmin(admin.ModelAdmin):
+	list_display = ("Sno","Description","HSNCode","UOM","QtyPerKg","RatePerKg","TotalQtyCost","TransportCharges",
+					"IGST","CGST","TotalTax","partner","branch","created_date")
+admin.site.register(Invoice,MyInvoiceAdmin)
