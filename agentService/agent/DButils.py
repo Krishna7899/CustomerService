@@ -242,10 +242,10 @@ def getBranchAddress(branch):
     branch_obj=obj.id
     return MyAddressTable.objects.get(branch_id_id=branch_obj)
 
-def invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,TransportCharges,status):
+def invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,TransportCharges,totalcost,status):
 
   inv_obj=InvoiceProduct.objects.create(Description=comment,HSNCode=HSN,UOM=UOM,QtyPerKg=qty,RatePerKg=rate,
-                TotalQtyCost=totalValue,TotalTax=totalTax,TransportCharges=TransportCharges)
+                TotalQtyCost=totalValue,TotalTax=totalTax,TransportCharges=TransportCharges,TotalCost=totalcost)
   invId=inv_obj.id
   Invoice.objects.create(invoiceSummary=comment, invoiceNumber=invoiceNum,partner=partner,branch=branch,status=status,
                          invoiceProduct_id=invId)

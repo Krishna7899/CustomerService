@@ -114,6 +114,7 @@ class InvoiceProduct(models.Model):
     RatePerKg = models.CharField(max_length=40, default='')
     TotalQtyCost = models.CharField(max_length=40, default='')
     TransportCharges = models.CharField(max_length=40, default='', null=True)
+    TotalCost=models.CharField(max_length=40, default='', null=True)
     TotalTax = models.CharField(max_length=40, default='', null=True)
 
 class Invoice(models.Model):

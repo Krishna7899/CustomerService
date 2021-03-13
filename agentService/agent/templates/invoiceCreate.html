@@ -8,57 +8,53 @@
                     {% csrf_token %}
         <table id="table">
             <tr>
-                <td colspan="9" style="text-align:center;"><b>Tax Invoice</b></td>
+                <td colspan="11" style="text-align:center;"><b>Tax Invoice</b></td>
             </tr>
             <tr>
-                <td colspan="4">
+                <td colspan="5">
                     To
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                     From
                 </td>
             </tr>
             <tr>
-
-                <td colspan="4">
+                <td colspan="5">
                 <input type="text" name="partner" value="{{partner_Obj.name}}" style="border:none">
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                     <input type="text" name="branch" value="{{branch_Obj.BranchName}}" style="border:none">
                 </td>
             </tr>
             <tr>
-
-                <td colspan="4">
+                <td colspan="5">
                    {{partner_addr_obj.Dno}}
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                    {{branch_addr_obj.Dno}}
                 </td>
             </tr>
             <tr>
-
-                <td colspan="4">
+                <td colspan="5">
                    {{partner_addr_obj.Street}}
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                    {{branch_addr_obj.Street}}
                 </td>
             </tr>
             <tr>
-
-                <td colspan="4">
+                <td colspan="5">
                    {{partner_addr_obj.City}}
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                    {{branch_addr_obj.City}}
                 </td>
             </tr>
                  <tr>
-                <td colspan="4">
+                <td colspan="5">
                    {{partner_addr_obj.State}}
                 </td>
-                <td colspan="5">
+                <td colspan="6">
                    {{branch_addr_obj.State}}
                 </td>
             </tr>
@@ -95,9 +91,6 @@
                     Total Tax
                 </th>
                  <th>
-                    Transportation Charges
-                </th>
-                 <th>
                     Status
                 </th>
                 <th>
@@ -110,42 +103,47 @@
                       <input type="text" name="sno0" id="sno0"/>
                     </td>-->
                      <td>
-                        <input type="text" rows="2" cols="20" id="comment" name="comment0" placeholder="Description here...">
+                        <input type="text" rows="2" cols="20" id="comment0" name="comment0" placeholder="Description here...">
                     </td>
                      <td>
-                      <input type="text" name="HSN0" id="HSN" value="HSN123"/>
+                      <input type="text" name="HSN0" id="HSN0" value="HSN123"/>
                     </td>
                      <td>
-                       <input type="text" name="UOM0" id="UOM" value="AU"/>
+                       <input type="text" name="UOM0" id="UOM0" value="AU"/>
                     </td>
                      <td>
-                       <input type="text" name="qty0" id="qty" value="" />
+                       <input type="text" name="qty0" id="qty0" value="" />
                     </td>
                      <td>
-                        <input type="text" name="rate0" id="rate" value="" />
+                        <input type="text" name="rate0" id="rate0" value="" />
                     </td>
                      <td>
-                        <input type="text" name="totalValue0" id="totalValue" value="" />
+                        <input type="text" name="totalValue0" id="totalValue0" value="" />
                     </td>
                     <td>
-                        <input type="text" name="igst0" id="igst" value="{{partner_Obj.IGST}}"/>
+                        <input type="text" name="igst0" id="igst0" value="{{partner_Obj.IGST}}"/>
                     </td>
                     <td>
-                        <input type="text" name="cgst0" id="cgst" value="{{partner_Obj.CGST}}"/>
+                        <input type="text" name="cgst0" id="cgst0" value="{{partner_Obj.CGST}}"/>
                     </td>
                     <td>
-                        <input type="text" name="totalTax0" id="totalTax" value=""/>
+                        <input type="text" name="totalTax0" id="totalTax0" value="" readonly/>
                     </td>
-                     <td>
-                        <input type="text" name="transportCharges0" id="transportCharges" value=""/>
-                    </td>
+
                     <td>
                         <input type="text" name="status0" id="status" value=""/>
                     </td>
                 </tr>
                 </tbody>
         </table>
+         <br>
+         <div class="TotalPrice">
+         <label>Transport Charges</label>
+         <input type="text" name="transportCharges" id="transportCharges" value=""/>
+         <label>Total Price</label>
+         <input type="text" name="totalcost" id="totalcost" placeholder="Price+Tax+Tr.Charges" value=""/>
          <input type="hidden"  id="count" name="count"  class="count" value='1'/>
+         </div>
             <span class="Invoice-submit">
                     <input type="submit" name="submit" value="Submit" id="invoice-select-submit" class="invoice-select-submit">
             </span>

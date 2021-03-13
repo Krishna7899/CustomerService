@@ -47,5 +47,5 @@ admin.site.register(Invoice,MyInvoiceAdmin)
 
 class MyInvoiceProductAdmin(admin.ModelAdmin):
 	list_display = ("Description", "HSNCode", "UOM", "QtyPerKg", "RatePerKg", "TotalQtyCost", "TransportCharges",
-					 "TotalTax")
+					 "TotalTax","TotalCost")
 admin.site.register(InvoiceProduct,MyInvoiceProductAdmin)

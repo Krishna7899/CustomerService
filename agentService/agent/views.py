@@ -614,6 +614,8 @@ def invoiceCreate(request):
         count = int(request.POST['count'])
         partner=request.POST['partner']
         branch = request.POST['branch']
+        TransportCharges = request.POST.get("transportCharges")
+        totalcost = request.POST.get("totalcost")
         print(count)
         for i in range(0, count):
             comment = request.POST.get("comment{}".format(i))
@@ -623,11 +625,11 @@ def invoiceCreate(request):
             rate = request.POST.get("rate{}".format(i))
             totalValue=request.POST.get("totalValue{}".format(i))
             totalTax=request.POST.get("totalTax{}".format(i))
-            status=request.POST.get("status{}".format(i))
-            TransportCharges=request.POST.get("transportCharges{}".format(i))
+            status = request.POST.get("status{}".format(i))
+            #TransportCharges=request.POST.get("transportCharges{}".format(i))
             invoiceNum="inv12{}".format(i)
             invoice_obj=invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,
-                                            TransportCharges,status)
+                                            TransportCharges,totalcost,status)
         if invoice_obj:
             return render(request,"invoiceSelect.html",{})
 
