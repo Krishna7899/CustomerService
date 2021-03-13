@@ -76,6 +76,8 @@ class Partner(models.Model):
     name =models.CharField(max_length=40,default='')
     code =models.CharField(max_length=40,default='')
     GSTCode = models.CharField(max_length=40,default='')
+    IGST = models.CharField(max_length=40, default='', null=True)
+    CGST = models.CharField(max_length=40, default='', null=True)
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
@@ -86,6 +88,8 @@ class Branch(models.Model):
     BranchName =models.CharField(max_length=40,default='')
     BranchCode =models.CharField(max_length=40,default='')
     GSTid = models.CharField(max_length=40,default='')
+    igst = models.CharField(max_length=40, default='', null=True)
+    cgst = models.CharField(max_length=40, default='', null=True)
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
@@ -101,21 +105,26 @@ class MyAddressTable(AddressBase):
     def __str__(self):
         return self.Dno
 
+class InvoiceProduct(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    Description = models.CharField(max_length=40, default='')
+    HSNCode = models.CharField(max_length=40, default='', null=True)
+    UOM = models.CharField(max_length=40, default='', null=True)
+    QtyPerKg = models.CharField(max_length=40, default='')
+    RatePerKg = models.CharField(max_length=40, default='')
+    TotalQtyCost = models.CharField(max_length=40, default='')
+    TransportCharges = models.CharField(max_length=40, default='', null=True)
+    TotalTax = models.CharField(max_length=40, default='', null=True)
+
 class Invoice(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
-    Sno=models.CharField(max_length=40, default='')
-    Description=models.CharField(max_length=40, default='')
-    HSNCode=models.CharField(max_length=40, default='',null=True)
-    UOM=models.CharField(max_length=40, default='',null=True)
-    QtyPerKg=models.CharField(max_length=40, default='')
-    RatePerKg=models.CharField(max_length=40, default='')
-    TotalQtyCost=models.CharField(max_length=40, default='')
-    TransportCharges=models.CharField(max_length=40, default='',null=True)
-    IGST=models.CharField(max_length=40, default='',null=True)
-    CGST=models.CharField(max_length=40, default='',null=True)
-    TotalTax=models.CharField(max_length=40, default='',null=True)
+    invoiceSummary = models.CharField(max_length=200, default='')
+    invoiceNumber = models.CharField(max_length=40, default='')
     partner = models.CharField(max_length=40, default='')
     branch = models.CharField(max_length=40, default='')
     created_date = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=40, default='')
+    invoiceProduct = models.ForeignKey(InvoiceProduct, on_delete=models.CASCADE, default='', blank=True, null=True)
+
 
 

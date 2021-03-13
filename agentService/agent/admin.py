@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import AgentTable,Requests,Department,LogTable,MyAddressTable,Partner,Branch,Invoice
+from .models import AgentTable,Requests,Department,LogTable,MyAddressTable,Partner,Branch,Invoice,InvoiceProduct
 
 class MyAgentadmin(admin.ModelAdmin):
    	list_display = ('id','firstName', 'lastName', 'username','password', 'dept','created_date','usertype')
@@ -29,19 +29,23 @@ admin.site.register(LogTable, MylogTableadmin)
 admin.site.register(PermanentAddress,MyAddressadmin)'''
 
 class MyAddressadmin(admin.ModelAdmin):
-	list_display = ("Dno","Street","City","State","Pincode","AddressType")
+	list_display = ("Dno","Street","City","State","Pincode","AddressType","branch_id","partner_id")
 
 admin.site.register(MyAddressTable, MyAddressadmin)
 
 class MyPartnerAdmin(admin.ModelAdmin):
-	list_display = ("code","GSTCode")
+	list_display = ("id","name","code","GSTCode","IGST","CGST")
 admin.site.register(Partner,MyPartnerAdmin)
 
 class MyBranchAdmin(admin.ModelAdmin):
-	list_display = ("BranchCode","GSTid")
+	list_display = ("id","BranchName","BranchCode","GSTid","igst","cgst")
 admin.site.register(Branch,MyBranchAdmin)
 
 class MyInvoiceAdmin(admin.ModelAdmin):
-	list_display = ("Sno","Description","HSNCode","UOM","QtyPerKg","RatePerKg","TotalQtyCost","TransportCharges",
-					"IGST","CGST","TotalTax","partner","branch","created_date")
+	list_display = ("id","invoiceSummary","invoiceNumber","status", "partner", "branch","created_date")
 admin.site.register(Invoice,MyInvoiceAdmin)
+
+class MyInvoiceProductAdmin(admin.ModelAdmin):
+	list_display = ("Description", "HSNCode", "UOM", "QtyPerKg", "RatePerKg", "TotalQtyCost", "TransportCharges",
+					 "TotalTax")
+admin.site.register(InvoiceProduct,MyInvoiceProductAdmin)

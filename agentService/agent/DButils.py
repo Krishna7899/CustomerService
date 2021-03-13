@@ -1,4 +1,4 @@
-from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner,Branch,Invoice
+from .models import AgentTable, Requests, Department, LogTable, MyAddressTable,Partner,Branch,Invoice,InvoiceProduct
 from django.db.models import Q
 from .exceptions import ServiceException
 import datetime
@@ -168,11 +168,11 @@ def showPermanentAddressMethod():
 def showTemporaryAddressMethod():
     return MyAddressTable.objects.get(AddressType="TemporaryAddress")
 
-def createPartnerMethod(name,code,GSTCode,createdBy_id):
+def createPartnerMethod(name,code,GSTCode,IGST,CGST,createdBy_id):
     if Partner.objects.filter(name=name).exists():
         raise ServiceException("Partner Already Created")
     else:
-        return Partner.objects.create(name=name,code=code,GSTCode=GSTCode,createdBy_id=createdBy_id)
+        return Partner.objects.create(name=name,code=code,GSTCode=GSTCode,IGST=IGST,CGST=CGST,createdBy_id=createdBy_id)
 
 def getDetailsByPartnerName(name):
     return Partner.objects.get(Q(name__iexact=name) | Q(id__iexact=name))
@@ -207,15 +207,15 @@ def getPermanentAddressObject():
 
 
 
-def createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id):
+def createbranchMethod(BranchName,BranchCode,GSTid,igst,cgst, createdBy_id):
     #if Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id):
        # raise ServiceException('branch is already created')
     #else:
-    return Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid, createdBy_id= createdBy_id)
+    return Branch.objects.create(BranchName=BranchName,BranchCode=BranchCode,GSTid=GSTid,igst=igst,cgst=cgst,createdBy_id= createdBy_id)
 
 
-def getdetailsbybranch(BranchName):
-    return Branch.objects.get(BranchName=BranchName)
+def getdetailsbybranch(branchName):
+    return Branch.objects.get(BranchName=branchName)
 
 
 def getbranchNames(search_BranchName):
@@ -242,7 +242,11 @@ def getBranchAddress(branch):
     branch_obj=obj.id
     return MyAddressTable.objects.get(branch_id_id=branch_obj)
 
-def invoiceCreateMethod(sno,comment,HSN,UOM,qty,rate,totalValue,igst,cgst,totalTax,partner,branch):
+def invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,TransportCharges,status):
 
-   return Invoice.objects.create(Sno=sno,Description=comment,HSNCode=HSN,UOM=UOM,QtyPerKg=qty,RatePerKg=rate,
-                TotalQtyCost=totalValue,IGST=igst,CGST=cgst,TotalTax=totalTax,partner=partner,branch=branch)
+  inv_obj=InvoiceProduct.objects.create(Description=comment,HSNCode=HSN,UOM=UOM,QtyPerKg=qty,RatePerKg=rate,
+                TotalQtyCost=totalValue,TotalTax=totalTax,TransportCharges=TransportCharges)
+  invId=inv_obj.id
+  Invoice.objects.create(invoiceSummary=comment, invoiceNumber=invoiceNum,partner=partner,branch=branch,status=status,
+                         invoiceProduct_id=invId)
+  return inv_obj

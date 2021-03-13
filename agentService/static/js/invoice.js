@@ -1,5 +1,8 @@
 $(document).ready(function(){
     var x = 1;
+    var y= +$("#igst").val();
+    var z= +$("#cgst").val();
+       $("#totalTax").val(y+z);
     $("#invoice-button").click(function () {
         $('#count').val(x+1)
 

@@ -66,4 +66,4 @@ class PartnerForm(forms.ModelForm):
 class BranchForm(forms.ModelForm):
     class Meta:
         model=Branch
-        fields=["BranchName","BranchCode","GSTid"]
+        fields=["BranchName","BranchCode","GSTid","igst","cgst"]

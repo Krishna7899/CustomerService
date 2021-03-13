@@ -1,7 +1,5 @@
 .Invoice-Select-Container{
-        margin-left:0px;
-        min-width:100px;
-        max-width:900px;
+        margin-left:100px !important;
 
 }
 .Invoice-selection{
@@ -43,21 +41,30 @@
         padding-top:50px;
         padding-right:50px;
         width:70vw;
+}
+#table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70vw;;
+  margin-left:20px;
+}
 
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 0px 0px 0px !important;
+  text-align:left;
 }
-.table th{
-    padding: 0px 0px 0px 0px;
-}
-.table td,th{
+#table th{
    padding:0 !important;
    margin: 0 !important;
-   text-align:left;
+   text-align:center;
 }
-
 .Invoice-table input[type="text"]{
         outline:none;
         border:none;
         border-radius:5px;
         padding:0px;
         margin:0px;
+        height:20px;
+        width:50px;
 }

@@ -4,102 +4,65 @@
                 <link rel="stylesheet" type="text/css" href="{% static 'css/invoice.css' %}">
                 <script src="{% static 'js/invoice.js' %}"></script>
 <div class="Invoice-Select-Container">
-
      <form action="/agent/invoiceCreate/" method="post" id="invoice-form">
                     {% csrf_token %}
-
-        <table class="table table-bordered text-left" id="table">
+        <table id="table">
             <tr>
                 <td colspan="9" style="text-align:center;"><b>Tax Invoice</b></td>
             </tr>
             <tr>
-                <td colspan="3">
-                   Billing Address
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                     To
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                     From
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
 
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                 <input type="text" name="partner" value="{{partner_Obj.name}}" style="border:none">
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                     <input type="text" name="branch" value="{{branch_Obj.BranchName}}" style="border:none">
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
 
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                    {{partner_addr_obj.Dno}}
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                    {{branch_addr_obj.Dno}}
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
 
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                    {{partner_addr_obj.Street}}
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                    {{branch_addr_obj.Street}}
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
 
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                    {{partner_addr_obj.City}}
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                    {{branch_addr_obj.City}}
                 </td>
             </tr>
                  <tr>
-                <td colspan="3">
-
-                </td>
-                <td colspan="3">
+                <td colspan="4">
                    {{partner_addr_obj.State}}
                 </td>
-                <td colspan="3">
+                <td colspan="5">
                    {{branch_addr_obj.State}}
                 </td>
             </tr>
-             <tr>
-                <td colspan="3">
-                    Code
-                </td>
-                <td colspan="3">
 
-                </td>
-                <td colspan="3">
-
-                </td>
-            </tr>
-             <tr>
-                <td colspan="3">
-                    Unique Code
-                </td>
-                <td colspan="3">
-
-                </td>
-                <td colspan="3">
-
-                </td>
-            </tr>
             <tr>
             <!--    <th>
                     S.No
@@ -131,11 +94,17 @@
                  <th>
                     Total Tax
                 </th>
+                 <th>
+                    Transportation Charges
+                </th>
+                 <th>
+                    Status
+                </th>
                 <th>
                      <button type="button" name="button" id="invoice-button" class="invoice-add-submit">Add</button>
                 </th>
             </tr>
-
+            <tbody class="Invoice-table">
             <tr class="tr">
                <!--     <td>
                       <input type="text" name="sno0" id="sno0"/>
@@ -159,15 +128,22 @@
                         <input type="text" name="totalValue0" id="totalValue" value="" />
                     </td>
                     <td>
-                        <input type="text" name="igst0" id="igst" value="9%"/>
+                        <input type="text" name="igst0" id="igst" value="{{partner_Obj.IGST}}"/>
                     </td>
                     <td>
-                        <input type="text" name="cgst0" id="cgst" value="9%"/>
+                        <input type="text" name="cgst0" id="cgst" value="{{partner_Obj.CGST}}"/>
                     </td>
-                    <td id="here">
-                        <input type="text" name="totalTax0" id="totalTax" value="18%"/>
+                    <td>
+                        <input type="text" name="totalTax0" id="totalTax" value=""/>
+                    </td>
+                     <td>
+                        <input type="text" name="transportCharges0" id="transportCharges" value=""/>
+                    </td>
+                    <td>
+                        <input type="text" name="status0" id="status" value=""/>
                     </td>
                 </tr>
+                </tbody>
         </table>
          <input type="hidden"  id="count" name="count"  class="count" value='1'/>
             <span class="Invoice-submit">
