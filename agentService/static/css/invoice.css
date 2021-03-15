@@ -1,6 +1,75 @@
 .Invoice-Select-Container{
+        margin-left:100px !important;
+
+}
+.Invoice-selection{
+      margin-left:20px;
+
+}
+
+.invoice-select-submit{
         margin-left:200px;
+        margin-top:20px;
+        padding:5px;
+        border-radius:5px;
+        border:none;
+        background:#87ceeb;
+        width:100px;
+}
+.invoice-add-submit{
+        padding:5px;
+        border-radius:5px;
+        border:none;
+        background:#87ceeb;
+}
+.Invoice-submit{
+        position:absolute;
+        text-align:center;
 
+}
+.Invoice-To-Address{
+     width:10%;
+     float:left;
+}
 
+.Invoice-From-Address{
+     width:10%;
+     float:right;
+     margin-left:80%;
+}
+.Invoice-create{
+        padding-top:50px;
+        padding-right:50px;
+        width:70vw;
+}
+#table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 70vw;;
+  margin-left:20px;
+}
+
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 0px 0px 0px !important;
+  text-align:left;
+}
+#table th{
+   padding:0 !important;
+   margin: 0 !important;
+   text-align:center;
+}
+.Invoice-table input[type="text"]{
+        outline:none;
+        border:none;
+        border-radius:5px;
+        padding:0px;
+        margin:0px;
+        height:20px;
+        width:50px;
+}
+.TotalPrice{
+
+        margin-left:200px;
 
 }

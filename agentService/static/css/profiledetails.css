@@ -252,7 +252,7 @@ margin-left:250px;
        width:250px;
   }
 /* agent details in myprofile page */
-#agent-details-table{
+/*#agent-details-table{
         margin-left:60px;
 
 }
@@ -272,7 +272,7 @@ margin-left:250px;
 #agent-details-table span{
         color:#007bff;
 
-}
+}*/
 .dept-field-container{
         margin-left:50%;
         margin-right:35%;
@@ -690,7 +690,22 @@ margin-left:250px;
       margin-right:12px;
 }
 
+ .table{
+     width:400px;
+     margin-left:50px;
+     }
+.table td,th{
+    padding:0 !important;
+    margin:0 !important;
+    width: 50px;
+    text-align:left;
+    border-collapse:collapse;
+}
+.table-borderless{
+     border:none;
+}
 
+/*
 .address-table{
    margin-top:0px;
    margin-left:80px;
@@ -707,12 +722,12 @@ margin-left:250px;
 }
 
 .address-table td{
-  /*border: 1px solid #ddd;*/
+
   padding: 1px 1px 1px;
   text-align: left;
   font-size:12px;
      height:70px;
-     margin-left:0px;
+     margin-left:0px;*/
 
 .agent-details-card,.update-profile-card,.change-password-card{
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

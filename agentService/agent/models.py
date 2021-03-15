@@ -76,24 +76,56 @@ class Partner(models.Model):
     name =models.CharField(max_length=40,default='')
     code =models.CharField(max_length=40,default='')
     GSTCode = models.CharField(max_length=40,default='')
+    IGST = models.CharField(max_length=40, default='', null=True)
+    CGST = models.CharField(max_length=40, default='', null=True)
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.name
 
 class Branch(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     BranchName =models.CharField(max_length=40,default='')
     BranchCode =models.CharField(max_length=40,default='')
     GSTid = models.CharField(max_length=40,default='')
+    igst = models.CharField(max_length=40, default='', null=True)
+    cgst = models.CharField(max_length=40, default='', null=True)
     createdBy = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='')
     created_date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.BranchName
 
 class MyAddressTable(AddressBase):
     id = models.AutoField(auto_created=True, primary_key=True)
     agent_id = models.ForeignKey(AgentTable, on_delete=models.CASCADE, default='',blank=True,null=True)
-    AddressType = models.CharField(max_length=30, choices=AddressOptions)
+    AddressType = models.CharField(max_length=30, choices=AddressOptions,blank=True,null=True)
     partner_id= models.ForeignKey(Partner,on_delete=models.CASCADE, default='',blank=True,null=True)
     branch_id= models.ForeignKey(Branch, on_delete=models.CASCADE, default='',blank=True,null=True)
 
     def __str__(self):
         return self.Dno
+
+class InvoiceProduct(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    Description = models.CharField(max_length=40, default='')
+    HSNCode = models.CharField(max_length=40, default='', null=True)
+    UOM = models.CharField(max_length=40, default='', null=True)
+    QtyPerKg = models.CharField(max_length=40, default='')
+    RatePerKg = models.CharField(max_length=40, default='')
+    TotalQtyCost = models.CharField(max_length=40, default='')
+    TransportCharges = models.CharField(max_length=40, default='', null=True)
+    TotalCost=models.CharField(max_length=40, default='', null=True)
+    TotalTax = models.CharField(max_length=40, default='', null=True)
+
+class Invoice(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    invoiceSummary = models.CharField(max_length=200, default='')
+    invoiceNumber = models.CharField(max_length=40, default='')
+    partner = models.CharField(max_length=40, default='')
+    branch = models.CharField(max_length=40, default='')
+    created_date = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=40, default='')
+    invoiceProduct = models.ForeignKey(InvoiceProduct, on_delete=models.CASCADE, default='', blank=True, null=True)
+
+
 

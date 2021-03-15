@@ -29,6 +29,8 @@
         <script src="{% static 'js/registration.js' %}"></script>
        <script src="{% static 'js/search.js' %}"></script>
        <script src="{% static 'js/addressChange.js' %}"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
    </head>
 <body>
         <div class="header" id="header">
@@ -83,6 +85,7 @@
           <li><a class="dropdown-item" href="/agent/createPartner/" id="dropdown-create-partner">Create Partner</a></li>
            <li><a class="dropdown-item" href="/agent/partnerSearch/" id="dropdown-search-partner">Search Partner</a></li>
            <li><a class="dropdown-item" href="/agent/partnerUpdate/" id="dropdown-update-partner">Update Partner</a></li>
+           <li><a class="dropdown-item" href="/agent/showPartners/" id="dropdown-show-partner">Show Partners</a></li>
         </ul>
       </li>
     </ul>
@@ -102,7 +105,7 @@
        <span><i class="fa fa-files-o" aria-hidden="true"></i>
         <a class="dropdown-toggle py-0 nav-link-style" data-toggle="dropdown" href="#">Invoice</a></span>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/agent/invoiceSelect/">Crate Invoice</a></li>
+          <li><a class="dropdown-item" href="/agent/invoiceSelect/">Create Invoice</a></li>
         </ul>
       </li>
     </ul>
@@ -166,7 +169,95 @@
             <div class="tab-content card">
               <div class="tab-pane {{myProfile}}" id="myProfile">
                <div class="card-body">
-                 <table id="agent-details-table">
+
+    <table class="table table-borderless">
+              <tr>
+                  <td><b>Personal Profile</b></td>
+              </tr>
+        <tbody>
+          <tr>
+            <td>First Name</td>
+            <td>{{agentProfile.firstName}}</td>
+          </tr>
+      <tr>
+        <td>LastName</td>
+        <td>{{agentProfile.lastName}}</td>
+      </tr>
+      <tr>
+        <td>MailId</td>
+        <td>{{agentProfile.email}}</td>
+      </tr>
+      <tr>
+        <td>UserName</td>
+        <td>{{agentProfile.username}}</td>
+      </tr>
+      <tr>
+        <td>Department</td>
+        <td>{{agentProfile.dept}}</td>
+      </tr>
+       <tr>
+        <td><b>{{pAddr.AddressType}}</b></td>
+        <td><button id="pButton">UpdatePermanentAddress</button></td>
+      </tr>
+       <form action="/agent/pAddressUpdate/" method="POST" id="permanent-address-form">
+                                    {% csrf_token %}
+       <tr>
+        <td>HouseNo</td>
+        <td><input type="text" id="pdno" name="DoorNo" value="{{pAddr.Dno}}" class="pAddress-update-text" readonly/></td>
+           <td><input type="text" id="pAddrType" name="AddrType" value="{{pAddr.AddressType}}" class="pAddressType-text" style="visibility:hidden;" readonly/></td>
+      </tr>
+        <tr>
+        <td>Street</td>
+        <td><input type="text" id="pStreet" name="Street" value="{{pAddr.Street}}" class="pAddress-update-text" readonly/></td>
+      </tr>
+        <tr>
+        <td>City</td>
+        <td><input type="text" id="pCity" name="City" value="{{pAddr.City}}" class="pAddress-update-text" readonly/></td>
+      </tr>
+        <tr>
+        <td>State</td>
+        <td><input type="text" id="pState" name="State" value="{{pAddr.State}}" class="pAddress-update-text" readonly/></td>
+      </tr>
+        <tr>
+        <td>Pincode</td>
+        <td><input type="text" id="pPincode" name="Pincode" value="{{pAddr.Pincode}}" class="pAddress-update-text" readonly/></td>
+        <td><input type="submit" id="pSubmit" class="pAddress-update-button" style="visibility:hidden;"></td>
+        </tr>
+       </form>
+        <tr>
+        <td><b>{{tAddr.AddressType}}</b></td>
+        <td><button id="tButton" name="tButton" id="tButton">UpdateTemporaryAddress</button></td>
+      </tr>
+      <form action="/agent/pAddressUpdate/" method="POST" id="temporary-address-form">
+                                  {% csrf_token %}
+
+       <tr>
+        <td>HouseNo</td>
+        <td><input type="text" id="tdno" name="DoorNo" value="{{tAddr.Dno}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></td>
+        <td><input type="text" id="tAddrType" name="AddrType" value="{{tAddr.AddressType}}" class="tAddressType-text" style="visibility:hidden;" readonly/></td>
+      </tr>
+        <tr>
+        <td>Street</td>
+        <td><input type="text" id="tStreet" name="Street" value="{{tAddr.Street}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></td>
+      </tr>
+        <tr>
+        <td>City</td>
+        <td><input type="text" id="tCity" name="City" value="{{tAddr.City}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></td>
+      </tr>
+        <tr>
+        <td>State</td>
+        <td><input type="text" id="tState" name="State" value="{{tAddr.State}}" class="tAddress-update-text" style="border:none;outline:none" readonly/></td>
+      </tr>
+        <tr>
+        <td>Pincode</td>
+        <td><input type="text" id="tPincode" name="Pincode" value="{{tAddr.Pincode}}" class="tAddress-update-text" readonly/></td>
+        <td><input type="submit" id="tSubmit" class="tAddress-update-button" style="visibility:hidden;"></td>
+        </tr>
+      </form>
+    </tbody>
+  </table>
+
+             <!--    <table id="agent-details-table">
                      <tr>
                          <td>
                                <span>Profile Details</span>
@@ -247,7 +338,7 @@
                             </ul>
                           </td>
                                <td>
-                                    <!--<a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>-->
+                                   <a class="btn btn-primary" data-toggle="collapse" href="#pUpdateAddress">Update Address</a>
                                    <button id="pButton">UpdatePermanentAddress</button>
                                </td>
                          </tr>
@@ -265,7 +356,6 @@
 
                            </td>
                            <td>
-                               <br>
                             <ul style="list-style: none;">
                              <form action="/agent/pAddressUpdate/" method="POST" id="temporary-address-form">
                                   {% csrf_token %}
@@ -283,7 +373,7 @@
                               <button id="tButton" name="tButton" id="tButton">UpdateTemporaryAddress</button>
                             </td>
                  </tr>
-                    </table>
+                    </table>-->
                 </div>
               </div>
            <div class="tab-pane {{updateProfile}}" id="update-profile">
@@ -341,11 +431,9 @@
 
                          <input type="submit" value="Change" class="change-password-submit" id="button-2">
                     </form>
-             </div>
-</div>
-             </div>
-
-
+                </div>
+               </div>
+              </div>
         {% endblock %}
       </div>
       </div>

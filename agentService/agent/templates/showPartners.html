@@ -1,0 +1,43 @@
+{% extends "agentDetails.html" %}
+{% block code %}
+        <table id="agent">
+            <tr><td>List Of Partners</td></tr>
+            <tr>
+                 <th>Parner Name</th>
+                 <th>Partner code</th>
+                 <th>GST Code</th>
+            </tr>
+           {% for show_agent_obj in page_obj %}
+            <tr>
+
+
+            <td>
+                        {{show_agent_obj.name}}
+            </td>
+            <td>
+                 {{show_agent_obj.code}}
+            </td>
+            <td>
+                 {{show_agent_obj.GSTCode}}
+            </td>
+            </tr>
+             {% endfor %}
+       </table>
+       <div class="pagination">
+          <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
+            {% endif %}
+          </span>
+          <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          </span>
+          </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}">last  &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}">next  &raquo;</a>
+            {% endif %}
+          </span>
+       </div>
+{% endblock%}

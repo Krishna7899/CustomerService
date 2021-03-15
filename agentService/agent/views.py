@@ -55,8 +55,8 @@ def agentLogin(request):
         try:
             # Call function getAgentLoginValidation() from DB utils
             agent_Obj = getAgentLoginValidation(request, username, password)
-            pAddr = showPermanentAddressMethod()
-            tAddr = showTemporaryAddressMethod()
+            pAddr = showPermanentAddressMethod(username)
+            tAddr = showTemporaryAddressMethod(username)
             request.session["id"] = agent_Obj.id
             request.session["firstName"] = agent_Obj.firstName
             request.session["lastName"] = agent_Obj.lastName
@@ -201,12 +201,12 @@ def agentDetails(request):
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
         addressForm = AddressForm()
-        tAddr = getTemporaryAddressObject()
-        pAddr = getPermanentAddressObject()
+        tAddr = getTemporaryAddressObject(request.session["id"])
+        pAddr = getPermanentAddressObject(request.session["id"])
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
-                           "last_login": last_login, "myProfile": "active"})
+                           "last_login": last_login,"usertype":usertype, "myProfile": "active"})
 
 
 # Editing profile of agent when agent login only
@@ -402,8 +402,10 @@ def createAddress(request):
         State = request.POST["State"]
         Pincode = request.POST["Pincode"]
         Agent_id = request.POST["agent_id"]
+        partner_id=request.POST["partner_id"]
+        branch_id = request.POST.get("branch_id")
         AddressType = request.POST["AddressType"]
-        create_addr_obj = createAddressMethod(Dno, Street, City, State, Pincode, Agent_id, AddressType)
+        create_addr_obj = createAddressMethod(Dno, Street, City, State, Pincode, Agent_id,partner_id,branch_id, AddressType)
         """AddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode, Agent_id=Agent_id,
                                     AddressType=AddressType)"""
         if create_addr_obj:
@@ -414,8 +416,8 @@ def createAddress(request):
 
 def pAddressUpdate(request):
     myId = request.session['id']
-    tAddr = getTemporaryAddressObject()
-    pAddr = getPermanentAddressObject()
+    tAddr = getTemporaryAddressObject(myId)
+    pAddr = getPermanentAddressObject(myId)
     agent_detail_obj = getLoggedInUserObject(myId)
     if request.method == "POST":
         addressType = request.POST["AddrType"]
@@ -445,10 +447,12 @@ def partnerCreate(request):
     if request.method == "POST":
         name = request.POST["name"]
         code = request.POST["code"]
-        GSTCode = request.POST["GSTCode"]
+        GSTCode= request.POST["GSTCode"]
+        CGST = request.POST.get("CGST")
+        IGST = request.POST.get("IGST")
         createdBy_id = request.session["id"]
         try:
-            partner_obj = createPartnerMethod(name, code, GSTCode, createdBy_id)
+            partner_obj = createPartnerMethod(name, code, GSTCode,CGST,IGST,createdBy_id)
             if partner_obj:
                 return render(request, "partnerCreate.html",
                               {"form": partnerForm, "msg": "Partner created Successfully", "last_login": last_login})
@@ -472,6 +476,16 @@ def partnerSearch(request):
             return render(request, "partnerSearch.html",
                           {"msg": "No data Found", "search": "active", "last_login": last_login})
 
+def showPartners(request):
+    if request.method == "GET":
+        show_agent_obj = allPartnerMethod()
+        paginator = Paginator(show_agent_obj, 10)  # Show 10 agents per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        if show_agent_obj:
+            last_login = getLastLoginTime(request.session["id"])
+            return render(request, "showPartners.html",
+                          {"show_agent_obj": show_agent_obj, "page_obj": page_obj, "last_login": last_login})
 
 def partnerUpdate(request):
     last_login = getLastLoginTime(request.session["id"])
@@ -518,8 +532,10 @@ def createbranch(request):
         BranchName=request.POST["BranchName"]
         BranchCode=request.POST["BranchCode"]
         GSTid=request.POST["GSTid"]
+        igst = request.POST["igst"]
+        cgst = request.POST["cgst"]
         createdBy_id=request.session["id"]
-        branch_obj=createbranchMethod(BranchName,BranchCode,GSTid, createdBy_id)
+        branch_obj=createbranchMethod(BranchName,BranchCode,GSTid,igst,cgst, createdBy_id)
         #try:
         if branch_obj:
             return render(request,"branchCreate.html",{"form":Branchform,"msg":"branch created Successfully"})
@@ -575,7 +591,47 @@ def branchLiveSearch(request):
 ###################################Invoice related Views##############################################################
 
 def invoiceSelect(request):
+    branch_Obj = allBranchMethod()
+    partner_Obj = allPartnerMethod()
     if request.method=="GET":
-        branch_Obj=allBranchMethod()
-        partner_Obj=allPartnerMethod()
         return render(request,"invoiceSelect.html",{"branch_Obj":branch_Obj,"partner_Obj":partner_Obj})
+    if request.method=="POST":
+        partner=request.POST["partner"]
+        branchName = request.POST.get("branch")
+        branch=getdetailsbybranch(branchName)
+        partner=getDetailsByPartnerName(partner)
+        partner_addr_obj=getPartnerAddress(partner)
+        branch_addr_obj = getBranchAddress(branchName)
+        return render(request, "invoiceCreate.html", {"branch_Obj": branch, "partner_Obj": partner,
+                                            "partner_addr_obj":partner_addr_obj,"branch_addr_obj":branch_addr_obj})
+
+def invoiceCreate(request):
+   if request.method=="GET":
+      branch_Obj=allBranchMethod()
+      partner_Obj=allPartnerMethod()
+      return render(request,"invoiceSelect.html",{"branch_Obj":branch_Obj,"partner_Obj":partner_Obj})
+   if request.method=="POST":
+        count = int(request.POST['count'])
+        partner=request.POST['partner']
+        branch = request.POST['branch']
+        TransportCharges = request.POST.get("transportCharges")
+        totalcost = request.POST.get("totalcost")
+        print(count)
+        for i in range(0, count):
+            comment = request.POST.get("comment{}".format(i))
+            HSN = request.POST.get("HSN{}".format(i))
+            UOM = request.POST.get("UOM{}".format(i))
+            qty = request.POST.get("qty{}".format(i))
+            rate = request.POST.get("rate{}".format(i))
+            totalValue=request.POST.get("totalValue{}".format(i))
+            totalTax=request.POST.get("totalTax{}".format(i))
+            status = request.POST.get("status{}".format(i))
+            #TransportCharges=request.POST.get("transportCharges{}".format(i))
+            invoiceNum="inv12{}".format(i)
+            invoice_obj=invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,
+                                            TransportCharges,totalcost,status)
+        if invoice_obj:
+            return render(request,"invoiceSelect.html",{})
+
+
+
