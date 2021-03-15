@@ -55,8 +55,8 @@ def agentLogin(request):
         try:
             # Call function getAgentLoginValidation() from DB utils
             agent_Obj = getAgentLoginValidation(request, username, password)
-            pAddr = showPermanentAddressMethod()
-            tAddr = showTemporaryAddressMethod()
+            pAddr = showPermanentAddressMethod(username)
+            tAddr = showTemporaryAddressMethod(username)
             request.session["id"] = agent_Obj.id
             request.session["firstName"] = agent_Obj.firstName
             request.session["lastName"] = agent_Obj.lastName
@@ -201,12 +201,12 @@ def agentDetails(request):
         agent_detail_obj = getLoggedInUserObject(myId)
         last_login = getLastLoginTime(request.session["id"])
         addressForm = AddressForm()
-        tAddr = getTemporaryAddressObject()
-        pAddr = getPermanentAddressObject()
+        tAddr = getTemporaryAddressObject(request.session["id"])
+        pAddr = getPermanentAddressObject(request.session["id"])
         if pAddr and tAddr:
             return render(request, 'agentDetails.html',
                           {"agentProfile": agent_detail_obj, "pAddr": pAddr, "tAddr": tAddr, "AddressForm": addressForm,
-                           "last_login": last_login, "myProfile": "active"})
+                           "last_login": last_login,"usertype":usertype, "myProfile": "active"})
 
 
 # Editing profile of agent when agent login only
@@ -416,8 +416,8 @@ def createAddress(request):
 
 def pAddressUpdate(request):
     myId = request.session['id']
-    tAddr = getTemporaryAddressObject()
-    pAddr = getPermanentAddressObject()
+    tAddr = getTemporaryAddressObject(myId)
+    pAddr = getPermanentAddressObject(myId)
     agent_detail_obj = getLoggedInUserObject(myId)
     if request.method == "POST":
         addressType = request.POST["AddrType"]

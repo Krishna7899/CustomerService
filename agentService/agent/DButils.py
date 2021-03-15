@@ -163,10 +163,14 @@ def createAddressMethod(Dno,Street,City,State,Pincode,Agent_id,partner_id,branch
     return MyAddressTable.objects.create(Dno=Dno, Street=Street, City=City, State=State, Pincode=Pincode,
                     agent_id_id=Agent_id,partner_id_id=partner_id, branch_id_id=branch_id,AddressType=AddressType)
 
-def showPermanentAddressMethod():
-    return MyAddressTable.objects.get(AddressType="PermanentAddress")
-def showTemporaryAddressMethod():
-    return MyAddressTable.objects.get(AddressType="TemporaryAddress")
+def showPermanentAddressMethod(username):
+    agent_obj=AgentTable.objects.get(username=username)
+    myId=agent_obj.id
+    return MyAddressTable.objects.get(Q(AddressType="PermanentAddress") & Q(agent_id_id=myId))
+def showTemporaryAddressMethod(username):
+    agent_obj = AgentTable.objects.get(username=username)
+    myId = agent_obj.id
+    return MyAddressTable.objects.get(Q(AddressType="TemporaryAddress")&Q(agent_id_id=myId))
 
 def createPartnerMethod(name,code,GSTCode,IGST,CGST,createdBy_id):
     if Partner.objects.filter(name=name).exists():
@@ -200,10 +204,10 @@ def temporaryAddressUpdate(addressType,doorNo,street,city,state,pincode,agent_id
                                                                                                             City=city,
                                                                                                             State=state,
                                                                                                             Pincode=pincode)
-def getTemporaryAddressObject():
-    return MyAddressTable.objects.get(AddressType="TemporaryAddress")
-def getPermanentAddressObject():
-    return MyAddressTable.objects.get(AddressType="PermanentAddress")
+def getTemporaryAddressObject(myId):
+    return MyAddressTable.objects.get(Q(AddressType="TemporaryAddress")&Q(agent_id_id=myId))
+def getPermanentAddressObject(myId):
+    return MyAddressTable.objects.get(Q(AddressType="PermanentAddress") &Q(agent_id_id=myId))
 
 
 
