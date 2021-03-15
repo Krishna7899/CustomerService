@@ -3,15 +3,7 @@
         {% load static %}
                 <link rel="stylesheet" type="text/css" href="{% static 'css/invoice.css' %}">
                 <script src="{% static 'js/invoice.js' %}"></script>
-               <script>
-                    var $tblrows = $("#table tr:last");
-                   $tblrows.find('#rate').on('change', function () {
-                       var qty = +$tblrows.find("#qty").val();
-                       var price = +$tblrows.find("#rate").val();
-                        $("#totalValue").val(qty*price);
-                        alert($("#totalValue").val());
-                });
-               </script>
+
 <div class="Invoice-Select-Container">
      <form action="/agent/invoiceCreate/" method="post" id="invoice-form">
                     {% csrf_token %}

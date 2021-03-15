@@ -179,8 +179,8 @@ def agentLogout(request):
 # here we upload agent profile image
 
 def imageUpload(request):
-    pAddr = showPermanentAddressMethod()
-    tAddr = showTemporaryAddressMethod()
+    tAddr = getTemporaryAddressObject(request.session["id"])
+    pAddr = getPermanentAddressObject(request.session["id"])
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         myId = request.session["id"]
