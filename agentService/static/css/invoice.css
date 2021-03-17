@@ -9,7 +9,8 @@
 
 .invoice-select-submit{
         margin-left:200px;
-        margin-top:20px;
+        margin-top:2px;
+        margin-bottom:20px;
         padding:5px;
         border-radius:5px;
         border:none;
@@ -25,6 +26,7 @@
 .Invoice-submit{
         position:absolute;
         text-align:center;
+
 
 }
 .Invoice-To-Address{
@@ -68,8 +70,33 @@
         height:20px;
         width:50px;
 }
-.TotalPrice{
 
-        margin-left:200px;
+.container{
+overflow-y:scroll;
+height:70vh;
+}
+.invoiceAddress {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: 1px solid #ddd;
+  width: 100%;
+}
 
+.invoiceAddress td, .invoiceAddress th {
+  border: 1px solid #ddd;
+  padding: 0px;
+}
+.invoiceAddress td{
+      text-align:left;
+      margin-left:10px;
+}
+.invoiceAddress tr:nth-child(even){background-color: #f2f2f2;}
+
+.invoiceAddress tr:hover {background-color: #ddd;}
+
+.invoiceAddress th {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
 }

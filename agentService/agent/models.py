@@ -113,8 +113,6 @@ class InvoiceProduct(models.Model):
     QtyPerKg = models.CharField(max_length=40, default='')
     RatePerKg = models.CharField(max_length=40, default='')
     TotalQtyCost = models.CharField(max_length=40, default='')
-    TransportCharges = models.CharField(max_length=40, default='', null=True)
-    TotalCost=models.CharField(max_length=40, default='', null=True)
     TotalTax = models.CharField(max_length=40, default='', null=True)
 
 class Invoice(models.Model):
@@ -124,7 +122,10 @@ class Invoice(models.Model):
     partner = models.CharField(max_length=40, default='')
     branch = models.CharField(max_length=40, default='')
     created_date = models.DateTimeField(default=timezone.now)
-    status = models.CharField(max_length=40, default='')
+    TransportCharges = models.CharField(max_length=40, default='', null=True)
+    TotalTaxAmount = models.CharField(max_length=40, default='', null=True)
+    TotalCost = models.CharField(max_length=40, default='', null=True)
+    status = models.CharField(max_length=40, default='',null=True)
     invoiceProduct = models.ForeignKey(InvoiceProduct, on_delete=models.CASCADE, default='', blank=True, null=True)
 
 

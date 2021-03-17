@@ -15,9 +15,15 @@ $(document).ready(function(){
         $("#updateImage-btn").hide();
         $("#upload").show();
     });
-    $("#image-upload-button").click(function(){
+    $("#image-upload-button").click(function(e){
+       if ($('#image-file-upload')[0].files.length === 0) {
+             e.preventDefault();
+             $("#image-error").html("No File Selected");
+             $("#image-error").css({"color":"red","font-size":"12px"}).show();
+      }else{
         $("#upload").hide();
         $("#updateImage-btn").show();
+        }
     });
 });
 

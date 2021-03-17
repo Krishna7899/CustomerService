@@ -214,8 +214,8 @@ def editProfile(request):
     myId = request.session['id']
     edit_obj = getLoggedInUserObject(myId)
     usertype = request.session["usertype"]
-    pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
-    tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
+    tAddr = getTemporaryAddressObject(myId)
+    pAddr = getPermanentAddressObject(myId)
     if request.method == 'GET':
         return render(request, 'editProfile.html', {"agentProfile": edit_obj})
     if request.method == 'POST':
@@ -238,9 +238,10 @@ def editProfile(request):
 
 # Changing password of agent when by agent only
 def changePassword(request):
-    last_login = getLastLoginTime(request.session["id"])
-    pAddr = MyAddressTable.objects.get(AddressType="PermanentAddress")
-    tAddr = MyAddressTable.objects.get(AddressType="TemporaryAddress")
+    myId = request.session['id']
+    last_login = getLastLoginTime(myId)
+    tAddr = getTemporaryAddressObject(myId)
+    pAddr = getPermanentAddressObject(myId)
     usertype = request.session["usertype"]
     myId = request.session["id"]
     edit_obj = getLoggedInUserObject(myId)
@@ -614,22 +615,23 @@ def invoiceCreate(request):
         count = int(request.POST['count'])
         partner=request.POST['partner']
         branch = request.POST['branch']
-        TransportCharges = request.POST.get("transportCharges")
-        totalcost = request.POST.get("totalcost")
+        TransportCharges = request.POST.get("transport_amount")
+        totalcost = request.POST.get("total_amount")
+        tax_amount=request.POST.get("tax_amount")
+        invoiceNum ="inv123"+str(count)
+        invoiceDetails=request.POST.get("invoiceDetails")
+        invoice_obj=invoiceMainDetails(partner,branch,tax_amount,totalcost,TransportCharges,invoiceNum,invoiceDetails)
         print(count)
         for i in range(0, count):
-            comment = request.POST.get("comment{}".format(i))
+            comment = request.POST.get("summary{}".format(i))
             HSN = request.POST.get("HSN{}".format(i))
             UOM = request.POST.get("UOM{}".format(i))
             qty = request.POST.get("qty{}".format(i))
-            rate = request.POST.get("rate{}".format(i))
-            totalValue=request.POST.get("totalValue{}".format(i))
-            totalTax=request.POST.get("totalTax{}".format(i))
-            status = request.POST.get("status{}".format(i))
+            rate = request.POST.get("price{}".format(i))
+            totalValue=request.POST.get("total{}".format(i))
+            totalTax=request.POST.get("tax{}".format(i))
             #TransportCharges=request.POST.get("transportCharges{}".format(i))
-            invoiceNum="inv12{}".format(i)
-            invoice_obj=invoiceCreateMethod(invoiceNum,comment,HSN,UOM,qty,rate,totalValue,totalTax,partner,branch,
-                                            TransportCharges,totalcost,status)
+            invoice_obj=invoiceCreateMethod(comment,HSN,UOM,qty,rate,totalValue,totalTax)
         if invoice_obj:
             return render(request,"invoiceSelect.html",{})
 
