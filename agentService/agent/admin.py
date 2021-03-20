@@ -42,10 +42,9 @@ class MyBranchAdmin(admin.ModelAdmin):
 admin.site.register(Branch,MyBranchAdmin)
 
 class MyInvoiceAdmin(admin.ModelAdmin):
-	list_display = ("id","invoiceSummary","invoiceNumber","status", "partner", "branch","created_date")
+	list_display = ("id","invoiceSummary","invoiceNumber","status", "partner", "branch","TransportCharges","TotalTaxAmount","TotalCost","created_date")
 admin.site.register(Invoice,MyInvoiceAdmin)
 
 class MyInvoiceProductAdmin(admin.ModelAdmin):
-	list_display = ("Description", "HSNCode", "UOM", "QtyPerKg", "RatePerKg", "TotalQtyCost", "TransportCharges",
-					 "TotalTax","TotalCost")
+	list_display = ("Description", "HSNCode", "UOM", "QtyPerKg", "RatePerKg", "TotalQtyCost","TotalTax")
 admin.site.register(InvoiceProduct,MyInvoiceProductAdmin)

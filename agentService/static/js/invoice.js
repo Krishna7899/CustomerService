@@ -49,11 +49,13 @@
 
  $(document).ready(function(){
     var i=1;
+    var j=18;
     $("#add_row").click(function(){b=i-1;
         $('#count').val(i+1)
       	/*$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');*/
       	$("#tab_logic tr:last").show().clone(true).add('#addr'+i).insertAfter("#tab_logic tr:last").find("input").each(function () {
       	$('#tab_logic tr:last').find('td:first-child').html(i+1);
+      	$('.tax-percentage').val(j);
         $(this).val('').attr({
              'id': function (_, id) {
                  return id + i
@@ -90,7 +92,9 @@
 	$('#tax').on('keyup change',function(){
 		calc_total();
 	});
-
+    $('#transport_amount').on('keyup change',function(){
+              calc_Grand_total();
+    });
 
 });
 
@@ -102,12 +106,16 @@ function calc()
 		{
 			var qty = $(this).find('.qty').val();
 			var price = $(this).find('.price').val();
-			$(this).find('.total').val(qty*price);
-
+		    $(this).find('.total').val(qty*price);
+			$(this).find('.taxPrice').val(qty*price*18/100);
 			calc_total();
 		}
     });
 }
+/*var prodCost = $('.total').val();
+var taxPrice = $('.tax-percentage').val();
+               $('.taxPrice').val((prodCost*taxPrice)/100)*/
+
 
 function calc_total()
 {
@@ -122,3 +130,9 @@ function calc_total()
 	$('#total_amount').val((tax_sum+total).toFixed(2));
 }
 
+function calc_Grand_total(){
+      var tr_charges=+$('#transport_amount').val();
+      var gTotal=+$('#total_amount').val();
+       $('#total_amount').val((tr_charges+gTotal).toFixed(2));
+
+}
