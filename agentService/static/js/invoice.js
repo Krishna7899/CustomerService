@@ -92,7 +92,7 @@
 	$('#tax').on('keyup change',function(){
 		calc_total();
 	});
-    $('#transport_amount').on('keyup change',function(){
+    $('#transport_amount').on('change',function(){
               calc_Grand_total();
     });
 

@@ -68,7 +68,7 @@
    margin: 0 !important;
    text-align:center;
 }
-.Invoice-table input[type="text"]{
+.invoiceAddress input[type="text"]{
         outline:none;
         border:none;
         border-radius:5px;
@@ -77,7 +77,7 @@
         height:30px;
         width:100px;
 }
-.Invoice-table input[type="number"]{
+.invoiceAddress input[type="number"]{
         outline:none;
         border:none;
         border-radius:5px;
@@ -116,12 +116,11 @@
   color: black;
 }
 .total-value-table {
-       margin-left:240px;
+       margin-left:305px;
 
 }
 .total-value-table td{
-       width:110px;
-
+       width:120px;
 }
 
 .total-value-table th{
