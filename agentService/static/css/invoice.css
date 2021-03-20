@@ -9,7 +9,8 @@
 
 .invoice-select-submit{
         margin-left:200px;
-        margin-top:20px;
+        margin-top:2px;
+        margin-bottom:20px;
         padding:5px;
         border-radius:5px;
         border:none;
@@ -22,9 +23,17 @@
         border:none;
         background:#87ceeb;
 }
-.Invoice-submit{
+.invoice-submit{
         position:absolute;
         text-align:center;
+        padding:5px;
+        margin-top:10px;
+        margin-left:50px;
+        background:#87ceeb;
+        border-radius:5px;
+        border:none;
+        width:100px;
+
 
 }
 .Invoice-To-Address{
@@ -65,11 +74,57 @@
         border-radius:5px;
         padding:0px;
         margin:0px;
-        height:20px;
-        width:50px;
+        height:30px;
+        width:100px;
 }
-.TotalPrice{
+.Invoice-table input[type="number"]{
+        outline:none;
+        border:none;
+        border-radius:5px;
+        padding:0px;
+        margin:0px;
+        height:25px;
+        width:100px;
+}
 
-        margin-left:200px;
+.container{
+    overflow-y:scroll;
+    height:70vh;
+    width:1100px;
+}
+.invoiceAddress {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: 1px solid #ddd;
+  width: 100%;
+}
+
+.invoiceAddress td, .invoiceAddress th {
+  border: 1px solid #ddd;
+  padding: 0px;
+}
+.invoiceAddress td{
+      text-align:left;
+      margin-left:10px;
+
+}
+
+
+.invoiceAddress th {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: left;
+  color: black;
+}
+.total-value-table {
+       margin-left:240px;
+
+}
+.total-value-table td{
+       width:110px;
+
+}
+
+.total-value-table th{
+       border:none;
 
 }

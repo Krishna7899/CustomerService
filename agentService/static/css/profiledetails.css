@@ -170,7 +170,7 @@ width: 25%;
   color:#ffffff;
   padding: 3px;
   text-align: left;
-  position: fixed;
+  position:fixed;
   left: 0;
   width: 100%;
   bottom: 0;
@@ -692,17 +692,27 @@ margin-left:250px;
 
  .table{
      width:400px;
-     margin-left:50px;
+     margin-left:100px;
+     border-top: none !important;
+     border-bottom: none !important;
      }
-.table td,th{
+.table td,.table th{
     padding:0 !important;
     margin:0 !important;
     width: 50px;
     text-align:left;
     border-collapse:collapse;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.table tr{
+     border-top: none !important;
+    border-left: none !important;
+    border-bottom: none !important;
+
 }
 .table-borderless{
-     border:none;
+     border:none !important;
 }
 
 /*

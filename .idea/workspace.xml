@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d6d88f2d-897e-4c56-8adc-0ce8616e2df8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/CustomerService.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CustomerService.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentService/agent/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/agentService/agent/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentService/agent/migrations/0002_auto_20210227_1059.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentService/agent/migrations/0004_invoice.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
