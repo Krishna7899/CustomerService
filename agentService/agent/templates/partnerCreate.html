@@ -11,23 +11,23 @@
                 <span class="error_form" id="error_message" style="position:absolute">{{msg}}</span><br>
                 <div class="partner-field">
                     <label class="update-field-label">Partner Name</label>
-                    <input type="text" name="name" id="partner-name"/>
+                    <input type="text" name="name" id="partner-name" maxlength="10" required/>
                </div>
                  <div class="partner-field">
                      <label class="update-field-label">Partner Code</label>
-                    <input type="text" name="code" id="partner-code"/>
+                    <input type="text" name="code" id="partner-code" maxlength="10" required/>
                </div>
                     <div class="partner-field">
                      <label class="update-field-label">GST Code</label>
-                    <input type="text" name="GSTCode" id="partner-GSTCode"/>
+                    <input type="text" name="GSTCode" id="partner-GSTCode" maxlength="15" required/>
                </div>
                 <div class="partner-field">
                      <label class="update-field-label">IGST</label>
-                    <input type="number" name="IGST" id="partner-IGST"/>
+                    <input type="number" name="IGST" id="partner-IGST" maxlength="2" required/>
                </div>
                     <div class="partner-field">
                      <label class="update-field-label">CGST</label>
-                    <input type="number" name="CGST" id="partner-CGST"/>
+                    <input type="number" name="CGST" id="partner-CGST" maxlength="2" required/>
                </div>
                     <input type="submit" value="Create" class="partner-field-submit">
            </div>

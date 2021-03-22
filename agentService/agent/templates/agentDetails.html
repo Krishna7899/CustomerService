@@ -272,17 +272,17 @@
                                 <div>
                                     <label class="update-field-label">First Name</label>
                                     <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
-                                    value="{{agentProfile.firstName}}" required/>
+                                    value="{{agentProfile.firstName}}" maxlength="8" required/>
                                 </div>
                                 <div>
                                     <label class="update-field-label"> Last Name</label>
                                     <input type="text" name="lastName" id="lastName" class="editProfile-firstName"
-                                    value="{{agentProfile.lastName}}" required/>
+                                    value="{{agentProfile.lastName}}" maxlength="8" required/>
                                 </div>
                                 <div>
                                     <label class="update-field-label">Email Id</label>
                                     <input type="text" name="email" id="email" class="editProfile-email"
-                                    value="{{agentProfile.email}}" required/>
+                                    value="{{agentProfile.email}}"   maxlength="20" required/>
                                 </div>
 
                                 <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>
