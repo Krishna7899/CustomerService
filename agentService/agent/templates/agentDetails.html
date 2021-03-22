@@ -268,21 +268,21 @@
                <span class="error-form">{{errorMsg}}</span>
            <form action="/agent/editProfile/" id="update-profile-form" method="post">
                                                     {% csrf_token %}
-                              <div>
+                              <div class="update-profile">
                                 <div>
                                     <label class="update-field-label">First Name</label>
                                     <input type="text" name="firstName" id="firstName" class="editProfile-firstName"
-                                    value="{{agentProfile.firstName}}"/>
+                                    value="{{agentProfile.firstName}}" required/>
                                 </div>
                                 <div>
                                     <label class="update-field-label"> Last Name</label>
                                     <input type="text" name="lastName" id="lastName" class="editProfile-firstName"
-                                    value="{{agentProfile.lastName}}" />
+                                    value="{{agentProfile.lastName}}" required/>
                                 </div>
                                 <div>
                                     <label class="update-field-label">Email Id</label>
                                     <input type="text" name="email" id="email" class="editProfile-email"
-                                    value="{{agentProfile.email}}" />
+                                    value="{{agentProfile.email}}" required/>
                                 </div>
 
                                 <input type="submit" id="button-1"value="Update" class="update-profile-submit"/>

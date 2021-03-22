@@ -105,15 +105,6 @@ class MyAddressTable(AddressBase):
     def __str__(self):
         return self.Dno
 
-class InvoiceProduct(models.Model):
-    id = models.AutoField(auto_created=True, primary_key=True)
-    Description = models.CharField(max_length=40, default='')
-    HSNCode = models.CharField(max_length=40, default='', null=True)
-    UOM = models.CharField(max_length=40, default='', null=True)
-    QtyPerKg = models.CharField(max_length=40, default='')
-    RatePerKg = models.CharField(max_length=40, default='')
-    TotalQtyCost = models.CharField(max_length=40, default='')
-    TotalTax = models.CharField(max_length=40, default='', null=True)
 
 class Invoice(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
@@ -126,7 +117,17 @@ class Invoice(models.Model):
     TotalTaxAmount = models.CharField(max_length=40, default='', null=True)
     TotalCost = models.CharField(max_length=40, default='', null=True)
     status = models.CharField(max_length=40, default='',null=True)
-    invoiceProduct = models.ForeignKey(InvoiceProduct, on_delete=models.CASCADE, default='', blank=True, null=True)
 
+
+class InvoiceProduct(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True)
+    Description = models.CharField(max_length=40, default='')
+    HSNCode = models.CharField(max_length=40, default='', null=True)
+    UOM = models.CharField(max_length=40, default='', null=True)
+    QtyPerKg = models.CharField(max_length=40, default='')
+    RatePerKg = models.CharField(max_length=40, default='')
+    TotalQtyCost = models.CharField(max_length=40, default='')
+    TotalTax = models.CharField(max_length=40, default='', null=True)
+    invoiceProduct = models.ForeignKey(Invoice, on_delete=models.CASCADE, default='', blank=True, null=True)
 
 

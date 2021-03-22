@@ -17,6 +17,24 @@
 
 });*/
 $(document).ready(function() {
+
+    $('.editProfile-firstName').keypress(function(e){
+            var key = e.keyCode;
+            var fn = $(".editProfile-firstName").val();
+            var regex = /^[a-zA-Z\_]+$/
+             if (regex.test(fn)==false){
+                  e.preventDefault();
+                alert('Only characters are allowed');
+             }
+            if (key >= 48 && key <= 57) {
+                e.preventDefault();
+                alert('Only characters are allowed');
+            }
+      });
+});
+
+
+$(document).ready(function() {
 $('.change-password-submit').click(function(e){
     var password= $("#password-field").val();
     var confirmPassword=$("#confirm-password-field").val();

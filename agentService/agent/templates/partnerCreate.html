@@ -2,6 +2,7 @@
 {% block code %}
 {% load static %}
                 <link rel="stylesheet" type="text/css" href="{% static 'css/searchAgent.css' %}">
+                 <script src="{% static 'js/partnerUpdate.js' %}"></script>
 
     <div class="column middle">
         <form action="/agent/createPartner/" name="createPartner" id="createPartner" method="post">
@@ -22,11 +23,11 @@
                </div>
                 <div class="partner-field">
                      <label class="update-field-label">IGST</label>
-                    <input type="text" name="IGST" id="partner-IGST"/>
+                    <input type="number" name="IGST" id="partner-IGST"/>
                </div>
                     <div class="partner-field">
                      <label class="update-field-label">CGST</label>
-                    <input type="text" name="CGST" id="partner-CGST"/>
+                    <input type="number" name="CGST" id="partner-CGST"/>
                </div>
                     <input type="submit" value="Create" class="partner-field-submit">
            </div>
