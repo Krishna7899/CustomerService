@@ -10,14 +10,14 @@ from django.core.exceptions import NON_FIELD_ERRORS
 OPTIONS = (("agent", "agent"), ("supervisor", "supervisor"),("sales manager","sales manager"))
 class AgentForm(forms.ModelForm):
 
-    firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'firstName','id': 'firstName'}))
-    lastName = forms.CharField(widget=forms.TextInput(attrs={'class': 'lastName','id': 'lastName'}))
-    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'email', 'id': 'email'}))
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'username','id': 'username' ,'placeholder': ''}))
-    password = forms.CharField(widget=forms.PasswordInput (attrs={'class': 'password', 'id': 'password'}))
-    confirmPassword = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'confirmPassword', 'id': 'confirmPassword'}))
-    dept=forms.ModelChoiceField(queryset=Department.objects.all(), initial=0,widget=forms.Select(attrs={'class':'dept-select'}))
-    usertype=forms.ChoiceField(choices=OPTIONS,widget=forms.Select(attrs={'class':'usertype-select'}))
+    firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'firstName','id': 'firstName'}),required=True)
+    lastName = forms.CharField(widget=forms.TextInput(attrs={'class': 'lastName','id': 'lastName'}),required=True)
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'email', 'id': 'email'}),required=True)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'username','id': 'username' ,'placeholder': ''}),required=True)
+    password = forms.CharField(widget=forms.PasswordInput (attrs={'class': 'password', 'id': 'password'}),required=True)
+    confirmPassword = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'confirmPassword', 'id': 'confirmPassword'}),required=True)
+    dept=forms.ModelChoiceField(queryset=Department.objects.all(), initial=0,widget=forms.Select(attrs={'class':'dept-select'}),required=True)
+    usertype=forms.ChoiceField(choices=OPTIONS,widget=forms.Select(attrs={'class':'usertype-select'}),required=True)
     # specify the name of model to use
     class Meta:
         model = AgentTable
@@ -29,8 +29,7 @@ class ImageForm(forms.Form):
 
 class DepartmentForm(forms.ModelForm):
 
-    deptName= forms.CharField(widget=forms.TextInput
-    (attrs={'class': 'deptName','id': 'deptName'}))
+    deptName= forms.CharField(widget=forms.TextInput(attrs={'class': 'deptName','id': 'deptName'}))
     class Meta:
         model=Department
         fields=["deptName"]

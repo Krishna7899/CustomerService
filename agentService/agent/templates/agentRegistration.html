@@ -5,7 +5,7 @@
 <div class="column middle">
     <div class="registration-field-container">
         <span style="position:absolute">{{message}}</span>
-        <form action="/agent/register/" name="registration-page" method="post">
+        <form action="/agent/register/" name="registration-page" id="registration-page" method="post">
             {% csrf_token %}
                 <div class="agent-field">
                     <label class="agent-field-label">First Name</label>

@@ -246,15 +246,18 @@ def getBranchAddress(branch):
     branch_obj=obj.id
     return MyAddressTable.objects.get(branch_id_id=branch_obj)
 
+def invoiceMainDetails(partner,branch,tax_amount,totalcost,TransportCharges,invoiceNum,invoiceDetails):
+    global invMain_obj
+    invMain=Invoice.objects.create(invoiceSummary=invoiceDetails, invoiceNumber=invoiceNum, partner=partner, branch=branch,
+                           TotalTaxAmount=tax_amount,TransportCharges=TransportCharges,TotalCost=totalcost)
+    invMain_obj=invMain.id
+
 def invoiceCreateMethod(comment,HSN,UOM,qty,rate,totalValue,totalTax):
 
   inv_obj=InvoiceProduct.objects.create(Description=comment,HSNCode=HSN,UOM=UOM,QtyPerKg=qty,RatePerKg=rate,
-                TotalQtyCost=totalValue,TotalTax=totalTax)
+                TotalQtyCost=totalValue,TotalTax=totalTax,invoiceProduct_id=invMain_obj)
   '''invId=inv_obj.id
   Invoice.objects.create(invoiceSummary=comment, invoiceNumber=invoiceNum,partner=partner,branch=branch,status=status,
                          invoiceProduct_id=invId)'''
   return inv_obj
 
-def invoiceMainDetails(partner,branch,tax_amount,totalcost,TransportCharges,invoiceNum,invoiceDetails):
-    Invoice.objects.create(invoiceSummary=invoiceDetails, invoiceNumber=invoiceNum, partner=partner, branch=branch,
-                           TotalTaxAmount=tax_amount,TransportCharges=TransportCharges,TotalCost=totalcost)

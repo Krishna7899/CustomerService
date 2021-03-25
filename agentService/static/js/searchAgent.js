@@ -85,11 +85,37 @@ $('ul.tabs').each(function(){
      });*/
 
 function changePlaceholder1() {
-        $('#placeholder').attr('placeholder',
-            'Enter user id ');
-    }
+        $('#placeholder').attr('placeholder','Enter user id ');
+        $('.search-field-input').attr('type','number')
+       }
 
 function changePlaceholder2() {
-        $('#placeholder').attr('placeholder',
-            'Enter user name ');
-    }
+        $('#placeholder').attr('placeholder','Enter user name ');
+        $('.search-field-input').keypress(function(e){
+            var key = e.keyCode;
+            var fn = $(".search-field-input").val();
+            var regex = /^[a-zA-Z0-9\_]+$/
+             if (regex.test(fn)==false){
+                  e.preventDefault();
+                alert('Only characters followed by numbers  are allowed');
+             }
+
+      });
+
+
+
+
+
+        }
+
+$(document).ready(function() {
+   $('.search-field-input').keypress(function(e){
+        if (!$('input[name=radio]:checked').val())
+        {
+        e.preventDefault();
+        alert("Radio Button Not Checked");
+        }
+
+   });
+
+});

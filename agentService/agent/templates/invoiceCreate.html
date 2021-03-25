@@ -103,22 +103,22 @@
 
       </table>
             <input type="hidden"  id="count" name="count"  class="form-control" value='1'/>
-      <table class="" style="margin-left:440px;">
+      <table class="total-value-table">
           <tbody>
-          <tr>
-            <td class="text-center" colspan="2">Total Product Price</td>
+            <tr>
+            <th class="text-center">Transport Charges</th>
+            <td class="text-center"><input type="number" name='transport_amount' id="transport_amount" placeholder='0.00' class="form-control" /></td>
+            <th class="text-center" style="padding-left:20px;">Total Product Price</th>
             <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
-            <td class="text-center">Tax Amount</td>
+            <th class="text-center" style="padding-left:60px;">Tax Amount</th>
             <td class="text-center" colspan="2"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
           </tr>
-          </tr>
-
+            </tbody>
+          </table>
+          <br>
+          <table style="margin-left:700px;">
+           <tbody>
           <tr>
-             <td class="text-center">Transport Charges</td>
-            <td class="text-center"><input type="number" name='transport_amount' id="transport_amount" placeholder='0.00' class="form-control" /></td>
-          </tr>
-
-           <tr>
              <td class="text-center">Grand Total</td>
             <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
           </tr>

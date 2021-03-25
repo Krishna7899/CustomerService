@@ -143,7 +143,7 @@ $(document).ready(function(){
             }
 
          }
-         function check_confirmPassword() {
+         function check_confirmPassword(e) {
 
             var confirmPassword= $("#confirmPassword").val();
              var password= $("#password").val();
@@ -153,6 +153,7 @@ $(document).ready(function(){
             }
             else {
                $("#confirmPassword_error_message").html("Password and Confirm password did not match");
+               $('.agentRegister-submit-button').prop('disabled',true);
                $("#confirmPassword_error_message").show();
                $("#confirmPassword").css("border-bottom","2px solid #F90A0A");
                error_password = true;

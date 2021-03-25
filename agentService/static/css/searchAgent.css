@@ -350,6 +350,19 @@ ul.tabs li a.active {
         transition: 0.5s;
         outline: none;
 }
+.partner-field input[type="number"]{
+       line-height:5px;
+        width: 200px;
+        padding:5px 5px;
+        border-radius:10px;
+        margin-left:5px;
+        margin-top:2px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+}
 .partner-field-submit{
       background-color: #87ceeb;
       border: none;
