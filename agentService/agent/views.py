@@ -2,16 +2,19 @@
 import datetime
 from re import search
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.template import RequestContext
 from django.urls import reverse
+from django.views.generic.base import View
+
 from .DButils import *
 from django.contrib.auth import logout
 from .forms import AgentForm, ImageForm, RequestsForm, DepartmentForm, AddressForm, PartnerForm,BranchForm
 from django.shortcuts import render, redirect
 from .models import Department, LogTable, MyAddressTable
 from .commons import url_dict
-from django.http import HttpResponse
+from django.template.loader import get_template
+from .utils import render_to_pdf
 import json
 
 
@@ -636,4 +639,11 @@ def invoiceCreate(request):
             return render(request,"invoiceSelect.html",{})
 
 
+# Creating our view, it is a class based view
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        # getting the template
+        pdf = render_to_pdf('invoiceCreate.html')
 
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
