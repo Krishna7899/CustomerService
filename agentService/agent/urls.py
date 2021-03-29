@@ -12,7 +12,9 @@ from .restviews import AgentImageAPIView
 router = routers.DefaultRouter()
 
 urlpatterns=[
+
     path('pdf/', GeneratePdf.as_view(),name='pdfConvert'),
+    path('pdf_create/', views.pdf_create,name='pdf_create'),
     path('rest/', include(router.urls)),
     path('rest/getAgents/photo', AgentImageAPIView.as_view(),name="getagent-page"),
     path('rest/search/', restviews.search,name="search"),
